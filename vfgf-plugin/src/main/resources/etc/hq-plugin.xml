@@ -20,7 +20,7 @@
   <!ENTITY poolstats SYSTEM "/etc/poolstats.xml">
 ]>
 
-<plugin name="gfee" class="org.hyperic.hq.plugin.gfee.GFProductPlugin">
+<plugin name="gfee" class="com.vmware.vfabric.hyperic.plugin.vfgf.GFProductPlugin">
     <property name="PLUGIN_VERSION" value="1.1"/>
 
     <classpath>
@@ -153,11 +153,11 @@
     <platform name="GemFire DS">
 
         <plugin type="autoinventory"
-                class="org.hyperic.hq.plugin.gfee.detector.GemfirePlatformDetector"/>
+                class="com.vmware.vfabric.hyperic.plugin.vfgf.detector.GemfirePlatformDetector"/>
         <plugin type="measurement"
-                class="org.hyperic.hq.plugin.gfee.metric.GFDistMeasurementPlugin" />
+                class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFDistMeasurementPlugin" />
         <plugin type="log_track"
-                class="org.hyperic.hq.plugin.gfee.log.GFNotificationTrack" />
+                class="com.vmware.vfabric.hyperic.plugin.vfgf.log.GFNotificationTrack" />
         
         <config include="jmx">
               <option name="jmx.url"
@@ -184,9 +184,9 @@
         <server name="GemFire Cache Server" version="6.0">
         
             <plugin type="autoinventory"
-                    class="org.hyperic.hq.plugin.gfee.detector.CacheServerDetector" />
+                    class="com.vmware.vfabric.hyperic.plugin.vfgf.detector.CacheServerDetector" />
             <plugin type="measurement"
-                    class="org.hyperic.hq.plugin.gfee.metric.GFCacheServerMeasurementPlugin" />
+                    class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFCacheServerMeasurementPlugin" />
                     
             <config>
                 <option name="host"
@@ -207,7 +207,7 @@
         
             <service name="Distribution Statistics">
                 <plugin type="measurement"
-                        class="org.hyperic.hq.plugin.gfee.metric.GFStatsMeasurementPlugin" />
+                        class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
                 <config>
                     <option name="statname"
                             description="Name attribute in object name"/>
@@ -217,7 +217,7 @@
   
             <service name="Region">
                 <plugin type="measurement"
-                        class="org.hyperic.hq.plugin.gfee.metric.GFStatsMeasurementPlugin" />
+                        class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
                 <config>
                     <option name="statname"
                             description="Name attribute in object name"/>
@@ -227,7 +227,7 @@
 
             <service name="Cache Performance">
                 <plugin type="measurement"
-                        class="org.hyperic.hq.plugin.gfee.metric.GFStatsMeasurementPlugin" />
+                        class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
                 <config>
                     <option name="statname"
                             description="Name attribute in object name"/>
@@ -237,7 +237,7 @@
 
             <service name="Partitioned Region">
                 <plugin type="measurement"
-                        class="org.hyperic.hq.plugin.gfee.metric.GFStatsMeasurementPlugin" />
+                        class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
                 <config>
                     <option name="statname"
                             description="Name attribute in object name"/>
@@ -247,7 +247,7 @@
 
             <service name="Statistics Sampler">
                 <plugin type="measurement"
-                        class="org.hyperic.hq.plugin.gfee.metric.GFStatsMeasurementPlugin" />
+                        class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
                 <config>
                     <option name="statname"
                             description="Name attribute in object name"/>
@@ -257,7 +257,7 @@
 
             <service name="Cache Server">
                 <plugin type="measurement"
-                        class="org.hyperic.hq.plugin.gfee.metric.GFStatsMeasurementPlugin" />
+                        class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
                 <config>
                     <option name="statname"
                             description="Name attribute in object name"/>
@@ -267,7 +267,7 @@
 
             <service name="Distributed Lock">
                 <plugin type="measurement"
-                        class="org.hyperic.hq.plugin.gfee.metric.GFStatsMeasurementPlugin" />
+                        class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
                 <config>
                     <option name="statname"
                             description="Name attribute in object name"/>
@@ -277,7 +277,7 @@
 
             <service name="Resource Manager">
                 <plugin type="measurement"
-                        class="org.hyperic.hq.plugin.gfee.metric.GFStatsMeasurementPlugin" />
+                        class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
                 <config>
                     <option name="statname"
                             description="Name attribute in object name"/>
@@ -287,44 +287,44 @@
 
             <service name="VM Stats">
                 <plugin type="measurement"
-                        class="org.hyperic.hq.plugin.gfee.metric.GFVMStatsMeasurementPlugin" />
+                        class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFVMStatsMeasurementPlugin" />
                 <metrics include="VMStats"/>
                 <config include="gfjvm"/>
             </service>
 
             <service name="Function">
                 <plugin type="measurement"
-                        class="org.hyperic.hq.plugin.gfee.metric.GFStatsMeasurementPlugin" />
+                        class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
                 <metrics include="Function"/>
             </service>
 
             <service name="Function Service">
                 <plugin type="measurement"
-                        class="org.hyperic.hq.plugin.gfee.metric.GFStatsMeasurementPlugin" />
+                        class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
                 <metrics include="FunctionService"/>
             </service>
             
             <service name="Cache Client Notifier">
                 <plugin type="measurement"
-                        class="org.hyperic.hq.plugin.gfee.metric.GFStatsMeasurementPlugin" />
+                        class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
                 <metrics include="CacheClientNotifier"/>
             </service>
 
             <service name="Disk Store">
                 <plugin type="measurement"
-                        class="org.hyperic.hq.plugin.gfee.metric.GFStatsMeasurementPlugin" />
+                        class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
                 <metrics include="DiskStore"/>
             </service>
 
             <service name="Disk Directory">
                 <plugin type="measurement"
-                        class="org.hyperic.hq.plugin.gfee.metric.GFStatsMeasurementPlugin" />
+                        class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
                 <metrics include="DiskDirectory"/>
             </service>
 
             <service name="Disk Region">
                 <plugin type="measurement"
-                        class="org.hyperic.hq.plugin.gfee.metric.GFStatsMeasurementPlugin" />
+                        class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
                 <metrics include="DiskRegion"/>
             </service>
         
@@ -341,9 +341,9 @@
         <server name="GemFire Gateway Hub" version="6.0">
         
             <plugin type="autoinventory"
-                    class="org.hyperic.hq.plugin.gfee.detector.GatewayHubDetector" />
+                    class="com.vmware.vfabric.hyperic.plugin.vfgf.detector.GatewayHubDetector" />
             <plugin type="measurement"
-                    class="org.hyperic.hq.plugin.gfee.metric.GFGatewayHubMeasurementPlugin" />
+                    class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFGatewayHubMeasurementPlugin" />
                     
             <config>
                 <option name="host"
@@ -364,7 +364,7 @@
             
             <service name="Distribution Statistics">
                 <plugin type="measurement"
-                        class="org.hyperic.hq.plugin.gfee.metric.GFStatsMeasurementPlugin" />
+                        class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
                 <config>
                     <option name="statname"
                             description="Name attribute in object name"/>
@@ -374,7 +374,7 @@
 
             <service name="Gateway Hub Statistics">
                 <plugin type="measurement"
-                        class="org.hyperic.hq.plugin.gfee.metric.GFStatsMeasurementPlugin" />
+                        class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
                 <config>
                     <option name="statname"
                             description="Name attribute in object name"/>
@@ -384,7 +384,7 @@
 
             <service name="Gateway Statistics">
                 <plugin type="measurement"
-                        class="org.hyperic.hq.plugin.gfee.metric.GFStatsMeasurementPlugin" />
+                        class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
                 <config>
                     <option name="statname"
                             description="Name attribute in object name"/>
@@ -394,7 +394,7 @@
 
             <service name="Region">
                 <plugin type="measurement"
-                        class="org.hyperic.hq.plugin.gfee.metric.GFStatsMeasurementPlugin" />
+                        class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
                 <config>
                     <option name="statname"
                             description="Name attribute in object name"/>
@@ -404,7 +404,7 @@
 
             <service name="Cache Performance">
                 <plugin type="measurement"
-                        class="org.hyperic.hq.plugin.gfee.metric.GFStatsMeasurementPlugin" />
+                        class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
                 <config>
                     <option name="statname"
                             description="Name attribute in object name"/>
@@ -414,7 +414,7 @@
 
             <service name="Partitioned Region">
                 <plugin type="measurement"
-                        class="org.hyperic.hq.plugin.gfee.metric.GFStatsMeasurementPlugin" />
+                        class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
                 <config>
                     <option name="statname"
                             description="Name attribute in object name"/>
@@ -424,7 +424,7 @@
 
             <service name="Cache Server">
                 <plugin type="measurement"
-                        class="org.hyperic.hq.plugin.gfee.metric.GFStatsMeasurementPlugin" />
+                        class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
                 <config>
                     <option name="statname"
                             description="Name attribute in object name"/>
@@ -434,7 +434,7 @@
 
             <service name="Distributed Lock">
                 <plugin type="measurement"
-                        class="org.hyperic.hq.plugin.gfee.metric.GFStatsMeasurementPlugin" />
+                        class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
                 <config>
                     <option name="statname"
                             description="Name attribute in object name"/>
@@ -444,7 +444,7 @@
 
             <service name="Resource Manager">
                 <plugin type="measurement"
-                        class="org.hyperic.hq.plugin.gfee.metric.GFStatsMeasurementPlugin" />
+                        class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
                 <config>
                     <option name="statname"
                             description="Name attribute in object name"/>
@@ -454,50 +454,50 @@
 
             <service name="VM Stats">
                 <plugin type="measurement"
-                        class="org.hyperic.hq.plugin.gfee.metric.GFVMStatsMeasurementPlugin" />
+                        class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFVMStatsMeasurementPlugin" />
                 <metrics include="VMStats"/>
                 <config include="gfjvm"/>
             </service>
 
             <service name="Function">
                 <plugin type="measurement"
-                        class="org.hyperic.hq.plugin.gfee.metric.GFStatsMeasurementPlugin" />
+                        class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
                 <metrics include="Function"/>
             </service>
 
             <service name="Function Service">
                 <plugin type="measurement"
-                        class="org.hyperic.hq.plugin.gfee.metric.GFStatsMeasurementPlugin" />
+                        class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
                 <metrics include="FunctionService"/>
             </service>
 
             <service name="Cache Client Notifier">
                 <plugin type="measurement"
-                        class="org.hyperic.hq.plugin.gfee.metric.GFStatsMeasurementPlugin" />
+                        class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
                 <metrics include="CacheClientNotifier"/>
             </service>
 
             <service name="Disk Store">
                 <plugin type="measurement"
-                        class="org.hyperic.hq.plugin.gfee.metric.GFStatsMeasurementPlugin" />
+                        class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
                 <metrics include="DiskStore"/>
             </service>
 
             <service name="Disk Directory">
                 <plugin type="measurement"
-                        class="org.hyperic.hq.plugin.gfee.metric.GFStatsMeasurementPlugin" />
+                        class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
                 <metrics include="DiskDirectory"/>
             </service>
 
             <service name="Disk Region">
                 <plugin type="measurement"
-                        class="org.hyperic.hq.plugin.gfee.metric.GFStatsMeasurementPlugin" />
+                        class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
                 <metrics include="DiskRegion"/>
             </service>
 
             <service name="Pool Stats">
                 <plugin type="measurement"
-                        class="org.hyperic.hq.plugin.gfee.metric.GFStatsMeasurementPlugin" />
+                        class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
                 <metrics include="PoolStats"/>
             </service>
         
@@ -514,9 +514,9 @@
         <server name="GemFire Application Peer" version="6.0">
         
             <plugin type="autoinventory"
-                    class="org.hyperic.hq.plugin.gfee.detector.ApplicationPeerDetector" />
+                    class="com.vmware.vfabric.hyperic.plugin.vfgf.detector.ApplicationPeerDetector" />
             <plugin type="measurement"
-                    class="org.hyperic.hq.plugin.gfee.metric.GFApplicationPeerMeasurementPlugin" />
+                    class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFApplicationPeerMeasurementPlugin" />
                     
             <config>
                 <option name="host"
@@ -537,7 +537,7 @@
             
             <service name="Distribution Statistics">
                 <plugin type="measurement"
-                        class="org.hyperic.hq.plugin.gfee.metric.GFStatsMeasurementPlugin" />
+                        class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
                 <config>
                     <option name="statname"
                             description="Name attribute in object name"/>
@@ -547,20 +547,20 @@
 
             <service name="VM Stats">
                 <plugin type="measurement"
-                        class="org.hyperic.hq.plugin.gfee.metric.GFVMStatsMeasurementPlugin" />
+                        class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFVMStatsMeasurementPlugin" />
                 <metrics include="VMStats"/>
                 <config include="gfjvm"/>
             </service>
 
             <service name="Function">
                 <plugin type="measurement"
-                        class="org.hyperic.hq.plugin.gfee.metric.GFStatsMeasurementPlugin" />
+                        class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
                 <metrics include="Function"/>
             </service>
 
             <service name="Function Service">
                 <plugin type="measurement"
-                        class="org.hyperic.hq.plugin.gfee.metric.GFStatsMeasurementPlugin" />
+                        class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
                 <metrics include="FunctionService"/>
             </service>
         
