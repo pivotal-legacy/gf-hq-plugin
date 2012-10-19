@@ -3,41 +3,33 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.vmware.vfabric.hyperic.plugin</groupId>
+
+	<groupId>com.vmware.vfabric.hyperic.plugin.vfgf</groupId>
 	<artifactId>vfgf-plugin</artifactId>
 	<packaging>jar</packaging>
 	<name>Hyperic HQ Plugin - vFabric GemFire Plugin</name>
 	<version>1.0.BUILD-SNAPSHOT</version>
-	
+
 	<properties>
-		<groovy.version>1.6.7</groovy.version>
-                <hq.version>4.6.6</hq.version>
-	</properties>
+		<hq.version>4.6.6</hq.version>
+        </properties>		
 
 	<dependencies>
-		<dependency>
-			<groupId>org.hyperic.hq</groupId>
-			<artifactId>hq-rendit</artifactId>
-			<version>${hq.version}</version>
-		</dependency>
 		<dependency>
 			<groupId>org.hyperic.hq</groupId>
 			<artifactId>hq-pdk</artifactId>
 			<version>${hq.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.hyperic.hq.agent</groupId>
-			<artifactId>hq-agent-core</artifactId>
-			<version>${hq.version}</version>
+			<groupId>dom4j</groupId>
+			<artifactId>dom4j</artifactId>
+			<version>1.6.1</version>
 		</dependency>
-		<!-- During a clover build, we end up using an instrumented hq-pdk jar.  
-		Since we are skipping instrumentation, we end up with a ClassNotFoundException for clover on exec-->
 		<dependency>
-           	<groupId>com.cenqua.clover</groupId>
-            <artifactId>clover</artifactId>
-            <version>2.6.3</version>
-			<scope>test</scope>
-       </dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>r09</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -69,60 +61,6 @@
 				</executions>
 			</plugin>
 			<plugin>
-				<artifactId>maven-resources-plugin</artifactId>
-				<version>2.5</version>
-				<executions>
-					<execution>
-						<id>copy-resources</id>
-						<phase>compile</phase>
-						<goals>
-							<goal>copy-resources</goal>
-						</goals>
-						<configuration>
-							<useDefaultDelimiters>false</useDefaultDelimiters>
-							<delimiters>
-  									<delimiter>@</delimiter>
-							</delimiters>
-							<outputDirectory>${basedir}/target/classes</outputDirectory>
-							<resources>
-      								<resource>
-        								<directory>src/main/resources</directory>
-        								<filtering>true</filtering>
-        								<includes>
-          									<include>**/*.xml</include>
-											<include>**/*.properties</include>
-        								</includes>
-      								</resource>
-      								<resource>
-        								<directory>src/main/resources</directory>
-        								<filtering>false</filtering>
-        								<excludes>
-          									<exclude>**/*.xml</exclude>
-											<exclude>**/*.properties</exclude>
-        								</excludes>
-      								</resource>
-    							</resources>
-						</configuration>
-					</execution>
-					<execution>
-						<id>copy-groovy-resources</id>
-						<phase>compile</phase>
-						<goals>
-							<goal>copy-resources</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${basedir}/target/classes/hqu</outputDirectory>
-							<resources>
-									<resource>
-        								<directory>src/main/groovy</directory>
-        								<filtering>false</filtering>
-      								</resource>
-    							</resources>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
 				<artifactId>maven-jar-plugin</artifactId>
 				<configuration>
 					<archive>
@@ -138,48 +76,37 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
+				<artifactId>maven-resources-plugin</artifactId>
 				<executions>
 					<execution>
-						<id>validate-plugin-xml</id>
+						<id>copy-resources</id>
+						<phase>compile</phase>
 						<goals>
-							<goal>java</goal>
+							<goal>copy-resources</goal>
 						</goals>
-						<phase>process-resources</phase>
+						<configuration>
+							<delimiters>
+  									<delimiter>@</delimiter>
+							</delimiters>
+							<outputDirectory>${basedir}/target/classes</outputDirectory>
+							<resources>
+      								<resource>
+        								<directory>src/main/resources</directory>
+        								<filtering>true</filtering>
+        								<includes>
+          									<include>**/*.xml</include>
+        								</includes>
+      								</resource>
+      								<resource>
+        								<directory>src/main/resources</directory>
+        								<filtering>false</filtering>
+        								<excludes>
+          									<exclude>**/*.xml</exclude>
+        								</excludes>
+      								</resource>
+    							</resources>
+						</configuration>
 					</execution>
-				</executions>
-				<configuration>
-					<mainClass>org.hyperic.hq.product.validation.PluginXmlValidator</mainClass>
-					<arguments>
-						<argument>${basedir}</argument>
-					</arguments>
-					<classpathScope>test</classpathScope>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.groovy.maven</groupId>
-				<artifactId>gmaven-plugin</artifactId>
-				<version>1.0</version>
-				<dependencies>
-				    <dependency>
-				        <groupId>org.codehaus.groovy.maven.runtime</groupId>
-				        <artifactId>gmaven-runtime-1.6</artifactId>
-				        <version>1.0</version>
-				    </dependency>
-				    <dependency>
-				        <groupId>org.codehaus.groovy</groupId>
-				        <artifactId>groovy-all</artifactId>
-				        <version>${groovy.version}</version>
-				    </dependency>
-				</dependencies>
-				<executions>
-				    <execution>
-				        <goals>
-				            <goal>compile</goal>
-				            <goal>testCompile</goal>
-				        </goals>
-				    </execution>
 				</executions>
 			</plugin>
 			<plugin>
@@ -193,6 +120,14 @@
 		</plugins>
 	</build>
 	<repositories>
+		<repository>
+			<id>hyperic-external</id>
+			<name>Hyperic External Repository</name>
+			<url>http://maven.hyperic.org/external</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
 		<repository>
 			<id>hyperic-snapshot</id>
 			<name>Hyperic Snapshot Repository</name>
@@ -236,5 +171,4 @@
 		<developerConnection>scm:git:git://git.springsource.org/hq/hq.git</developerConnection>
 		<url>https://fisheye.springsource.org/browse/hq</url>
 	</scm>
-
 </project>

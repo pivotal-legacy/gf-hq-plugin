@@ -1,0 +1,59 @@
+<metric name="clientOpFailures" alias="clientOpFailures" collectionType="trendsup" rate="1m" description="Total number of clientOp attempts that have failed"/>
+
+<metric name="clientOpSendFailures" alias="clientOpSendFailures" collectionType="trendsup" rate="1m" description="Total number of clientOp sends that have failed"/>
+
+<metric name="clientOpSendTime" alias="clientOpSendTime" collectionType="trendsup" rate="1m" units="ns" description="Total amount of time, in nanoseconds spent doing clientOp sends"/>
+
+<metric name="clientOpSends" alias="clientOpSends" collectionType="trendsup" rate="1m" description="Total number of clientOp sends that have completed successfully"/>
+
+<metric name="clientOpSendsInProgress" alias="clientOpSendsInProgress" description="Current number of clientOp sends being executed"/>
+
+<metric name="clientOpTime" alias="clientOpTime" collectionType="trendsup" rate="1m" units="ns" description="Total amount of time, in nanoseconds spent doing clientOps"/>
+
+<metric name="clientOpTimeouts" alias="clientOpTimeouts" collectionType="trendsup" rate="1m" description="Total number of clientOp attempts that have timed out"/>
+
+<metric name="clientOps" alias="clientOps" collectionType="trendsup" rate="1m" description="Total number of clientOps completed successfully"/>
+
+<metric name="clientOpsInProgress" alias="clientOpsInProgress" description="Current number of clientOps being executed"/>
+
+<metric name="connectionWaitTime" alias="connectionWaitTime" collectionType="trendsup" rate="1m" indicator="true" defaultOn="true" units="ns" description="Total number of nanoseconds spent waiting for a connection."/>
+
+<metric name="connectionWaits" alias="connectionWaits" collectionType="trendsup" rate="1m" indicator="true" defaultOn="true" description="Total number of times a thread completed waiting for a connection (by timing out or by getting a connection)."/>
+
+<metric name="connectionWaitsInProgress" alias="connectionWaitsInProgress" indicator="true" defaultOn="true" description="Current number of threads waiting for a connection"/>
+
+<metric name="connections" alias="connections" description="Current number of connections"/>
+
+<metric name="connects" alias="connects" collectionType="trendsup" rate="1m" description="Total number of times a connection has been created."/>
+
+<metric name="disconnects" alias="disconnects" collectionType="trendsup" rate="1m" description="Total number of times a connection has been destroyed."/>
+
+<metric name="idleChecks" alias="idleChecks" collectionType="trendsup" rate="1m" description="Total number of checks done for idle expiration."/>
+
+<metric name="idleDisconnects" alias="idleDisconnects" collectionType="trendsup" rate="1m" indicator="true" defaultOn="true" description="Total number of disconnects done due to idle expiration."/>
+
+<metric name="initialContactCount" alias="initialContactCount" description="Number of contacts initially by user"/>
+
+<metric name="loadConditioningChecks" alias="loadConditioningChecks" collectionType="trendsup" rate="1m" description="Total number of checks done for load conditioning expiration."/>
+
+<metric name="loadConditioningConnects" alias="loadConditioningConnects" collectionType="trendsup" rate="1m" description="Total number of connects done due to load conditioning."/>
+
+<metric name="loadConditioningDisconnects" alias="loadConditioningDisconnects" collectionType="trendsup" rate="1m" description="Total number of disconnects done due to load conditioning expiration."/>
+
+<metric name="loadConditioningExtensions" alias="loadConditioningExtensions" collectionType="trendsup" rate="1m" description="Total number of times a connection's load conditioning has been extended because the servers are still balanced."/>
+
+<metric name="loadConditioningReplaceTimeouts" alias="loadConditioningReplaceTimeouts" collectionType="trendsup" rate="1m" description="Total number of times a load conditioning connect was done but was not used."/>
+
+<metric name="locatorRequests" alias="locatorRequests" collectionType="trendsup" rate="1m" description="Number of requests from this connection pool to a locator"/>
+
+<metric name="locatorResponses" alias="locatorResponses" collectionType="trendsup" rate="1m" description="Number of responses from the locator to this connection pool"/>
+
+<metric name="locators" alias="locators" description="Current number of locators discovered"/>
+
+<metric name="minPoolSizeConnects" alias="minPoolSizeConnects" collectionType="trendsup" rate="1m" description="Total number of connects done to maintain minimum pool size."/>
+
+<metric name="poolConnections" alias="poolConnections" description="Current number of pool connections"/>
+
+<metric name="servers" alias="servers" description="Current number of servers discovered"/>
+
+<metric name="subscriptionServers" alias="subscriptionServers" description="Number of servers hosting this clients subscriptions"/>
