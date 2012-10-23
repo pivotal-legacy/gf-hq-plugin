@@ -1,136 +1,136 @@
 
-<metric name="clears" alias="clears" collectionType="trendsup" rate="1m" defaultOn="true" description="The total number of times a clear has been done on this cache."/>
+<metric name="Clears" alias="clears" collectionType="trendsup" rate="1m" defaultOn="true" description="The total number of times a clear has been done on this cache."/>
 
-<metric name="gets" alias="gets" collectionType="trendsup" rate="1m" indicator="true" defaultOn="true" description="The total number of times a successful get has been done on this cache."/>
+<metric name="Gets" alias="gets" collectionType="trendsup" rate="1m" indicator="true" defaultOn="true" description="The total number of times a successful get has been done on this cache."/>
 
-<metric name="getTime" alias="getTime" collectionType="trendsup" rate="1m" units="ns" description="Total time spent doing get operations from this cache (includ­ing netsearch and netload)."/>
+<metric name="Get Time" alias="getTime" collectionType="trendsup" rate="1m" units="ns" description="Total time spent doing get operations from this cache (includ­ing netsearch and netload)."/>
 
 <metric name="Average Get Time" units="ns" alias="custom_ratio_getTime_gets" description="Average get time."/>
 
-<metric name="creates" alias="creates" collectionType="trendsup" rate="1m" indicator="true" defaultOn="true" description="The total number of times an entry is added to this cache."/>
+<metric name="Creates" alias="creates" collectionType="trendsup" rate="1m" indicator="true" defaultOn="true" description="The total number of times an entry is added to this cache."/>
 
-<metric name="destroys" alias="destroys" collectionType="trendsup" rate="1m" indicator="true" defaultOn="true" description="The total number of times a cache object entry has been destroyed in this cache."/>
+<metric name="Destroys" alias="destroys" collectionType="trendsup" rate="1m" indicator="true" defaultOn="true" description="The total number of times a cache object entry has been destroyed in this cache."/>
 
-<metric name="updates" alias="updates" collectionType="trendsup" rate="1m" indicator="true" defaultOn="true" description="The total number of updates originating remotely that have been applied to this cache."/>
+<metric name="Updates" alias="updates" collectionType="trendsup" rate="1m" indicator="true" defaultOn="true" description="The total number of updates originating remotely that have been applied to this cache."/>
 
-<metric name="updateTime" alias="updateTime" collectionType="trendsup" rate="1m" units="ns" description="Total time spent performing an update."/>
+<metric name="Update Time" alias="updateTime" collectionType="trendsup" rate="1m" units="ns" description="Total time spent performing an update."/>
 
 <metric name="Average Update Time" units="ns" alias="custom_ratio_updateTime_updates" description="Average update time."/>
 
-<metric name="puts" alias="puts" collectionType="trendsup" rate="1m" indicator="true" defaultOn="true" description="The total number of times an entry is added or replaced in this cache as a result of a local operation (put(), create(), or get() which results in load, netsearch, or netloading a value). Note, this only counts puts done explicitly on this cache. It does not count updates pushed from other caches."/>
+<metric name="Puts" alias="puts" collectionType="trendsup" rate="1m" indicator="true" defaultOn="true" description="The total number of times an entry is added or replaced in this cache as a result of a local operation (put(), create(), or get() which results in load, netsearch, or netloading a value). Note, this only counts puts done explicitly on this cache. It does not count updates pushed from other caches."/>
 
-<metric name="putTime" alias="putTime" collectionType="trendsup" rate="1m" units="ns" description="Total time spent adding or replacing an entry in this cache as a result of a local operation. This includes synchronizing on the map, invoking cache callbacks, sending messages to other caches, and waiting for responses (if required)."/>
+<metric name="Put Time" alias="putTime" collectionType="trendsup" rate="1m" units="ns" description="Total time spent adding or replacing an entry in this cache as a result of a local operation. This includes synchronizing on the map, invoking cache callbacks, sending messages to other caches, and waiting for responses (if required)."/>
 
 <metric name="Average Put Time" units="ns" alias="custom_ratio_putTime_puts" description="Average put time."/>
 
-<metric name="putalls" alias="putalls" collectionType="trendsup" rate="1m" description="The total number of times a map is added or replaced in this cache as a result of a local operation. Note, this only counts putAlls done explicitly on this cache; it does not count updates pushed from other caches."/>
+<metric name="Putalls" alias="putalls" collectionType="trendsup" rate="1m" description="The total number of times a map is added or replaced in this cache as a result of a local operation. Note, this only counts putAlls done explicitly on this cache; it does not count updates pushed from other caches."/>
 
-<metric name="putallTime" alias="putallTime" collectionType="trendsup" rate="1m" units="ns" description="Total time spent replacing a map in this cache as a result of a local operation. This includes synchronizing on the map, invoking cache callbacks, sending messages to other caches and waiting for responses (if required)."/>
+<metric name="Putall Time" alias="putallTime" collectionType="trendsup" rate="1m" units="ns" description="Total time spent replacing a map in this cache as a result of a local operation. This includes synchronizing on the map, invoking cache callbacks, sending messages to other caches and waiting for responses (if required)."/>
 
 <metric name="Average Put All Time" units="ns" alias="custom_ratio_putallTime_putalls" description="Average put all time."/>
 
-<metric name="misses" alias="misses" collectionType="trendsup" rate="1m" indicator="true" defaultOn="true" description="Total number of times a get on the cache did not find a value already in local memory. The number of hits (that is, gets that did not miss) can be calculated by subtracting misses from gets."/>
+<metric name="Misses" alias="misses" collectionType="trendsup" rate="1m" indicator="true" defaultOn="true" description="Total number of times a get on the cache did not find a value already in local memory. The number of hits (that is, gets that did not miss) can be calculated by subtracting misses from gets."/>
 
-<metric name="entries" alias="entries" defaultOn="true" description="The total number of entries in this cache."/>
+<metric name="Entries" alias="entries" defaultOn="true" description="The total number of entries in this cache."/>
 
-<metric name="loadsInProgress" alias="loadsInProgress" description="Current number of threads in this cache doing a cache load."/>
+<metric name="Loads In Progress" alias="loadsInProgress" description="Current number of threads in this cache doing a cache load."/>
 
-<metric name="loadsCompleted" alias="loadsCompleted" collectionType="trendsup" rate="1m" description="Total number of times a load on this cache has completed as a result of either a local get() or a remote netload."/>
+<metric name="Loads Completed" alias="loadsCompleted" collectionType="trendsup" rate="1m" description="Total number of times a load on this cache has completed as a result of either a local get() or a remote netload."/>
 
-<metric name="loadTime" alias="loadTime" collectionType="trendsup" rate="1m" units="ns" description="Total time spent invoking loaders on this cache."/>
+<metric name="Load Time" alias="loadTime" collectionType="trendsup" rate="1m" units="ns" description="Total time spent invoking loaders on this cache."/>
 
-<metric name="netloadsInProgress" alias="netloadsInProgress" description="Current number of threads doing a network load initiated by a get() in this cache."/>
+<metric name="Netloads In Progress" alias="netloadsInProgress" description="Current number of threads doing a network load initiated by a get() in this cache."/>
 
-<metric name="netloadsCompleted" alias="netloadsCompleted" collectionType="trendsup" rate="1m" description="Total number of times a network load initiated on this cache has completed."/>
+<metric name="Netloads Completed" alias="netloadsCompleted" collectionType="trendsup" rate="1m" description="Total number of times a network load initiated on this cache has completed."/>
 
-<metric name="netloadTime" alias="netloadTime" collectionType="trendsup" rate="1m" units="ns" description="Total time spent doing network loads on this cache."/>
+<metric name="Netload Time" alias="netloadTime" collectionType="trendsup" rate="1m" units="ns" description="Total time spent doing network loads on this cache."/>
 
-<metric name="netsearchesInProgress" alias="netsearchesInProgress" description="Current number of threads doing a network search initiated by a get() in this cache."/>
+<metric name="Netsearches In Progress" alias="netsearchesInProgress" description="Current number of threads doing a network search initiated by a get() in this cache."/>
 
-<metric name="netsearchesCompleted" alias="netsearchesCompleted" collectionType="trendsup" rate="1m" description="Total number of times network searches initiated by this cache have completed."/>
+<metric name="Netsearches Completed" alias="netsearchesCompleted" collectionType="trendsup" rate="1m" description="Total number of times network searches initiated by this cache have completed."/>
 
-<metric name="netsearchTime" alias="netsearchTime" collectionType="trendsup" rate="1m" units="ns" description="Total time spent doing network searches for cache values."/>
+<metric name="Netsearch Time" alias="netsearchTime" collectionType="trendsup" rate="1m" units="ns" description="Total time spent doing network searches for cache values."/>
 
-<metric name="cacheWriterCallsInProgress" alias="cacheWriterCallsInProgress" description="Current number of threads doing a cache writer call."/>
+<metric name="Cache Writer Calls In Progress" alias="cacheWriterCallsInProgress" description="Current number of threads doing a cache writer call."/>
 
-<metric name="cacheWriterCallsCompleted" alias="cacheWriterCallsCompleted" collectionType="trendsup" rate="1m" defaultOn="true" description="Total number of times a cache writer call has completed."/>
+<metric name="Cache Writer Calls Completed" alias="cacheWriterCallsCompleted" collectionType="trendsup" rate="1m" defaultOn="true" description="Total number of times a cache writer call has completed."/>
 
-<metric name="cacheWriterCallTime" alias="cacheWriterCallTime" collectionType="trendsup" rate="1m" units="ns" defaultOn="true" description="Total time spent doing cache writer calls."/>
+<metric name="Cache Writer Call Time" alias="cacheWriterCallTime" collectionType="trendsup" rate="1m" units="ns" defaultOn="true" description="Total time spent doing cache writer calls."/>
 
-<metric name="cacheListenerCallsInProgress" alias="cacheListenerCallsInProgress" description="Current number of threads doing a cache listener call."/>
+<metric name="Cache Listener Calls In Progress" alias="cacheListenerCallsInProgress" description="Current number of threads doing a cache listener call."/>
 
-<metric name="cacheListenerCallsCompleted" alias="cacheListenerCallsCompleted" collectionType="trendsup" rate="1m" defaultOn="true" description="Total number of times a cache listener call has completed."/>
+<metric name="Cache Listener Calls Completed" alias="cacheListenerCallsCompleted" collectionType="trendsup" rate="1m" defaultOn="true" description="Total number of times a cache listener call has completed."/>
 
-<metric name="cacheListenerCallTime" alias="cacheListenerCallTime" collectionType="trendsup" rate="1m" units="ns" defaultOn="true" description="Total time spent doing cache listener calls."/>
+<metric name="Cache Listener Call Time" alias="cacheListenerCallTime" collectionType="trendsup" rate="1m" units="ns" defaultOn="true" description="Total time spent doing cache listener calls."/>
 
-<metric name="getInitialImagesInProgress" alias="getInitialImagesInProgress" description="Current number of getInitialImage operations currently in progress."/>
+<metric name="Get Initial Images In Progress" alias="getInitialImagesInProgress" description="Current number of getInitialImage operations currently in progress."/>
 
-<metric name="getInitialImagesCompleted" alias="getInitialImagesCompleted" collectionType="trendsup" rate="1m" description="Total number of times getInitialImages initiated by this cache have completed."/>
+<metric name="Get Initial Images Completed" alias="getInitialImagesCompleted" collectionType="trendsup" rate="1m" description="Total number of times getInitialImages initiated by this cache have completed."/>
 
-<metric name="getInitialImageTime" alias="getInitialImageTime" collectionType="trendsup" rate="1m" units="ns" description="Total time spent doing getInitialImages for region creation."/>
+<metric name="Get Initial Image Time" alias="getInitialImageTime" collectionType="trendsup" rate="1m" units="ns" description="Total time spent doing getInitialImages for region creation."/>
 
-<metric name="getInitialImageKeysReceived" alias="getInitialImageKeysReceived" collectionType="trendsup" rate="1m" description="Total number of keys received while doing getInitialImage operations."/>
+<metric name="Get Initial Image Keys Received" alias="getInitialImageKeysReceived" collectionType="trendsup" rate="1m" description="Total number of keys received while doing getInitialImage operations."/>
 
-<metric name="regions" alias="regions" description="The current number of regions in the cache."/>
+<metric name="Regions" alias="regions" description="The current number of regions in the cache."/>
 
-<metric name="partitionedRegions" alias="partitionedRegions" description="The current number of partitioned regions in the cache."/>
+<metric name="Partitioned Regions" alias="partitionedRegions" description="The current number of partitioned regions in the cache."/>
 
-<metric name="invalidates" alias="invalidates" collectionType="trendsup" rate="1m" description="The total number of times an existing cache object entry value in this cache has been invalidated."/>
+<metric name="Invalidates" alias="invalidates" collectionType="trendsup" rate="1m" description="The total number of times an existing cache object entry value in this cache has been invalidated."/>
 
-<metric name="eventQueueSize" alias="eventQueueSize" description="The number of cache events waiting to be processed."/>
+<metric name="Event Queue Size" alias="eventQueueSize" description="The number of cache events waiting to be processed."/>
 
-<metric name="eventQueueThrottleTime" alias="eventQueueThrottleTime" collectionType="trendsup" rate="1m" units="ns" description="The total amount of time, in nanoseconds, spent delayed by the event queue throttle."/>
+<metric name="Event Queue Throttle Time" alias="eventQueueThrottleTime" collectionType="trendsup" rate="1m" units="ns" description="The total amount of time, in nanoseconds, spent delayed by the event queue throttle."/>
 
-<metric name="eventQueueThrottleCount" alias="eventQueueThrottleCount" collectionType="trendsup" rate="1m" description="The total number of times a thread was delayed in adding an event to the event queue."/>
+<metric name="Event Queue Throttle Count" alias="eventQueueThrottleCount" collectionType="trendsup" rate="1m" description="The total number of times a thread was delayed in adding an event to the event queue."/>
 
-<metric name="eventThreads" alias="eventThreads" description="The number of threads currently processing events."/>
+<metric name="Event Threads" alias="eventThreads" description="The number of threads currently processing events."/>
 
-<metric name="queryExecutions" alias="queryExecutions" collectionType="trendsup" rate="1m" description="Total number of times some query has been executed."/>
+<metric name="Query Executions" alias="queryExecutions" collectionType="trendsup" rate="1m" description="Total number of times some query has been executed."/>
 
-<metric name="queryExecutionTime" alias="queryExecutionTime" collectionType="trendsup" rate="1m" units="ns" description="Total time spent executing queries."/>
+<metric name="Query Execution Time" alias="queryExecutionTime" collectionType="trendsup" rate="1m" units="ns" description="Total time spent executing queries."/>
 
 <metric name="Average Query Execution Time" units="ns" alias="custom_ratio_queryExecutionTime_queryExecutions" description="Average query execution time."/>
 
-<metric name="reliableQueuedOps" alias="reliableQueuedOps" description="Current number of cache operations queued for distribution to required roles."/>
+<metric name="Reliable Queued Ops" alias="reliableQueuedOps" description="Current number of cache operations queued for distribution to required roles."/>
 
-<metric name="reliableQueueSize" alias="reliableQueueSize" units="MB" description="Current size in megabytes of disk used to queue for distribu­tion to required roles."/>
+<metric name="Reliable Queue Size" alias="reliableQueueSize" units="MB" description="Current size in megabytes of disk used to queue for distribu­tion to required roles."/>
 
-<metric name="reliableQueueMax" alias="reliableQueueMax" units="MB" description="Maximum size in megabytes allotted for disk usage to queue for distribution to required roles."/>
+<metric name="Reliable Queue Max" alias="reliableQueueMax" units="MB" description="Maximum size in megabytes allotted for disk usage to queue for distribution to required roles."/>
 
-<metric name="reliableRegions" alias="reliableRegions" description="Current number of regions configured for reliability."/>
+<metric name="Reliable Regions" alias="reliableRegions" description="Current number of regions configured for reliability."/>
 
-<metric name="reliableRegionsMissing" alias="reliableRegionsMissing" description="Current number regions configured for reliability that are missing required roles."/>
+<metric name="Reliable Regions Missing" alias="reliableRegionsMissing" description="Current number regions configured for reliability that are missing required roles."/>
 
-<metric name="reliableRegionsQueuing" alias="reliableRegionsQueuing" description="Current number regions configured for reliability that are queuing for required roles."/>
+<metric name="Reliable Regions Queuing" alias="reliableRegionsQueuing" description="Current number regions configured for reliability that are queuing for required roles."/>
 
-<metric name="reliableRegionsMissingFullAccess" alias="reliableRegionsMissingFullAccess" description="Current number of regions configured for reliability that are missing require roles with full access."/>
+<metric name="Reliable Regions Missing Full Access" alias="reliableRegionsMissingFullAccess" description="Current number of regions configured for reliability that are missing require roles with full access."/>
 
-<metric name="reliableRegionsMissingLimitedAccess" alias="reliableRegionsMissingLimitedAccess" description="Current number of regions configured for reliability that are missing required roles with limited access."/>
+<metric name="Reliable Regions Missing Limited Access" alias="reliableRegionsMissingLimitedAccess" description="Current number of regions configured for reliability that are missing required roles with limited access."/>
 
-<metric name="reliableRegionsMissingNoAccess" alias="reliableRegionsMissingNoAccess" description="Current number of regions configured for reliability that are missing required roles with no access."/>
+<metric name="Reliable Regions Missing No Access" alias="reliableRegionsMissingNoAccess" description="Current number of regions configured for reliability that are missing required roles with no access."/>
 
-<metric name="txCommits" alias="txCommits" collectionType="trendsup" rate="1m" description="Total number of times a transaction commit has succeeded."/>
+<metric name="Tx Commits" alias="txCommits" collectionType="trendsup" rate="1m" description="Total number of times a transaction commit has succeeded."/>
 
-<metric name="txFailures" alias="txFailures" collectionType="trendsup" rate="1m" description="Total number of times a transaction commit has failed."/>
+<metric name="Tx Failures" alias="txFailures" collectionType="trendsup" rate="1m" description="Total number of times a transaction commit has failed."/>
 
-<metric name="txRollbacks" alias="txRollbacks" collectionType="trendsup" rate="1m" description="Total number of times a transaction has been explicitly rolled back."/>
+<metric name="Tx Rollbacks" alias="txRollbacks" collectionType="trendsup" rate="1m" description="Total number of times a transaction has been explicitly rolled back."/>
 
-<metric name="txSuccessLifeTime" alias="txSuccessLifeTime" collectionType="trendsup" rate="1m" units="ns" description="The total amount of time, in nanoseconds, spent in a transaction before a successful commit. The time measured starts at transaction begin and ends when commit is called."/>
+<metric name="Tx Success Life Time" alias="txSuccessLifeTime" collectionType="trendsup" rate="1m" units="ns" description="The total amount of time, in nanoseconds, spent in a transaction before a successful commit. The time measured starts at transaction begin and ends when commit is called."/>
 
-<metric name="txFailedLifeTime" alias="txFailedLifeTime" collectionType="trendsup" rate="1m" units="ns" description="The total amount of time, in nanoseconds, spent in a transaction before a failed commit. The time measured starts at transaction begin and ends when commit is called."/>
+<metric name="Tx Failed Life Time" alias="txFailedLifeTime" collectionType="trendsup" rate="1m" units="ns" description="The total amount of time, in nanoseconds, spent in a transaction before a failed commit. The time measured starts at transaction begin and ends when commit is called."/>
 
-<metric name="txRollbackLifeTime" alias="txRollbackLifeTime" collectionType="trendsup" rate="1m" units="ns" description="The total amount of time, in nanoseconds, spent in a transaction before an explicit rollback. The time measured starts at transaction begin and ends when rollback is called."/>
+<metric name="Tx Rollback Life Time" alias="txRollbackLifeTime" collectionType="trendsup" rate="1m" units="ns" description="The total amount of time, in nanoseconds, spent in a transaction before an explicit rollback. The time measured starts at transaction begin and ends when rollback is called."/>
 
-<metric name="txCommitTime" alias="txCommitTime" collectionType="trendsup" rate="1m" units="ns" description="The total amount of time, in nanoseconds, spent doing successful trans­action commits."/>
+<metric name="Tx Commit Time" alias="txCommitTime" collectionType="trendsup" rate="1m" units="ns" description="The total amount of time, in nanoseconds, spent doing successful trans­action commits."/>
 
-<metric name="txFailureTime" alias="txFailureTime" collectionType="trendsup" rate="1m" units="ns" description="The total amount of time, in nanoseconds, spent doing failed transaction commits."/>
+<metric name="Tx Failure Time" alias="txFailureTime" collectionType="trendsup" rate="1m" units="ns" description="The total amount of time, in nanoseconds, spent doing failed transaction commits."/>
 
-<metric name="txRollbackTime" alias="txRollbackTime" collectionType="trendsup" rate="1m" units="ns" description="The total amount of time, in nanoseconds, spent doing explicit transac­tion rollbacks."/>
+<metric name="Tx Rollback Time" alias="txRollbackTime" collectionType="trendsup" rate="1m" units="ns" description="The total amount of time, in nanoseconds, spent doing explicit transac­tion rollbacks."/>
 
-<metric name="txCommitChanges" alias="txCommitChanges" collectionType="trendsup" rate="1m" description="Total number of changes made by committed transactions."/>
+<metric name="Tx Commit Changes" alias="txCommitChanges" collectionType="trendsup" rate="1m" description="Total number of changes made by committed transactions."/>
 
-<metric name="txFailureChanges" alias="txFailureChanges" collectionType="trendsup" rate="1m" description="Total number of changes lost by failed transactions."/>
+<metric name="Tx Failure Changes" alias="txFailureChanges" collectionType="trendsup" rate="1m" description="Total number of changes lost by failed transactions."/>
 
-<metric name="txRollbackChanges" alias="txRollbackChanges" collectionType="trendsup" rate="1m" description="Total number of changes lost by explicit transaction rollbacks."/>
+<metric name="Tx Rollback Changes" alias="txRollbackChanges" collectionType="trendsup" rate="1m" description="Total number of changes lost by explicit transaction rollbacks."/>
 
-<metric name="txConflictCheckTime" alias="txConflictCheckTime" collectionType="trendsup" rate="1m" units="ns" description="The total amount of time, in nanoseconds, spent doing conflict checks during transaction commit."/>
+<metric name="Tx Conflict Check Time" alias="txConflictCheckTime" collectionType="trendsup" rate="1m" units="ns" description="The total amount of time, in nanoseconds, spent doing conflict checks during transaction commit."/>

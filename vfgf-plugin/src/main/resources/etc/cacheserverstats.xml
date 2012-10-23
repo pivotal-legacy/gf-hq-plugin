@@ -1,159 +1,159 @@
-<metric name="getRequests" alias="getRequests" collectionType="trendsup" rate="1m" indicator="true" defaultOn="true" description="Number of cache client operations get requests."/>
+<metric name="Get Requests" alias="getRequests" collectionType="trendsup" rate="1m" indicator="true" defaultOn="true" description="Number of cache client operations get requests."/>
 
-<metric name="putRequests" alias="putRequests" collectionType="trendsup" rate="1m" indicator="true" defaultOn="true" description="Number of cache client operations put requests."/>
+<metric name="Put Requests" alias="putRequests" collectionType="trendsup" rate="1m" indicator="true" defaultOn="true" description="Number of cache client operations put requests."/>
 
-<metric name="putAllRequests" alias="putAllRequests" collectionType="trendsup" rate="1m" defaultOn="true" description="Number of cache client operations putAll requests."/>
+<metric name="Put All Requests" alias="putAllRequests" collectionType="trendsup" rate="1m" defaultOn="true" description="Number of cache client operations putAll requests."/>
 
-<metric name="destroyRequests" alias="destroyRequests" collectionType="trendsup" rate="1m" defaultOn="true" description="Number of cache client operations destroy requests."/>
+<metric name="Destroy Requests" alias="destroyRequests" collectionType="trendsup" rate="1m" defaultOn="true" description="Number of cache client operations destroy requests."/>
 
-<metric name="queryRequests" alias="queryRequests" collectionType="trendsup" rate="1m" defaultOn="true" description="Number of cache client operations query requests."/>
+<metric name="Query Requests" alias="queryRequests" collectionType="trendsup" rate="1m" defaultOn="true" description="Number of cache client operations query requests."/>
 
-<metric name="destroyRegionRequests" alias="destroyRegionRequests" collectionType="trendsup" rate="1m" defaultOn="true" description="Number of cache client operations destroyRegion requests."/>
+<metric name="Destroy Region Requests" alias="destroyRegionRequests" collectionType="trendsup" rate="1m" defaultOn="true" description="Number of cache client operations destroyRegion requests."/>
 
-<metric name="containsKeyRequests" alias="containsKeyRequests" collectionType="trendsup" rate="1m" indicator="true" defaultOn="true" description="Number of cache client operations containsKey requests."/>
+<metric name="Contains Key Requests" alias="containsKeyRequests" collectionType="trendsup" rate="1m" indicator="true" defaultOn="true" description="Number of cache client operations containsKey requests."/>
 
-<metric name="processBatchRequests" alias="processBatchRequests" collectionType="trendsup" rate="1m" defaultOn="true" description="Number of cache client operations processBatch requests."/>
+<metric name="Process Batch Requests" alias="processBatchRequests" collectionType="trendsup" rate="1m" defaultOn="true" description="Number of cache client operations processBatch requests."/>
 
-<metric name="clearRegionRequests" alias="clearRegionRequests" collectionType="trendsup" rate="1m" defaultOn="true" description="Number of cache client operations clearRegion requests."/>
+<metric name="Clear Region Requests" alias="clearRegionRequests" collectionType="trendsup" rate="1m" defaultOn="true" description="Number of cache client operations clearRegion requests."/>
 
-<metric name="clientNotificationRequests" alias="clientNotificationRequests" collectionType="trendsup" rate="1m" defaultOn="true" description="Number of cache client operations notification requests."/>
+<metric name="Client Notification Requests" alias="clientNotificationRequests" collectionType="trendsup" rate="1m" defaultOn="true" description="Number of cache client operations notification requests."/>
 
-<metric name="updateClientNotificationRequests" alias="updateClientNotificationRequests" collectionType="trendsup" rate="1m" defaultOn="true" description="Number of cache client notification update requests."/>
+<metric name="Update Client Notification Requests" alias="updateClientNotificationRequests" collectionType="trendsup" rate="1m" defaultOn="true" description="Number of cache client notification update requests."/>
 
-<metric name="closeConnectionRequests" alias="closeConnectionRequests" collectionType="trendsup" rate="1m" defaultOn="true" description="Number of cache client close connection operations requests."/>
+<metric name="Close Connection Requests" alias="closeConnectionRequests" collectionType="trendsup" rate="1m" defaultOn="true" description="Number of cache client close connection operations requests."/>
 
-<metric name="connectionLoad" alias="connectionLoad" indicator="true" defaultOn="true" description="The load from client to server connections as reported by the load probe installed in this server."/>
+<metric name="Connection Load" alias="connectionLoad" indicator="true" defaultOn="true" description="The load from client to server connections as reported by the load probe installed in this server."/>
 
-<metric name="readGetRequestTime" alias="readGetRequestTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in reading get requests."/>
+<metric name="Read Get Request Time" alias="readGetRequestTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in reading get requests."/>
 
-<metric name="processGetTime" alias="processGetTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in processing a cache client get request, including the time to get an object from the cache."/>
+<metric name="Process Get Time" alias="processGetTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in processing a cache client get request, including the time to get an object from the cache."/>
 
-<metric name="getResponses" alias="getResponses" collectionType="trendsup" rate="1m" description="Number of getResponses written to the cache client."/>
+<metric name="Get Responses" alias="getResponses" collectionType="trendsup" rate="1m" description="Number of getResponses written to the cache client."/>
 
-<metric name="writeGetResponseTime" alias="writeGetResponseTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in writing get responses."/>
+<metric name="Write Get Response Time" alias="writeGetResponseTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in writing get responses."/>
 
-<metric name="readPutRequestTime" alias="readPutRequestTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in reading put requests."/>
+<metric name="Read Put Request Time" alias="readPutRequestTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in reading put requests."/>
 
-<metric name="processPutTime" alias="processPutTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in processing a cache client put request, including the time to put an object into the cache."/>
+<metric name="Process Put Time" alias="processPutTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in processing a cache client put request, including the time to put an object into the cache."/>
 
-<metric name="putResponses" alias="putResponses" collectionType="trendsup" rate="1m" description="Number of putResponses written to the cache client."/>
+<metric name="Put Responses" alias="putResponses" collectionType="trendsup" rate="1m" description="Number of putResponses written to the cache client."/>
 
-<metric name="writePutResponseTime" alias="writePutResponseTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in writing put responses."/>
+<metric name="Write Put Response Time" alias="writePutResponseTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in writing put responses."/>
 
-<metric name="readPutAllRequestTime" alias="readPutAllRequestTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in reading putAll requests."/>
+<metric name="Read Put All Request Time" alias="readPutAllRequestTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in reading putAll requests."/>
 
-<metric name="processPutAllTime" alias="processPutAllTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in processing a cache client putAll request, including the time to put all objects into the cache."/>
+<metric name="Process Put All Time" alias="processPutAllTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in processing a cache client putAll request, including the time to put all objects into the cache."/>
 
-<metric name="putAllResponses" alias="putAllResponses" collectionType="trendsup" rate="1m" description="Number of putAllResponses written to the cache client."/>
+<metric name="Put All Responses" alias="putAllResponses" collectionType="trendsup" rate="1m" description="Number of putAllResponses written to the cache client."/>
 
-<metric name="writePutAllResponseTime" alias="writePutAllResponseTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in writing putAll responses."/>
+<metric name="Write Put All Response Time" alias="writePutAllResponseTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in writing putAll responses."/>
 
-<metric name="readDestroyRequestTime" alias="readDestroyRequestTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in reading destroy requests."/>
+<metric name="Read Destroy Request Time" alias="readDestroyRequestTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in reading destroy requests."/>
 
-<metric name="processDestroyTime" alias="processDestroyTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in processing a cache client destroy request, including the time to destroy an object from the cache."/>
+<metric name="Process Destroy Time" alias="processDestroyTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in processing a cache client destroy request, including the time to destroy an object from the cache."/>
 
-<metric name="destroyResponses" alias="destroyResponses" collectionType="trendsup" rate="1m" description="Number of destroy responses written to the cache client."/>
+<metric name="Destroy Responses" alias="destroyResponses" collectionType="trendsup" rate="1m" description="Number of destroy responses written to the cache client."/>
 
-<metric name="writeDestroyResponseTime" alias="writeDestroyResponseTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in writing destroy responses."/>
+<metric name="Write Destroy Response Time" alias="writeDestroyResponseTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in writing destroy responses."/>
 
-<metric name="readQueryRequestTime" alias="readQueryRequestTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in reading query requests."/>
+<metric name="Read Query Request Time" alias="readQueryRequestTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in reading query requests."/>
 
-<metric name="processQueryTime" alias="processQueryTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in processing a cache client query request, including the time to destroy an object from the cache."/>
+<metric name="Process Query Time" alias="processQueryTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in processing a cache client query request, including the time to destroy an object from the cache."/>
 
-<metric name="queryResponses" alias="queryResponses" collectionType="trendsup" rate="1m" description="Number of query responses written to the cache client."/>
+<metric name="Query Responses" alias="queryResponses" collectionType="trendsup" rate="1m" description="Number of query responses written to the cache client."/>
 
-<metric name="writeQueryResponseTime" alias="writeQueryResponseTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in writing query responses."/>
+<metric name="Write Query Response Time" alias="writeQueryResponseTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in writing query responses."/>
 
-<metric name="readDestroyRegionRequestTime" alias="readDestroyRegionRequestTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in reading destroyRegion requests."/>
+<metric name="Read Destroy Region Request Time" alias="readDestroyRegionRequestTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in reading destroyRegion requests."/>
 
-<metric name="processDestroyRegionTime" alias="processDestroyRegionTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in processing a cache client destroyRegion request, including the time to destroy the region from the cache."/>
+<metric name="Process Destroy Region Time" alias="processDestroyRegionTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in processing a cache client destroyRegion request, including the time to destroy the region from the cache."/>
 
-<metric name="destroyRegionResponses" alias="destroyRegionResponses" collectionType="trendsup" rate="1m" description="Number of destroyRegion responses written to the cache client."/>
+<metric name="Destroy Region Responses" alias="destroyRegionResponses" collectionType="trendsup" rate="1m" description="Number of destroyRegion responses written to the cache client."/>
 
-<metric name="writeDestroyRegionResponseTime" alias="writeDestroyRegionResponseTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in writing destroyRegion responses."/>
+<metric name="Write Destroy Region Response Time" alias="writeDestroyRegionResponseTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in writing destroyRegion responses."/>
 
-<metric name="readContainsKeyRequestTime" alias="readContainsKeyRequestTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent reading containsKey requests."/>
+<metric name="Read Contains Key Request Time" alias="readContainsKeyRequestTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent reading containsKey requests."/>
 
-<metric name="processContainsKeyTime" alias="processContainsKeyTime" collectionType="trendsup" rate="1m" units="ns" description="Total time spent, in nanoseconds, processing a containsKey request."/>
+<metric name="Process Contains Key Time" alias="processContainsKeyTime" collectionType="trendsup" rate="1m" units="ns" description="Total time spent, in nanoseconds, processing a containsKey request."/>
 
-<metric name="containsKeyResponses" alias="containsKeyResponses" collectionType="trendsup" rate="1m" description="Number of containsKey responses written to the cache cli­ent."/>
+<metric name="Contains Key Responses" alias="containsKeyResponses" collectionType="trendsup" rate="1m" description="Number of containsKey responses written to the cache cli­ent."/>
 
-<metric name="writeContainsKeyResponseTime" alias="writeContainsKeyResponseTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent writing containsKey responses."/>
+<metric name="Write Contains Key Response Time" alias="writeContainsKeyResponseTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent writing containsKey responses."/>
 
-<metric name="readProcessBatchRequestTime" alias="readProcessBatchRequestTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in reading processBatch requests."/>
+<metric name="Read Process Batch Request Time" alias="readProcessBatchRequestTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in reading processBatch requests."/>
 
-<metric name="processBatchTime" alias="processBatchTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in processing a cache client processBatch request."/>
+<metric name="Process Batch Time" alias="processBatchTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in processing a cache client processBatch request."/>
 
-<metric name="processBatchResponses" alias="processBatchResponses" collectionType="trendsup" rate="1m" description="Number of processBatch responses written to the cache client."/>
+<metric name="Process Batch Responses" alias="processBatchResponses" collectionType="trendsup" rate="1m" description="Number of processBatch responses written to the cache client."/>
 
-<metric name="writeProcessBatchResponseTime" alias="writeProcessBatchResponseTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in writing processBatch responses."/>
+<metric name="Write Process Batch Response Time" alias="writeProcessBatchResponseTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in writing processBatch responses."/>
 
-<metric name="batchSize" alias="batchSize" units="B" description="The size (in bytes) of the batches received."/>
+<metric name="Batch Size" alias="batchSize" units="B" description="The size (in bytes) of the batches received."/>
 
-<metric name="readClearRegionRequestTime" alias="readClearRegionRequestTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in reading clearRegion requests."/>
+<metric name="Read Clear Region Request Time" alias="readClearRegionRequestTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in reading clearRegion requests."/>
 
-<metric name="processClearRegionTime" alias="processClearRegionTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in processing a cache client clearRegion request, including the time to clear the region from the cache."/>
+<metric name="Process Clear Region Time" alias="processClearRegionTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in processing a cache client clearRegion request, including the time to clear the region from the cache."/>
 
-<metric name="clearRegionResponses" alias="clearRegionResponses" collectionType="trendsup" rate="1m" description="Number of clearRegion responses written to the cache cli­ent."/>
+<metric name="Clear Region Responses" alias="clearRegionResponses" collectionType="trendsup" rate="1m" description="Number of clearRegion responses written to the cache cli­ent."/>
 
-<metric name="writeClearRegionResponseTime" alias="writeClearRegionResponseTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in writing clearRegion responses."/>
+<metric name="Write Clear Region Response Time" alias="writeClearRegionResponseTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in writing clearRegion responses."/>
 
-<metric name="readClientNotificationRequestTime" alias="readClientNotificationRequestTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in reading client notifica­tion requests."/>
+<metric name="Read Client Notification Request Time" alias="readClientNotificationRequestTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in reading client notifica­tion requests."/>
 
-<metric name="processClientNotificationTime" alias="processClientNotificationTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in processing a cache client notification request."/>
+<metric name="Process Client Notification Time" alias="processClientNotificationTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in processing a cache client notification request."/>
 
-<metric name="readUpdateClientNotificationRequestTime" alias="readUpdateClientNotificationRequestTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in reading client notifica­tion update requests."/>
+<metric name="Read Update Client Notification Request Time" alias="readUpdateClientNotificationRequestTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in reading client notifica­tion update requests."/>
 
-<metric name="processUpdateClientNotificationTime" alias="processUpdateClientNotificationTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in processing a client notifi­cation update request."/>
+<metric name="Process Update Client Notification Time" alias="processUpdateClientNotificationTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in processing a client notifi­cation update request."/>
 
-<metric name="clientReadyRequests" alias="clientReadyRequests" collectionType="trendsup" rate="1m" description="Number of cache client ready requests."/>
+<metric name="Client Ready Requests" alias="clientReadyRequests" collectionType="trendsup" rate="1m" description="Number of cache client ready requests."/>
 
-<metric name="readClientReadyRequestTime" alias="readClientReadyRequestTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in reading cache client ready requests."/>
+<metric name="Read Client Ready Request Time" alias="readClientReadyRequestTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in reading cache client ready requests."/>
 
-<metric name="processClientReadyTime" alias="processClientReadyTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in processing a cache client ready request, including the time to destroy an object from the cache."/>
+<metric name="Process Client Ready Time" alias="processClientReadyTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in processing a cache client ready request, including the time to destroy an object from the cache."/>
 
-<metric name="clientReadyResponses" alias="clientReadyResponses" collectionType="trendsup" rate="1m" description="Number of client ready responses written to the cache client."/>
+<metric name="Client Ready Responses" alias="clientReadyResponses" collectionType="trendsup" rate="1m" description="Number of client ready responses written to the cache client."/>
 
-<metric name="writeClientReadyResponseTime" alias="writeClientReadyResponseTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in writing client ready responses."/>
+<metric name="Write Client Ready Response Time" alias="writeClientReadyResponseTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in writing client ready responses."/>
 
-<metric name="readCloseConnectionRequestTime" alias="readCloseConnectionRequestTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in reading close connection requests."/>
+<metric name="Read Close Connection Request Time" alias="readCloseConnectionRequestTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in reading close connection requests."/>
 
-<metric name="processCloseConnectionTime" alias="processCloseConnectionTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in processing a cache client close connection request."/>
+<metric name="Process Close Connection Time" alias="processCloseConnectionTime" collectionType="trendsup" rate="1m" units="ns" description="Total time, in nanoseconds, spent in processing a cache client close connection request."/>
 
-<metric name="failedConnectionAttempts" alias="failedConnectionAttempts" collectionType="trendsup" rate="1m" description="Number of failed connection attempts."/>
+<metric name="Failed Connection Attempts" alias="failedConnectionAttempts" collectionType="trendsup" rate="1m" description="Number of failed connection attempts."/>
 
-<metric name="currentClientConnections" alias="currentClientConnections" collectionType="trendsup" rate="1m" description="Number of sockets accepted."/>
+<metric name="Current Client Connections" alias="currentClientConnections" collectionType="trendsup" rate="1m" description="Number of sockets accepted."/>
 
-<metric name="currentClients" alias="currentClients" description="Number of client virtual machines (clients) connected."/>
+<metric name="Current Clients" alias="currentClients" description="Number of client virtual machines (clients) connected."/>
 
-<metric name="outOfOrderGatewayBatchIds" alias="outOfOrderGatewayBatchIds" collectionType="trendsup" rate="1m" description="Number of Out of Order batch IDs (batches)."/>
+<metric name="Out Of Order Gateway Batch Ids" alias="outOfOrderGatewayBatchIds" collectionType="trendsup" rate="1m" description="Number of Out of Order batch IDs (batches)."/>
 
-<metric name="abandonedWriteRequests" alias="abandonedWriteRequests" collectionType="trendsup" rate="1m" description="Number of write operations (requests) abandoned by clients"/>
+<metric name="Abandoned Write Requests" alias="abandonedWriteRequests" collectionType="trendsup" rate="1m" description="Number of write operations (requests) abandoned by clients"/>
 
-<metric name="abandonedReadRequests" alias="abandonedReadRequests" collectionType="trendsup" rate="1m" description="Number of read operations (requests) abandoned by clients"/>
+<metric name="Abandoned Read Requests" alias="abandonedReadRequests" collectionType="trendsup" rate="1m" description="Number of read operations (requests) abandoned by clients"/>
 
-<metric name="receivedBytes" alias="receivedBytes" collectionType="trendsup" rate="1m" units="B" description="Total number of bytes received from clients."/>
+<metric name="Received Bytes" alias="receivedBytes" collectionType="trendsup" rate="1m" units="B" description="Total number of bytes received from clients."/>
 
-<metric name="sentBytes" alias="sentBytes" collectionType="trendsup" rate="1m" units="B" description="Total number of bytes sent to clients."/>
+<metric name="Sent Bytes" alias="sentBytes" collectionType="trendsup" rate="1m" units="B" description="Total number of bytes sent to clients."/>
 
-<metric name="messagesBeingReceived" alias="messagesBeingReceived" description="Current number of messages being received off the network or being processed after reception."/>
+<metric name="Messages Being Received" alias="messagesBeingReceived" description="Current number of messages being received off the network or being processed after reception."/>
 
-<metric name="messageBytesBeingReceived" alias="messageBytesBeingReceived" units="B" description="Current number of bytes consumed by messages being received or processed."/>
+<metric name="Message Bytes Being Received" alias="messageBytesBeingReceived" units="B" description="Current number of bytes consumed by messages being received or processed."/>
 
-<metric name="connectionsTimedOut" alias="connectionsTimedOut" description="Total number of connections that have been timed out by the server because of client inactivity."/>
+<metric name="Connections Timed Out" alias="connectionsTimedOut" description="Total number of connections that have been timed out by the server because of client inactivity."/>
 
-<metric name="threadQueueSize" alias="threadQueueSize" description="Current number of connections waiting for a thread to start processing their message."/>
+<metric name="Thread Queue Size" alias="threadQueueSize" description="Current number of connections waiting for a thread to start processing their message."/>
 
-<metric name="acceptsInProgress" alias="acceptsInProgress" description="Current number of server accepts that are attempting to do the initial handshake with the client."/>
+<metric name="Accepts In Progress" alias="acceptsInProgress" description="Current number of server accepts that are attempting to do the initial handshake with the client."/>
 
-<metric name="acceptThreadStarts" alias="acceptThreadStarts" collectionType="trendsup" rate="1m" description="Total number of threads created (starts) to deal with an accepted socket. Note, this is not the current number of threads."/>
+<metric name="Accept Thread Starts" alias="acceptThreadStarts" collectionType="trendsup" rate="1m" description="Total number of threads created (starts) to deal with an accepted socket. Note, this is not the current number of threads."/>
 
-<metric name="connectionThreadStarts" alias="connectionThreadStarts" collectionType="trendsup" rate="1m" description="Total number of threads created (starts) to deal with a client connection. Note, this is not the current number of threads."/>
+<metric name="Connection Thread Starts" alias="connectionThreadStarts" collectionType="trendsup" rate="1m" description="Total number of threads created (starts) to deal with a client connection. Note, this is not the current number of threads."/>
 
-<metric name="connectionThreads" alias="connectionThreads" description="Current number of threads dealing with a client connection."/>
+<metric name="Connection Threads" alias="connectionThreads" description="Current number of threads dealing with a client connection."/>
 
-<metric name="loadPerConnection" alias="loadPerConnection" description="The estimate of how much load is added for each new con­nection as reported by the load probe installed in this server."/>
+<metric name="LoadPer Connection" alias="loadPerConnection" description="The estimate of how much load is added for each new con­nection as reported by the load probe installed in this server."/>
 
-<metric name="queueLoad" alias="queueLoad" description="The load from subscription queues as reported by the load probe installed in this server"/>
+<metric name="Queue Load" alias="queueLoad" description="The load from subscription queues as reported by the load probe installed in this server"/>
 
-<metric name="loadPerQueue" alias="loadPerQueue" description="The estimate of how much load would be added for each new subscription connection as reported by the load probe installed in this server"/>
+<metric name="Load Per Queue" alias="loadPerQueue" description="The estimate of how much load would be added for each new subscription connection as reported by the load probe installed in this server"/>

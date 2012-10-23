@@ -1,23 +1,23 @@
-<metric name="clientRegistrations" alias="clientRegistrations" indicator="true" defaultOn="true" description="Number of clients that have registered for updates"/>
+<metric name="Client Registrations" alias="clientRegistrations" indicator="true" defaultOn="true" description="Number of clients that have registered for updates"/>
 
-<metric name="clientRegistrationTime" alias="clientRegistrationTime" collectionType="trendsup" rate="1m" units="ns" description="Total time spent doing client registrations"/>
+<metric name="Client Registration Time" alias="clientRegistrationTime" collectionType="trendsup" rate="1m" units="ns" description="Total time spent doing client registrations"/>
 
-<metric name="clientHealthMonitorRegister" alias="clientHealthMonitorRegister" description="Number of client Register"/>
+<metric name="Client Health Monitor Register" alias="clientHealthMonitorRegister" description="Number of client Register"/>
 
-<metric name="clientHealthMonitorUnRegister" alias="clientHealthMonitorUnRegister" description="Number of client UnRegister"/>
+<metric name="Client Health Monitor UnRegister" alias="clientHealthMonitorUnRegister" description="Number of client UnRegister"/>
 
-<metric name="compiledQueryCount" alias="compiledQueryCount" description="Number of compiled queries maintained."/>
+<metric name="Compiled QueryC ount" alias="compiledQueryCount" description="Number of compiled queries maintained."/>
 
-<metric name="compiledQueryUsedCount" alias="compiledQueryUsedCount" collectionType="trendsup" rate="1m" description="Number of times compiled queries are used"/>
+<metric name="Compiled Query Used Count" alias="compiledQueryUsedCount" collectionType="trendsup" rate="1m" description="Number of times compiled queries are used"/>
 
-<metric name="cqProcessingTime" alias="cqProcessingTime" collectionType="trendsup" rate="1m" units="ns" description="Total time spent by the cache client notifier processing cqs"/>
+<metric name="Cq Processing Time" alias="cqProcessingTime" collectionType="trendsup" rate="1m" units="ns" description="Total time spent by the cache client notifier processing cqs"/>
 
-<metric name="durableReconnectionCount" alias="durableReconnectionCount" description="Number of times the same durable client connects to the server"/>
+<metric name="Durable Reconnection Count" alias="durableReconnectionCount" description="Number of times the same durable client connects to the server"/>
 
-<metric name="eventProcessingTime" alias="eventProcessingTime" collectionType="trendsup" rate="1m" indicator="true" defaultOn="true" units="ns" description="Total time spent by the cache client notifier processing events"/>
+<metric name="Event Processing Time" alias="eventProcessingTime" collectionType="trendsup" rate="1m" indicator="true" defaultOn="true" units="ns" description="Total time spent by the cache client notifier processing events"/>
 
-<metric name="events" alias="events" collectionType="trendsup" rate="1m" description="Number of events processed by the cache client notifier"/>
+<metric name="Events" alias="events" collectionType="trendsup" rate="1m" description="Number of events processed by the cache client notifier"/>
 
-<metric name="eventsEnqueuedWhileClientAwayCount" alias="eventsEnqueuedWhileClientAwayCount" indicator="true" defaultOn="true" description="Number of events enqueued in queue for a durable client"/>
+<metric name="Events Enqueued While Client Away Count" alias="eventsEnqueuedWhileClientAwayCount" indicator="true" defaultOn="true" description="Number of events enqueued in queue for a durable client"/>
 
-<metric name="queueDroppedCount" alias="queueDroppedCount" description="Number of times client queue for a particular durable client is dropped"/>
+<metric name="Queue Dropped Count" alias="queueDroppedCount" description="Number of times client queue for a particular durable client is dropped"/>
