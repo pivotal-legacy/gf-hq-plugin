@@ -1,89 +1,89 @@
-<metric name="backupsCompleted" alias="backupsCompleted" description="The number of backups of this disk store that have been taking while this VM was alive"/>
+<metric name="Backups Completed" alias="backupsCompleted" description="The number of backups of this disk store that have been taking while this VM was alive"/>
 
-<metric name="backupsInProgress" alias="backupsInProgress" description="The current number of backups in progress on this disk store"/>
+<metric name="Backups In Progress" alias="backupsInProgress" description="The current number of backups in progress on this disk store"/>
 
-<metric name="compactDeleteTime" alias="compactDeleteTime" collectionType="trendsup" rate="1m" units="ns" description="Total amount of time, in nanoseconds, spent doing deletes during a compact"/>
+<metric name="Compact Delete Time" alias="compactDeleteTime" collectionType="trendsup" rate="1m" units="ns" description="Total amount of time, in nanoseconds, spent doing deletes during a compact"/>
 
-<metric name="compactDeletes" alias="compactDeletes" collectionType="trendsup" rate="1m" description="Total number of times an oplog compact did a delete"/>
+<metric name="Compact Deletes" alias="compactDeletes" collectionType="trendsup" rate="1m" description="Total number of times an oplog compact did a delete"/>
 
-<metric name="compactInsertTime" alias="compactInsertTime" collectionType="trendsup" rate="1m" units="ns" description="Total amount of time, in nanoseconds, spent doing inserts during a compact"/>
+<metric name="Compact Insert Time" alias="compactInsertTime" collectionType="trendsup" rate="1m" units="ns" description="Total amount of time, in nanoseconds, spent doing inserts during a compact"/>
 
-<metric name="compactInserts" alias="compactInserts" collectionType="trendsup" rate="1m" description="Total number of times an oplog compact did a db insert"/>
+<metric name="Compact Inserts" alias="compactInserts" collectionType="trendsup" rate="1m" description="Total number of times an oplog compact did a db insert"/>
 
-<metric name="compactTime" alias="compactTime" collectionType="trendsup" rate="1m" units="ns" description="Total amount of time, in nanoseconds, spent compacting oplogs"/>
+<metric name="Compact Time" alias="compactTime" collectionType="trendsup" rate="1m" units="ns" description="Total amount of time, in nanoseconds, spent compacting oplogs"/>
 
-<metric name="compactUpdateTime" alias="compactUpdateTime" collectionType="trendsup" rate="1m" units="ns" description="Total amount of time, in nanoseconds, spent doing updates during a compact"/>
+<metric name="Compact Update Time" alias="compactUpdateTime" collectionType="trendsup" rate="1m" units="ns" description="Total amount of time, in nanoseconds, spent doing updates during a compact"/>
 
-<metric name="compactUpdates" alias="compactUpdates" collectionType="trendsup" rate="1m" description="Total number of times an oplog compact did an update"/>
+<metric name="Compact Updates" alias="compactUpdates" collectionType="trendsup" rate="1m" description="Total number of times an oplog compact did an update"/>
 
-<metric name="compactableOplogs" alias="compactableOplogs" description="Current number of oplogs ready to be compacted"/>
+<metric name="Compactable Op logs" alias="compactableOplogs" description="Current number of oplogs ready to be compacted"/>
 
-<metric name="compacts" alias="compacts" collectionType="trendsup" rate="1m" description="Total number of completed oplog compacts"/>
+<metric name="Compacts" alias="compacts" collectionType="trendsup" rate="1m" description="Total number of completed oplog compacts"/>
 
-<metric name="compactsInProgress" alias="compactsInProgress" description="current number of oplog compacts that are in progress"/>
+<metric name="Compacts In Progress" alias="compactsInProgress" description="current number of oplog compacts that are in progress"/>
 
-<metric name="flushedBytes" alias="flushedBytes" collectionType="trendsup" rate="1m" units="B" description="The total number of bytes written to disk by async queue flushes."/>
+<metric name="Flushed Bytes" alias="flushedBytes" collectionType="trendsup" rate="1m" units="B" description="The total number of bytes written to disk by async queue flushes."/>
 
-<metric name="flushTime" alias="flushTime" collectionType="trendsup" rate="1m" units="ns" description="The total amount of time spent doing an async queue flush."/>
+<metric name="Flush Time" alias="flushTime" collectionType="trendsup" rate="1m" units="ns" description="The total amount of time spent doing an async queue flush."/>
 
-<metric name="flushes" alias="flushes" collectionType="trendsup" rate="1m" description="The total number of times the an entry has been flushed from the async queue."/>
+<metric name="Flushes" alias="flushes" collectionType="trendsup" rate="1m" description="The total number of times the an entry has been flushed from the async queue."/>
 
 <metric name="Average Flush Time" units="ns" alias="custom_ratio_flushTime_flushes" description="Average flush time."/>
 
-<metric name="flushesInProgress" alias="flushesInProgress" description="current number of oplog flushes that are in progress"/>
+<metric name="Flushes In Progress" alias="flushesInProgress" description="current number of oplog flushes that are in progress"/>
 
-<metric name="inactiveOplogs" alias="inactiveOplogs" description="Current number of oplogs that are no longer being written but are not ready ready to compact"/>
+<metric name="Inactive Oplogs" alias="inactiveOplogs" description="Current number of oplogs that are no longer being written but are not ready ready to compact"/>
 
-<metric name="openOplogs" alias="openOplogs" description="Current number of open oplogs this region has"/>
+<metric name="Open Oplogs" alias="openOplogs" description="Current number of open oplogs this region has"/>
 
-<metric name="oplogReads" alias="oplogReads" collectionType="trendsup" rate="1m" description="Total number of oplog reads"/>
+<metric name="Oplog Reads" alias="oplogReads" collectionType="trendsup" rate="1m" description="Total number of oplog reads"/>
 
-<metric name="oplogRecoveredBytes" alias="oplogRecoveredBytes" collectionType="trendsup" rate="1m" units="B" description="The total number of bytes that have been read from oplogs during a recovery"/>
+<metric name="Oplog Recovered Bytes" alias="oplogRecoveredBytes" collectionType="trendsup" rate="1m" units="B" description="The total number of bytes that have been read from oplogs during a recovery"/>
 
-<metric name="oplogRecoveries" alias="oplogRecoveries" collectionType="trendsup" rate="1m" description="The total number of oplogs recovered"/>
+<metric name="Oplog Recoveries" alias="oplogRecoveries" collectionType="trendsup" rate="1m" description="The total number of oplogs recovered"/>
 
-<metric name="oplogRecoveryTime" alias="oplogRecoveryTime" collectionType="trendsup" rate="1m" units="ns" description="The total amount of time spent doing an oplog recovery"/>
+<metric name="Oplog Recovery Time" alias="oplogRecoveryTime" collectionType="trendsup" rate="1m" units="ns" description="The total amount of time spent doing an oplog recovery"/>
 
-<metric name="oplogSeeks" alias="oplogSeeks" collectionType="trendsup" rate="1m" description="Total number of oplog seeks"/>
+<metric name="Oplog Seeks" alias="oplogSeeks" collectionType="trendsup" rate="1m" description="Total number of oplog seeks"/>
 
-<metric name="queueSize" indicator="true" defaultOn="true" alias="queueSize" description="The current number of entries in the async queue waiting to be flushed to disk"/>
+<metric name="Queue Size" indicator="true" defaultOn="true" alias="queueSize" description="The current number of entries in the async queue waiting to be flushed to disk"/>
 
-<metric name="readBytes" alias="readBytes" collectionType="trendsup" rate="1m" units="B" description="The total number of bytes that have been read from disk"/>
+<metric name="Read Bytes" alias="readBytes" collectionType="trendsup" rate="1m" units="B" description="The total number of bytes that have been read from disk"/>
 
-<metric name="readTime" alias="readTime" collectionType="trendsup" rate="1m" units="ns" description="The total amount of time spent reading from disk"/>
+<metric name="Read Time" alias="readTime" collectionType="trendsup" rate="1m" units="ns" description="The total amount of time spent reading from disk"/>
 
-<metric name="reads" indicator="true" defaultOn="true" alias="reads" collectionType="trendsup" rate="1m" description="The total number of region entries that have been read from disk"/>
+<metric name="Reads" indicator="true" defaultOn="true" alias="reads" collectionType="trendsup" rate="1m" description="The total number of region entries that have been read from disk"/>
 
 <metric name="Average Read Time" units="ns" alias="custom_ratio_readTime_reads" description="Average read time."/>
 
-<metric name="recoveredBytes" alias="recoveredBytes" collectionType="trendsup" rate="1m" units="B" description="The total number of bytes that have been read from disk during a recovery"/>
+<metric name="Recovered Bytes" alias="recoveredBytes" collectionType="trendsup" rate="1m" units="B" description="The total number of bytes that have been read from disk during a recovery"/>
 
-<metric name="recoveredEntryCreates" alias="recoveredEntryCreates" collectionType="trendsup" rate="1m" description="The total number of entry create records processed while recovering oplog data."/>
+<metric name="Recovered Entry Creates" alias="recoveredEntryCreates" collectionType="trendsup" rate="1m" description="The total number of entry create records processed while recovering oplog data."/>
 
-<metric name="recoveredEntryDestroys" alias="recoveredEntryDestroys" collectionType="trendsup" rate="1m" description="The total number of entry destroy records processed while recovering oplog data."/>
+<metric name="Recovered Entry Destroys" alias="recoveredEntryDestroys" collectionType="trendsup" rate="1m" description="The total number of entry destroy records processed while recovering oplog data."/>
 
-<metric name="recoveredEntryUpdates" alias="recoveredEntryUpdates" collectionType="trendsup" rate="1m" description="The total number of entry update records processed while recovering oplog data."/>
+<metric name="Recovered Entry Updates" alias="recoveredEntryUpdates" collectionType="trendsup" rate="1m" description="The total number of entry update records processed while recovering oplog data."/>
 
-<metric name="recoveredValuesSkippedDueToLRU" alias="recoveredValuesSkippedDueToLRU" collectionType="trendsup" rate="1m" description="The total number of entry values that did not need to be recovered due to the LRU."/>
+<metric name="Recovered Values Skipped Due To LRU" alias="recoveredValuesSkippedDueToLRU" collectionType="trendsup" rate="1m" description="The total number of entry values that did not need to be recovered due to the LRU."/>
 
-<metric name="recoveriesInProgress" alias="recoveriesInProgress" description="current number of persistent regions being recovered from disk"/>
+<metric name="Recoveries In Progress" alias="recoveriesInProgress" description="current number of persistent regions being recovered from disk"/>
 
-<metric name="recoveryRecordsSkipped" alias="recoveryRecordsSkipped" collectionType="trendsup" rate="1m" description="The total number of oplog records skipped during recovery."/>
+<metric name="Recovery Records Skipped" alias="recoveryRecordsSkipped" collectionType="trendsup" rate="1m" description="The total number of oplog records skipped during recovery."/>
 
-<metric name="recoveryTime" alias="recoveryTime" collectionType="trendsup" rate="1m" units="ns" description="The total amount of time spent doing a recovery"/>
+<metric name="Recovery Time" alias="recoveryTime" collectionType="trendsup" rate="1m" units="ns" description="The total amount of time spent doing a recovery"/>
 
-<metric name="removeTime" alias="removeTime" collectionType="trendsup" rate="1m" units="ns" description="The total amount of time spent removing from disk"/>
+<metric name="Remove Time" alias="removeTime" collectionType="trendsup" rate="1m" units="ns" description="The total amount of time spent removing from disk"/>
 
-<metric name="removes" indicator="true" defaultOn="true" alias="removes" collectionType="trendsup" rate="1m" description="The total number of region entries that have been removed from disk"/>
+<metric name="Removes" indicator="true" defaultOn="true" alias="removes" collectionType="trendsup" rate="1m" description="The total number of region entries that have been removed from disk"/>
 
-<metric name="uncreatedRecoveredRegions" alias="uncreatedRecoveredRegions" description="The current number of regions that have been recovered but have not yet been created."/>
+<metric name="Uncreated Recovered Regions" alias="uncreatedRecoveredRegions" description="The current number of regions that have been recovered but have not yet been created."/>
 
-<metric name="writeTime" alias="writeTime" collectionType="trendsup" rate="1m" units="ns" description="The total amount of time spent writing to disk"/>
+<metric name="Write Time" alias="writeTime" collectionType="trendsup" rate="1m" units="ns" description="The total amount of time spent writing to disk"/>
 
-<metric name="writes" indicator="true" defaultOn="true" alias="writes" collectionType="trendsup" rate="1m" description="The total number of region entries that have been written to disk. A write is done every time an entry is created on disk or every time its value is modified on disk."/>
+<metric name="Writes" indicator="true" defaultOn="true" alias="writes" collectionType="trendsup" rate="1m" description="The total number of region entries that have been written to disk. A write is done every time an entry is created on disk or every time its value is modified on disk."/>
 
 <metric name="Average Write Time" units="ns" alias="custom_ratio_writeTime_writes" description="Average write time."/>
 
-<metric name="writesInProgress" alias="writesInProgress" description="current number of oplog writes that are in progress"/>
+<metric name="Writes In Progress" alias="writesInProgress" description="current number of oplog writes that are in progress"/>
 
-<metric name="writtenBytes" alias="writtenBytes" collectionType="trendsup" rate="1m" units="B" description="The total number of bytes that have been written to disk"/>
+<metric name="Written Bytes" alias="writtenBytes" collectionType="trendsup" rate="1m" units="B" description="The total number of bytes that have been written to disk"/>
