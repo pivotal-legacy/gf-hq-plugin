@@ -168,7 +168,7 @@
 	</distributionManagement>
 
 	<scm>
-		<developerConnection>scm:git:git://git.springsource.com/vfabric-hq-plugins/vf-gemfire.git</developerConnection>
+		<developerConnection>scm:git:git@git.springsource.com:vfabric-hq-plugins/vf-gemfire.git</developerConnection>
 		<url>https://fisheye.springsource.org/browse/hq</url>
 	</scm>
 </project>
