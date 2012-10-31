@@ -25,8 +25,6 @@
  */
 package com.vmware.vfabric.hyperic.plugin.vfgf.detector;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashSet;
@@ -44,14 +42,13 @@ import com.vmware.vfabric.hyperic.plugin.vfgf.GFVersionInfo;
 import com.vmware.vfabric.hyperic.plugin.vfgf.cache.MemberCache;
 import com.vmware.vfabric.hyperic.plugin.vfgf.cache.MemberInfo;
 import com.vmware.vfabric.hyperic.plugin.vfgf.mx.GFJmxConnection;
+import com.vmware.vfabric.hyperic.plugin.vfgf.util.GFMXUtils;
 import org.hyperic.hq.product.AutoServerDetector;
 import org.hyperic.hq.product.PluginException;
 import org.hyperic.hq.product.PluginManager;
 import org.hyperic.hq.product.ServerDetector;
 import org.hyperic.hq.product.ServerResource;
 import org.hyperic.hq.product.ServiceResource;
-import org.hyperic.sigar.SigarException;
-import org.hyperic.sigar.ptql.ProcessFinder;
 import org.hyperic.util.ArrayUtil;
 import org.hyperic.util.config.ConfigResponse;
 
@@ -59,152 +56,138 @@ import org.hyperic.util.config.ConfigResponse;
  * The Class MemberDetector.
  * 
  */
-public abstract class MemberDetector
-    extends ServerDetector implements AutoServerDetector {
+public abstract class MemberDetector extends ServerDetector implements AutoServerDetector {
 
     /** The Constant log. */
-    private static final Log log = LogFactory.getLog(MemberDetector.class);
+    private static final Log log =
+        LogFactory.getLog(MemberDetector.class);
 
     /** Prefix for property key for globals */
-    public static final String PROP_PREFIX = "vfgf.autodiscovery.";
+    public static final String PROP_PREFIX = "GemFire.autodiscovery.";
 
     /** Prop string from includes */
-    public static final String PROP_INCLUDES = "include";
+    public static final String PROP_INCLUDES = "includeInstances";
 
     /** Prop string for excludes */
-    public static final String PROP_EXCLUDES = "exclude";
+    public static final String PROP_EXCLUDES = "excludeInstances";
 
-    public static final String[] DEFAULT_INCLUDES = { "vFabric GemFire Cache Server 6.6 Cache Performance",
-                                                     "vFabric GemFire Cache Server 6.6 Cache Server",
-                                                     "vFabric GemFire Cache Server 6.6 Disk Store",
-                                                     "vFabric GemFire Cache Server 6.6 Function",
-                                                     "vFabric GemFire Cache Server 6.6 Function Service",
-                                                     "vFabric GemFire Cache Server 6.6 Partitioned Region",
-                                                     "vFabric GemFire Cache Server 6.6 Region",
-                                                     "vFabric GemFire Cache Server 6.6 Resource Manager",
-                                                     "vFabric GemFire Cache Server 6.6 VM Stats",
-                                                     "vFabric GemFire Gateway Hub 6.6 Cache Performance",
-                                                     "vFabric GemFire Gateway Hub 6.6 Cache Server",
-                                                     "vFabric GemFire Gateway Hub 6.6 Disk Store",
-                                                     "vFabric GemFire Gateway Hub 6.6 Gateway Hub Statistics",
-                                                     "vFabric GemFire Gateway Hub 6.6 Gateway Statistics",
-                                                     "vFabric GemFire Gateway Hub 6.6 Partitioned Region",
-                                                     "vFabric GemFire Gateway Hub 6.6 Region",
-                                                     "vFabric GemFire Gateway Hub 6.6 VM Stats",
-                                                     "vFabric GemFire Gateway Hub 6.6 Pool Stats",
-                                                     "vFabric GemFire Cache Server 6.5 Cache Performance",
-                                                     "vFabric GemFire Cache Server 6.5 Cache Server",
-                                                     "vFabric GemFire Cache Server 6.5 Disk Store",
-                                                     "vFabric GemFire Cache Server 6.5 Function",
-                                                     "vFabric GemFire Cache Server 6.5 Function Service",
-                                                     "vFabric GemFire Cache Server 6.5 Partitioned Region",
-                                                     "vFabric GemFire Cache Server 6.5 Region",
-                                                     "vFabric GemFire Cache Server 6.5 Resource Manager",
-                                                     "vFabric GemFire Cache Server 6.5 VM Stats",
-                                                     "vFabric GemFire Gateway Hub 6.5 Cache Performance",
-                                                     "vFabric GemFire Gateway Hub 6.5 Cache Server",
-                                                     "vFabric GemFire Gateway Hub 6.5 Disk Store",
-                                                     "vFabric GemFire Gateway Hub 6.5 Gateway Hub Statistics",
-                                                     "vFabric GemFire Gateway Hub 6.5 Gateway Statistics",
-                                                     "vFabric GemFire Gateway Hub 6.5 Partitioned Region",
-                                                     "vFabric GemFire Gateway Hub 6.5 Region",
-                                                     "vFabric GemFire Gateway Hub 6.5 VM Stats",
-                                                     "vFabric GemFire Gateway Hub 6.5 Pool Stats",
-                                                     "vFabric GemFire Cache Server 6.0 Cache Performance",
-                                                     "vFabric GemFire Cache Server 6.0 Cache Server",
-                                                     "vFabric GemFire Cache Server 6.0 Disk Store",
-                                                     "vFabric GemFire Cache Server 6.0 Function",
-                                                     "vFabric GemFire Cache Server 6.0 Function Service",
-                                                     "vFabric GemFire Cache Server 6.0 Partitioned Region",
-                                                     "vFabric GemFire Cache Server 6.0 Region",
-                                                     "vFabric GemFire Cache Server 6.0 Resource Manager",
-                                                     "vFabric GemFire Cache Server 6.0 VM Stats",
-                                                     "vFabric GemFire Gateway Hub 6.0 Cache Performance",
-                                                     "vFabric GemFire Gateway Hub 6.0 Cache Server",
-                                                     "vFabric GemFire Gateway Hub 6.0 Disk Store",
-                                                     "vFabric GemFire Gateway Hub 6.0 Gateway Hub Statistics",
-                                                     "vFabric GemFire Gateway Hub 6.0 Gateway Statistics",
-                                                     "vFabric GemFire Gateway Hub 6.0 Partitioned Region",
-                                                     "vFabric GemFire Gateway Hub 6.0 Region",
-                                                     "vFabric GemFire Gateway Hub 6.0 VM Stats",
-                                                     "vFabric GemFire Gateway Hub 6.5 Pool Stats",
-                                                     "vFabric GemFire Application Peer 6.0 Distribution Statistics",
-                                                     "vFabric GemFire Application Peer 6.0 Function",
-                                                     "vFabric GemFire Application Peer 6.0 Function Service",
-                                                     "vFabric GemFire Application Peer 6.0 VM Stats",
-                                                     "vFabric GemFire Application Peer 6.5 Distribution Statistics",
-                                                     "vFabric GemFire Application Peer 6.5 Function",
-                                                     "vFabric GemFire Application Peer 6.5 Function Service",
-                                                     "vFabric GemFire Application Peer 6.5 VM Stats",
-                                                     "vFabric GemFire Application Peer 6.6 Distribution Statistics",
-                                                     "vFabric GemFire Application Peer 6.6 Function",
-                                                     "vFabric GemFire Application Peer 6.6 Function Service",
-                                                     "vFabric GemFire Application Peer 6.6 VM Stats",
-                                                     "vFabric GemFire Application Peer 7.0 Distribution Statistics",
-                                                     "vFabric GemFire Application Peer 7.0 Function",
-                                                     "vFabric GemFire Application Peer 7.0 Function Service",
-                                                     "vFabric GemFire Application Peer 7.0 VM Stats" };
+    public static final String[] DEFAULT_INCLUDES = {
+        "GemFire Cache Server 6.6 Cache Performance",
+        "GemFire Cache Server 6.6 Cache Server",
+        "GemFire Cache Server 6.6 Disk Store",
+        "GemFire Cache Server 6.6 Function",
+        "GemFire Cache Server 6.6 Function Service",
+        "GemFire Cache Server 6.6 Partitioned Region",
+        "GemFire Cache Server 6.6 Region",
+        "GemFire Cache Server 6.6 Resource Manager",
+        "GemFire Cache Server 6.6 VM Stats",
+        "GemFire Gateway Hub 6.6 Cache Performance",
+        "GemFire Gateway Hub 6.6 Cache Server",
+        "GemFire Gateway Hub 6.6 Disk Store",
+        "GemFire Gateway Hub 6.6 Gateway Hub Statistics",
+        "GemFire Gateway Hub 6.6 Gateway Statistics",
+        "GemFire Gateway Hub 6.6 Partitioned Region",
+        "GemFire Gateway Hub 6.6 Region",
+        "GemFire Gateway Hub 6.6 VM Stats",
+        "GemFire Gateway Hub 6.6 Pool Stats",
+        "GemFire Cache Server 6.5 Cache Performance",
+        "GemFire Cache Server 6.5 Cache Server",
+        "GemFire Cache Server 6.5 Disk Store",
+        "GemFire Cache Server 6.5 Function",
+        "GemFire Cache Server 6.5 Function Service",
+        "GemFire Cache Server 6.5 Partitioned Region",
+        "GemFire Cache Server 6.5 Region",
+        "GemFire Cache Server 6.5 Resource Manager",
+        "GemFire Cache Server 6.5 VM Stats",
+        "GemFire Gateway Hub 6.5 Cache Performance",
+        "GemFire Gateway Hub 6.5 Cache Server",
+        "GemFire Gateway Hub 6.5 Disk Store",
+        "GemFire Gateway Hub 6.5 Gateway Hub Statistics",
+        "GemFire Gateway Hub 6.5 Gateway Statistics",
+        "GemFire Gateway Hub 6.5 Partitioned Region",
+        "GemFire Gateway Hub 6.5 Region",
+        "GemFire Gateway Hub 6.5 VM Stats",
+        "GemFire Gateway Hub 6.5 Pool Stats",
+        "GemFire Cache Server 6.0 Cache Performance",
+        "GemFire Cache Server 6.0 Cache Server",
+        "GemFire Cache Server 6.0 Disk Store",
+        "GemFire Cache Server 6.0 Function",
+        "GemFire Cache Server 6.0 Function Service",
+        "GemFire Cache Server 6.0 Partitioned Region",
+        "GemFire Cache Server 6.0 Region",
+        "GemFire Cache Server 6.0 Resource Manager",
+        "GemFire Cache Server 6.0 VM Stats",
+        "GemFire Gateway Hub 6.0 Cache Performance",
+        "GemFire Gateway Hub 6.0 Cache Server",
+        "GemFire Gateway Hub 6.0 Disk Store",
+        "GemFire Gateway Hub 6.0 Gateway Hub Statistics",
+        "GemFire Gateway Hub 6.0 Gateway Statistics",
+        "GemFire Gateway Hub 6.0 Partitioned Region",
+        "GemFire Gateway Hub 6.0 Region",
+        "GemFire Gateway Hub 6.0 VM Stats",
+        "GemFire Gateway Hub 6.5 Pool Stats",
+        "GemFire Application Peer 6.0 Distribution Statistics",
+        "GemFire Application Peer 6.0 Function",
+        "GemFire Application Peer 6.0 Function Service",
+        "GemFire Application Peer 6.0 VM Stats",
+        "GemFire Application Peer 6.5 Distribution Statistics",
+        "GemFire Application Peer 6.5 Function",
+        "GemFire Application Peer 6.5 Function Service",
+        "GemFire Application Peer 6.5 VM Stats",
+        "GemFire Application Peer 6.6 Distribution Statistics",
+        "GemFire Application Peer 6.6 Function",
+        "GemFire Application Peer 6.6 Function Service",
+        "GemFire Application Peer 6.6 VM Stats"
+    };
 
-    public static final String[] DEFAULT_EXCLUDES = { "vFabric GemFire Cache Server 7.0 Cache Client Notifier",
-                                                      "vFabric GemFire Cache Server 7.0 Disk Directory",
-                                                      "vFabric GemFire Cache Server 7.0 Disk Region",
-                                                      "vFabric GemFire Cache Server 7.0 Distributed Lock",
-                                                      "vFabric GemFire Cache Server 7.0 Distribution Statistics",
-                                                      "vFabric GemFire Cache Server 7.0 Statistics Sampler",
-                                                      "vFabric GemFire Gateway Hub 7.0 Cache Client Notifier",
-                                                      "vFabric GemFire Gateway Hub 7.0 Disk Directory",
-                                                      "vFabric GemFire Gateway Hub 7.0 Disk Region",
-                                                      "vFabric GemFire Gateway Hub 7.0 Distributed Lock",
-                                                      "vFabric GemFire Gateway Hub 7.0 Distribution Statistics",
-                                                      "vFabric GemFire Gateway Hub 7.0 Function",
-                                                      "vFabric GemFire Gateway Hub 7.0 Function Service",
-                                                      "vFabric GemFire Gateway Hub 7.0 Resource Manager",
-                                                      "vFabric GemFire Cache Server 6.6 Cache Client Notifier",
-                                                      "vFabric GemFire Cache Server 6.6 Disk Directory",
-                                                      "vFabric GemFire Cache Server 6.6 Disk Region",
-                                                      "vFabric GemFire Cache Server 6.6 Distributed Lock",
-                                                      "vFabric GemFire Cache Server 6.6 Distribution Statistics",
-                                                      "vFabric GemFire Cache Server 6.6 Statistics Sampler",
-                                                      "vFabric GemFire Gateway Hub 6.6 Cache Client Notifier",
-                                                      "vFabric GemFire Gateway Hub 6.6 Disk Directory",
-                                                      "vFabric GemFire Gateway Hub 6.6 Disk Region",
-                                                      "vFabric GemFire Gateway Hub 6.6 Distributed Lock",
-                                                      "vFabric GemFire Gateway Hub 6.6 Distribution Statistics",
-                                                      "vFabric GemFire Gateway Hub 6.6 Function",
-                                                      "vFabric GemFire Gateway Hub 6.6 Function Service",
-                                                      "vFabric GemFire Gateway Hub 6.6 Resource Manager",
-                                                     "vFabric GemFire Cache Server 6.5 Cache Client Notifier",
-                                                     "vFabric GemFire Cache Server 6.5 Disk Directory",
-                                                     "vFabric GemFire Cache Server 6.5 Disk Region",
-                                                     "vFabric GemFire Cache Server 6.5 Distributed Lock",
-                                                     "vFabric GemFire Cache Server 6.5 Distribution Statistics",
-                                                     "vFabric GemFire Cache Server 6.5 Statistics Sampler",
-                                                     "vFabric GemFire Gateway Hub 6.5 Cache Client Notifier",
-                                                     "vFabric GemFire Gateway Hub 6.5 Disk Directory",
-                                                     "vFabric GemFire Gateway Hub 6.5 Disk Region",
-                                                     "vFabric GemFire Gateway Hub 6.5 Distributed Lock",
-                                                     "vFabric GemFire Gateway Hub 6.5 Distribution Statistics",
-                                                     "vFabric GemFire Gateway Hub 6.5 Function",
-                                                     "vFabric GemFire Gateway Hub 6.5 Function Service",
-                                                     "vFabric GemFire Gateway Hub 6.5 Resource Manager",
-                                                     "vFabric GemFire Cache Server 6.0 Cache Client Notifier",
-                                                     "vFabric GemFire Cache Server 6.0 Disk Directory",
-                                                     "vFabric GemFire Cache Server 6.0 Disk Region",
-                                                     "vFabric GemFire Cache Server 6.0 Distributed Lock",
-                                                     "vFabric GemFire Cache Server 6.0 Distribution Statistics",
-                                                     "vFabric GemFire Cache Server 6.0 Statistics Sampler",
-                                                     "vFabric GemFire Gateway Hub 6.0 Cache Client Notifier",
-                                                     "vFabric GemFire Gateway Hub 6.0 Disk Directory",
-                                                     "vFabric GemFire Gateway Hub 6.0 Disk Region",
-                                                     "vFabric GemFire Gateway Hub 6.0 Distributed Lock",
-                                                     "vFabric GemFire Gateway Hub 6.0 Distribution Statistics",
-                                                     "vFabric GemFire Gateway Hub 6.0 Function",
-                                                     "vFabric GemFire Gateway Hub 6.0 Function Service",
-                                                     "vFabric GemFire Gateway Hub 6.0 Resource Manager" };
+    public static final String[] DEFAULT_EXCLUDES = {
+        "GemFire Cache Server 6.6 Cache Client Notifier",
+        "GemFire Cache Server 6.6 Disk Directory",
+        "GemFire Cache Server 6.6 Disk Region",
+        "GemFire Cache Server 6.6 Distributed Lock",
+        "GemFire Cache Server 6.6 Distribution Statistics",
+        "GemFire Cache Server 6.6 Statistics Sampler",
+        "GemFire Gateway Hub 6.6 Cache Client Notifier",
+        "GemFire Gateway Hub 6.6 Disk Directory",
+        "GemFire Gateway Hub 6.6 Disk Region",
+        "GemFire Gateway Hub 6.6 Distributed Lock",
+        "GemFire Gateway Hub 6.6 Distribution Statistics",
+        "GemFire Gateway Hub 6.6 Function",
+        "GemFire Gateway Hub 6.6 Function Service",
+        "GemFire Gateway Hub 6.6 Resource Manager",
+        "GemFire Cache Server 6.5 Cache Client Notifier",
+        "GemFire Cache Server 6.5 Disk Directory",
+        "GemFire Cache Server 6.5 Disk Region",
+        "GemFire Cache Server 6.5 Distributed Lock",
+        "GemFire Cache Server 6.5 Distribution Statistics",
+        "GemFire Cache Server 6.5 Statistics Sampler",
+        "GemFire Gateway Hub 6.5 Cache Client Notifier",
+        "GemFire Gateway Hub 6.5 Disk Directory",
+        "GemFire Gateway Hub 6.5 Disk Region",
+        "GemFire Gateway Hub 6.5 Distributed Lock",
+        "GemFire Gateway Hub 6.5 Distribution Statistics",
+        "GemFire Gateway Hub 6.5 Function",
+        "GemFire Gateway Hub 6.5 Function Service",
+        "GemFire Gateway Hub 6.5 Resource Manager",
+        "GemFire Cache Server 6.0 Cache Client Notifier",
+        "GemFire Cache Server 6.0 Disk Directory",
+        "GemFire Cache Server 6.0 Disk Region",
+        "GemFire Cache Server 6.0 Distributed Lock",
+        "GemFire Cache Server 6.0 Distribution Statistics",
+        "GemFire Cache Server 6.0 Statistics Sampler",
+        "GemFire Gateway Hub 6.0 Cache Client Notifier",
+        "GemFire Gateway Hub 6.0 Disk Directory",
+        "GemFire Gateway Hub 6.0 Disk Region",
+        "GemFire Gateway Hub 6.0 Distributed Lock",
+        "GemFire Gateway Hub 6.0 Distribution Statistics",
+        "GemFire Gateway Hub 6.0 Function",
+        "GemFire Gateway Hub 6.0 Function Service",
+        "GemFire Gateway Hub 6.0 Resource Manager"
+    };
 
     /** Includes */
     private String[] includes = null;
-
+    
     /** Excludes */
     private String[] excludes = null;
 
@@ -218,7 +201,7 @@ public abstract class MemberDetector
         super.init(manager);
         initSettings(manager);
     }
-
+    
     /**
      * Init extra settings.
      * 
@@ -230,78 +213,42 @@ public abstract class MemberDetector
 
         // do not use exclude defaults if user
         // only defined includes.
-        if (excludes.length == 0 && includes.length != 0) {
+        if(excludes.length == 0 && includes.length != 0)
             excludes = new String[0];
-        } else if (excludes.length == 0 && includes.length == 0) {
+        else if(excludes.length == 0 && includes.length == 0)
             excludes = DEFAULT_EXCLUDES;
-        }
-        if (includes.length == 0) {
+        
+        if(includes.length == 0)
             includes = DEFAULT_INCLUDES;
-        }
-
-        if (includes.length == 1 && includes[0].equals("all")) {
+        
+        if(includes.length == 1 && includes[0].equals("all"))
             includes = excludes = new String[0];
-        }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.hyperic.hq.product.AutoServerDetector#getServerResources(org.hyperic
-     * .util.config.ConfigResponse)
+    
+    /* (non-Javadoc)
+     * @see org.hyperic.hq.product.AutoServerDetector#getServerResources(org.hyperic.util.config.ConfigResponse)
      */
     public List<ServerResource> getServerResources(ConfigResponse config) throws PluginException {
-        log.debug("[getServerResources] Detecting server resources for: " + getTypeInfo().getFormattedName() + " " + getTypeInfo().getVersion());
-        log.debug("[getServerResources] Config used for detection: " + config);    
+
+        if(log.isDebugEnabled()) {
+            log.debug("Detecting server resources for: " + getTypeInfo().getFormattedName() + " " + getTypeInfo().getVersion());
+            log.debug("Config used for detection: " + config);    
+        }
 
         List<ServerResource> servers = new ArrayList<ServerResource>();
 
-        // We need to find the jmx agent and use it for discovery
-        // first check if there's an agent running in underlying platform
-        long pids[] = getAgentPids();
-        // we can only discover settings if exactly one jmx agent process is running
-        // since only one platform can be created.
-        if(pids.length == 0) {
-            log.debug("[getServerResources] No Gemfire JMX Agent processes detected");
-            return servers;           
-        } else if(pids.length > 1) {
-            log.info("[getServerResources] Detected " + pids.length + " GF JMX Agent processes. Can continue only with 1 process.");
-            return servers;
-        }
-
-        // Set a default value
-        config.setValue("jmx.url", "service:jmx:rmi:///jndi/rmi://localhost:1099/jmxconnector");
-
-        String file = findAgentProperties(pids[0]);
-        if (file != null) {
-            Properties p = new Properties();
-            try {
-                p.load(new FileInputStream(file));
-
-                String rmiPort = p.getProperty("rmi-port", "localhost");
-                String rmiBindAddress = p.getProperty("rmi-bind-address", "1099");
-                log.debug("[getServerResources] rmi port:" + rmiPort);
-                log.debug("[getServerResources] rmi address:" + rmiBindAddress);                 
-                config.setValue("jmx.url", "service:jmx:rmi:///jndi/rmi://" + rmiBindAddress + ":" + rmiPort + "/jmxconnector");
-            } catch (Exception e) {
-                log.info("[getServerResources] Can't read Gemfire agent configuration.", e);
-                return servers;
-            }
-        }
-
         // if jmx url doesn't exist, just bail out with empty server set
-        if(config.getValue(GFMXConstants.CONF_JMX_URL) == null) {
-            log.debug("[getServerResources] Unable to continue, " + GFMXConstants.CONF_JMX_URL + " is undefined");
+        if(config.getValue(GFMXConstants.CONF_JMX_URL) == null)
             return servers;
-        }
 
         GFJmxConnection gf = new GFJmxConnection(config);
 
         GFVersionInfo gfVersionInfo = gf.getVersionInfoFromAgent();
-        if(gfVersionInfo == null || !gfVersionInfo.isGFVersion(getTypeInfo().getVersion())) {
+        if(gfVersionInfo == null)
             return servers;
-        } 
+        if(!gfVersionInfo.isGFVersion(getTypeInfo().getVersion()))
+            return servers;
 
         GFProductPlugin master = (GFProductPlugin)getProductPlugin();
         MemberCache memberCache = master.getMemberCache(config.getValue(GFMXConstants.CONF_JMX_URL));
@@ -310,80 +257,75 @@ public abstract class MemberDetector
 
         Set<MemberInfo> members = memberCache.getMembers();
         for (MemberInfo memberInfo : members) {
+
             int mask = gf.getMemberRoles(memberInfo.getGfid());
 
             if(hasCorrectRoles(mask)) {
+                
                 ServerResource server = createServerResource(memberInfo.getWorkingDirectory());
-                server.setName(getPlatformName() + " " + getTypeInfo().getName() + " " + memberInfo.getName());
+                server.setName(getTypeInfo().getName() + " " + memberInfo.getName());
                 server.setIdentifier(memberInfo.getWorkingDirectory()+memberInfo.getHost()+memberInfo.getName());
                 ConfigResponse c = new ConfigResponse();
                 c.setValue(GFMXConstants.ATTR_HOST, memberInfo.getHost());
                 c.setValue(GFMXConstants.ATTR_NAME, memberInfo.getName());
                 c.setValue(GFMXConstants.ATTR_PWD, memberInfo.getWorkingDirectory());
-                setMeasurementConfig(server, config);
+                setMeasurementConfig(server, new ConfigResponse());
                 setProductConfig(server, c);
                 servers.add(server);
             }
+
         }
+
         return servers;
     }
-
+    
     protected abstract boolean hasCorrectRoles(int mask);
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.hyperic.hq.product.ServerDetector#discoverServices(org.hyperic.util
-     * .config.ConfigResponse)
+    
+    /* (non-Javadoc)
+     * @see org.hyperic.hq.product.ServerDetector#discoverServices(org.hyperic.util.config.ConfigResponse)
      */
     @Override
-    protected List<ServiceResource> discoverServices(ConfigResponse config) throws PluginException {
+    protected List<ServiceResource> discoverServices(ConfigResponse config)
+    throws PluginException {
         List<ServiceResource> services = new ArrayList<ServiceResource>();
 
         GFJmxConnection gf = new GFJmxConnection(config);
 
-        GFProductPlugin master = (GFProductPlugin) getProductPlugin();
-
-        MemberCache memberCache = master
-            .getMemberCache(config.getValue(GFMXConstants.CONF_JMX_URL));
+        GFProductPlugin master = (GFProductPlugin)getProductPlugin();
+        
+        MemberCache memberCache = master.getMemberCache(config.getValue(GFMXConstants.CONF_JMX_URL));
 
         String workingDirectory = config.getValue(GFMXConstants.ATTR_PWD);
         String host = config.getValue(GFMXConstants.ATTR_HOST);
         String name = config.getValue(GFMXConstants.ATTR_NAME);
 
-        Object[][] statObjectsWithType = gf.getStatObjectsWithType(memberCache.getGfid(
-            workingDirectory, host, name));
+        Object[][] statObjectsWithType = gf.getStatObjectsWithType(memberCache.getGfid(workingDirectory, host, name));
 
         StatType[] filtered = filterSupportedStats(statObjectsWithType, config);
 
         for (StatType statType : filtered) {
             services.add(createService(config, statType, name));
         }
-
+        
         // last add VM Stats
-        // we need to iterate through stats, find correct names for gc's and
-        // memory pools.
+        // we need to iterate through stats, find correct names for gc's and memory pools.
         services.add(createVMStatsService(name, statObjectsWithType));
 
         return filterIncludesExcludes(services);
     }
-
-    // serviceTypeName
+    //serviceTypeName
     protected List<ServiceResource> filterIncludesExcludes(List<ServiceResource> services) {
+        
         List<ServiceResource> filtered = new ArrayList<ServiceResource>();
         for (ServiceResource serviceResource : services) {
             String serviceTypeName = serviceResource.getType();
             boolean add = false;
-            if (includes.length == 0 || ArrayUtil.exists(includes, serviceTypeName)) {
+            if(includes.length == 0 || ArrayUtil.exists(includes, serviceTypeName))
                 add = true;
-            }
-            if (add && ArrayUtil.exists(excludes, serviceTypeName)) {
+            if(add && ArrayUtil.exists(excludes, serviceTypeName))
                 add = false;
-            }
-            if (add) {
+            if(add)
                 filtered.add(serviceResource);
-            }
         }
         return filtered;
     }
@@ -391,9 +333,9 @@ public abstract class MemberDetector
     /**
      * Filter supported stats.
      * 
-     * Implementor is responsible to filter supported statistics aka only
-     * include stats from jmx which are used.
-     * 
+     * Implementor is responsible to filter supported statistics aka only include
+     * stats from jmx which are used.
+     *
      * @param statObjects the stat objects
      * @param config the config
      * @return Statistic types
@@ -402,20 +344,18 @@ public abstract class MemberDetector
 
     /**
      * Creates the service.
-     * 
+     *
      * @param config the config
      * @param typename the typename
      * @param name the name
      * @return the service resource
      */
-    private ServiceResource createService(ConfigResponse config, StatType statType, String name) {
+    private ServiceResource createService(ConfigResponse config, StatType statType, String name){
         ServiceResource service = createServiceResource(statType.type);
 
-        service.setName(getPlatformName() + " " + name + " " + statType.type +
-                        (statType.postfix != null ? " " + statType.postfix : ""));
+        service.setName(name + " " + statType.type + (statType.postfix != null ? " " + statType.postfix : ""));
         ConfigResponse c = new ConfigResponse();
-        c.setValue(GFMXConstants.CONF_STATNAME,
-            statType.objectName.getKeyProperty(GFMXConstants.ATTR_NAME));
+        c.setValue(GFMXConstants.CONF_STATNAME, statType.objectName.getKeyProperty(GFMXConstants.ATTR_NAME));
 
         setMeasurementConfig(service, new ConfigResponse());
         setProductConfig(service, c);
@@ -423,42 +363,40 @@ public abstract class MemberDetector
         return service;
     }
 
-    private ServiceResource createVMStatsService(String name, Object[][] statObjectsWithType) {
+    private ServiceResource createVMStatsService(String name, Object[][] statObjectsWithType){
         ServiceResource service = createServiceResource("VM Stats");
 
-        service.setName(getPlatformName() + " " + getTypeInfo().getName() + " " + name + " VM Stats");
-
+        service.setName(name + " VM Stats");
+        
         ConfigResponse c = new ConfigResponse();
 
         for (int i = 0; i < statObjectsWithType.length; i++) {
-            ObjectName o = (ObjectName) statObjectsWithType[i][0];
+            ObjectName o = (ObjectName)statObjectsWithType[i][0];
             String oName = o.getKeyProperty("name");
             String olName = oName.toLowerCase();
-            String type = (String) statObjectsWithType[i][1];
-            if (type.equals("VMGCStats")) {
-                if (olName.contains("sweep")) {
+            String type = (String)statObjectsWithType[i][1];
+            if(type.equals("VMGCStats")) {
+                if(olName.contains("sweep"))
                     c.setValue("gcexpensive", oName);
-                } else {
+                else
                     c.setValue("gccheap", oName);
-                }
-            } else if (type.equals("VMMemoryPoolStats")) {
-                if (olName.contains("eden")) {
+            } else if(type.equals("VMMemoryPoolStats")) {
+                if(olName.contains("eden"))
                     c.setValue("youngeden", oName);
-                } else if (olName.contains("survivor")) {
+                else if(olName.contains("survivor"))
                     c.setValue("youngsurvivor", oName);
-                } else if (olName.contains("old") || olName.contains("tenured")) {
+                else if(olName.contains("old") || olName.contains("tenured"))
                     c.setValue("oldtenured", oName);
-                } else if (olName.contains("perm gen")) {
+                else if(olName.contains("perm gen"))
                     c.setValue("oldpermanent", oName);
-                } else if (olName.contains("cache")) { 
+                else if(olName.contains("cache"))
                     c.setValue("codecache", oName);
-                }
             }
         }
         c.setValue("vmstats", "vmStats");
         c.setValue("vmheapmemorystats", "vmHeapMemoryStats");
         c.setValue("vmnonheapmemorystats", "vmNonHeapMemoryStats");
-
+        
         setMeasurementConfig(service, new ConfigResponse());
         setProductConfig(service, c);
 
@@ -474,13 +412,11 @@ public abstract class MemberDetector
         String type;
         ObjectName objectName;
         String postfix;
-
         public StatType(String type, ObjectName objectName, String postfix) {
             this.type = type;
             this.objectName = objectName;
             this.postfix = postfix;
         }
-
         public StatType(String type, ObjectName objectName) {
             this(type, objectName, null);
         }
@@ -495,20 +431,18 @@ public abstract class MemberDetector
      */
     private String[] getSetting(Properties props, String key) {
         Set<String> values = new HashSet<String>();
-
+        
         Enumeration<?> e = props.keys();
-        while (e.hasMoreElements()) {
-            String k = (String) e.nextElement();
-            if (k.startsWith(key)) {
-                values.add((String) props.getProperty(k));
-            }
+        while(e.hasMoreElements()) {
+            String k = (String)e.nextElement();
+            if(k.startsWith(key))
+                values.add((String)props.getProperty(k));
         }
-
-        if (values.size() > 0) {
+        
+        if(values.size() > 0)
             return (String[]) values.toArray(new String[values.size()]);
-        } else {
+        else
             return new String[0];
-        }
     }
 
     public String[] getIncludes() {
@@ -517,72 +451,6 @@ public abstract class MemberDetector
 
     public String[] getExcludes() {
         return excludes;
-    }
-
-    /**
-     * Tries to find agent.properties from various locations.
-     *
-     * @param pid the pid of the agent process
-     * @return Path to agent.properties if found, null otherwise.
-     */
-    public String findAgentProperties(long pid) {
-        String path = null;
-        if((path = findFromProcessArguments(pid)) != null) {
-            return path;
-        }
-        // TODO: add checks for other locations
-        return null;
-    }
-
-    /**
-     * Check if agent.properties can be located from process
-     * arguments. If director is specified its format is:
-     * -dir=C:\gemfire\envs\demo1\agent
-     *
-     * @param pid the pid of the process to check
-     * @return Path to agent.properties if found, null otherwise.
-     */
-    private String findFromProcessArguments(long pid) {
-        String[] args = getProcArgs(pid);
-        for (int i = 0; i < args.length; i++) {
-            if(args[i].startsWith("-dir=")) {
-                String file = checkPath(args[i].substring(5));
-                if(file != null) {
-                    return file;
-                }
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Check if agent.properties exists in given directory.
-     *
-     * @param dir Directory to check
-     * @return Path to file if found, null otherwise.
-     */
-    private String checkPath(String dir){
-        // TODO: custom prop file can be defined on command line with property-file=path-to-file
-        File f = new File(dir, "agent.properties");
-        if(f.isFile()) {
-            return f.getAbsolutePath();
-        } else {
-            return null;
-        }
-    }
-
-    /**
-     * Gets the agent pids. 
-     *
-     * @return List of agent pids if found, empty list otherwise.
-     */
-    public static long[] getAgentPids() {
-        try {
-            long pids[] = ProcessFinder.find(getSigar(), "Args.*.eq=com.gemstone.gemfire.admin.jmx.internal.AgentLauncher");
-            return pids;
-        } catch (SigarException e) {
-            return new long[0];
-        }
     }
 
     

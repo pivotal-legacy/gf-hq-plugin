@@ -164,412 +164,409 @@
         &poolstats;
 	</metrics>
 
-	<!--********************************* ** JMX Agent ********************************* -->
-	<server name="vFabric GemFire JMX Agent" version="6.0">
+
+	<platform name="vFabric GemFire Distributed System 6.x">
 
 		<plugin type="autoinventory"
-			class="com.vmware.vfabric.hyperic.plugin.vfgf.detector.JMXAgentDetector" />
-		<plugin type="measurement" class="org.hyperic.hq.product.jmx.MxMeasurementPlugin" />
+			class="com.vmware.vfabric.hyperic.plugin.vfgf.detector.GemFirePlatformDetector" />
+		<plugin type="measurement"
+			class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFDistMeasurementPlugin" />
 		<plugin type="log_track"
 			class="com.vmware.vfabric.hyperic.plugin.vfgf.log.GFNotificationTrack" />
-		<property name="PROC_MAIN_CLASS"
-			value="com.gemstone.gemfire.admin.jmx.internal.AgentLauncher" />
-		<property name="PROC_HOME_PROPERTY" value="dir" />
 
-		<property name="jmx.url"
-			value="service:jmx:rmi:///jndi/rmi://localhost:1099/jmxconnector" />
 		<config include="jmx">
 			<option name="jmx.url" description="JMX URL to MBeanServer"
 				default="service:jmx:rmi:///jndi/rmi://localhost:1099/jmxconnector" />
-			<option name="process.query" description="PTQL for Jetty Java Process"
-				default="State.Name.eq=java,Args.*.ct=${PROC_MAIN_CLASS}" />
+			<option name="force.error" optional="true"
+				description="Regex to force error level" />
+			<option name="force.warn" optional="true" description="Regex to force warn level" />
+			<option name="force.info" optional="true" description="Regex to force info level" />
 		</config>
 
 		<metric name="Availability" indicator="true" defaultOn="true"
-			interval="300000" template="GemFire:type=Agent:connected" />
-	</server>
-	<server name="vFabric GemFire JMX Agent" version="6.5" include="6.0" />
-	<server name="vFabric GemFire JMX Agent" version="6.6" include="6.0" />
-	<server name="vFabric GemFire JMX Agent" version="7.0" include="6.0" />
+			interval="300000" template="GemFire:${JMXCFG}:${alias}" />
 
-	<!--********************************* ** CACHE SERVER ********************************* -->
 
-	<server name="vFabric GemFire Cache Server" version="6.0">
-		<config include="jmx">
-			<option name="jmx.url" description="JMX URL to MBeanServer"
-				default="service:jmx:rmi:///jndi/rmi://localhost:1099/jmxconnector" />
-			<option name="host"
-				description="The host machine on which the cache vm is running" />
-			<option name="name"
-				description="A symbolic name that can be used to help identify a system" />
-			<option name="workingDirectory"
-				description="The directory in which the cache vm was launched." />
-		</config>
 
-		<plugin type="autoinventory"
-			class="com.vmware.vfabric.hyperic.plugin.vfgf.detector.CacheServerDetector" />
-		<plugin type="measurement"
-			class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFCacheServerMeasurementPlugin" />
+		<!--********************************* ** CACHE SERVER ********************************* -->
 
-		<properties>
-			<property name="version" description="Version" />
-			<property name="build" description="Build" />
-		</properties>
-
-		<metric name="Availability" indicator="true" defaultOn="true"
-			template="GemFireCacheServer:${JMXCFG},${MEMBERCFG}:${alias}" />
-
-		<service name="Distribution Statistics">
-			<plugin type="measurement"
-				class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
-			<config>
-				<option name="statname" description="Name attribute in object name" />
+		<server name="vFabric GemFire Cache Server" version="6.0">
+			<config include="jmx">
+				<option name="jmx.url" description="JMX URL to MBeanServer"
+					default="service:jmx:rmi:///jndi/rmi://localhost:1099/jmxconnector" />
+				<option name="host"
+					description="The host machine on which the cache vm is running" />
+				<option name="name"
+					description="A symbolic name that can be used to help identify a system" />
+				<option name="workingDirectory"
+					description="The directory in which the cache vm was launched." />
 			</config>
-			<metrics include="DistributionStats" />
-		</service>
 
-		<service name="Region">
+			<plugin type="autoinventory"
+				class="com.vmware.vfabric.hyperic.plugin.vfgf.detector.CacheServerDetector" />
 			<plugin type="measurement"
-				class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
+				class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFCacheServerMeasurementPlugin" />
+
+			<properties>
+				<property name="version" description="Version" />
+				<property name="build" description="Build" />
+			</properties>
+
+			<metric name="Availability" indicator="true" defaultOn="true"
+				template="GemFireCacheServer:${JMXCFG},${MEMBERCFG}:${alias}" />
+
+			<service name="Distribution Statistics">
+				<plugin type="measurement"
+					class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
+				<config>
+					<option name="statname" description="Name attribute in object name" />
+				</config>
+				<metrics include="DistributionStats" />
+			</service>
+
+			<service name="Region">
+				<plugin type="measurement"
+					class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
+				<config>
+					<option name="statname" description="Name attribute in object name" />
+				</config>
+				<metrics include="CachePerfStats" />
+			</service>
+
+			<service name="Cache Performance">
+				<plugin type="measurement"
+					class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
+				<config>
+					<option name="statname" description="Name attribute in object name" />
+				</config>
+				<metrics include="CachePerfStats" />
+			</service>
+
+			<service name="Partitioned Region">
+				<plugin type="measurement"
+					class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
+				<config>
+					<option name="statname" description="Name attribute in object name" />
+				</config>
+				<metrics include="PartitionedRegion" />
+			</service>
+
+			<service name="Statistics Sampler">
+				<plugin type="measurement"
+					class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
+				<config>
+					<option name="statname" description="Name attribute in object name" />
+				</config>
+				<metrics include="StatSampler" />
+			</service>
+
+			<service name="Cache Server">
+				<plugin type="measurement"
+					class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
+				<config>
+					<option name="statname" description="Name attribute in object name" />
+				</config>
+				<metrics include="CacheServerStats" />
+			</service>
+
+			<service name="Distributed Lock">
+				<plugin type="measurement"
+					class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
+				<config>
+					<option name="statname" description="Name attribute in object name" />
+				</config>
+				<metrics include="DistributedLock" />
+			</service>
+
+			<service name="Resource Manager">
+				<plugin type="measurement"
+					class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
+				<config>
+					<option name="statname" description="Name attribute in object name" />
+				</config>
+				<metrics include="ResourceManager" />
+			</service>
+
+			<service name="VM Stats">
+				<plugin type="measurement"
+					class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFVMStatsMeasurementPlugin" />
+				<metrics include="VMStats" />
+				<config include="gfjvm" />
+			</service>
+
+			<service name="Function">
+				<plugin type="measurement"
+					class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
+				<metrics include="Function" />
+			</service>
+
+			<service name="Function Service">
+				<plugin type="measurement"
+					class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
+				<metrics include="FunctionService" />
+			</service>
+
+			<service name="Cache Client Notifier">
+				<plugin type="measurement"
+					class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
+				<metrics include="CacheClientNotifier" />
+			</service>
+
+			<service name="Disk Store">
+				<plugin type="measurement"
+					class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
+				<metrics include="DiskStore" />
+			</service>
+
+			<service name="Disk Directory">
+				<plugin type="measurement"
+					class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
+				<metrics include="DiskDirectory" />
+			</service>
+
+			<service name="Disk Region">
+				<plugin type="measurement"
+					class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
+				<metrics include="DiskRegion" />
+			</service>
+
+		</server>
+
+		<server name="vFabric GemFire Cache Server" version="6.5"
+			include="6.0" />
+		<server name="vFabric GemFire Cache Server" version="6.6"
+			include="6.0" />
+		<server name="vFabric GemFire Cache Server" version="7.0"
+			include="6.0" />
+
+
+		<!--********************************* ** GATEWAY HUB ********************************* -->
+
+		<server name="vFabric GemFire Gateway Hub" version="6.0">
+
+			<plugin type="autoinventory"
+				class="com.vmware.vfabric.hyperic.plugin.vfgf.detector.GatewayHubDetector" />
+			<plugin type="measurement"
+				class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFGatewayHubMeasurementPlugin" />
+
 			<config>
-				<option name="statname" description="Name attribute in object name" />
+				<option name="host"
+					description="The host machine on which the cache vm is running" />
+				<option name="name"
+					description="A symbolic name that can be used to help identify a system" />
+				<option name="workingDirectory"
+					description="The directory in which the cache vm was launched." />
 			</config>
-			<metrics include="CachePerfStats" />
-		</service>
 
-		<service name="Cache Performance">
+			<properties>
+				<property name="version" description="Version" />
+				<property name="build" description="Build" />
+			</properties>
+
+			<metric name="Availability" indicator="true" defaultOn="true"
+				template="GemFireCacheServer:${JMXCFG},${MEMBERCFG}:${alias}" />
+
+			<service name="Distribution Statistics">
+				<plugin type="measurement"
+					class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
+				<config>
+					<option name="statname" description="Name attribute in object name" />
+				</config>
+				<metrics include="DistributionStats" />
+			</service>
+
+			<service name="Gateway Hub Statistics">
+				<plugin type="measurement"
+					class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
+				<config>
+					<option name="statname" description="Name attribute in object name" />
+				</config>
+				<metrics include="GatewayHubStatistics" />
+			</service>
+
+			<service name="Gateway Statistics">
+				<plugin type="measurement"
+					class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
+				<config>
+					<option name="statname" description="Name attribute in object name" />
+				</config>
+				<metrics include="GatewayStatistics" />
+			</service>
+
+			<service name="Region">
+				<plugin type="measurement"
+					class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
+				<config>
+					<option name="statname" description="Name attribute in object name" />
+				</config>
+				<metrics include="CachePerfStats" />
+			</service>
+
+			<service name="Cache Performance">
+				<plugin type="measurement"
+					class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
+				<config>
+					<option name="statname" description="Name attribute in object name" />
+				</config>
+				<metrics include="CachePerfStats" />
+			</service>
+
+			<service name="Partitioned Region">
+				<plugin type="measurement"
+					class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
+				<config>
+					<option name="statname" description="Name attribute in object name" />
+				</config>
+				<metrics include="PartitionedRegion" />
+			</service>
+
+			<service name="Cache Server">
+				<plugin type="measurement"
+					class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
+				<config>
+					<option name="statname" description="Name attribute in object name" />
+				</config>
+				<metrics include="CacheServerStats" />
+			</service>
+
+			<service name="Distributed Lock">
+				<plugin type="measurement"
+					class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
+				<config>
+					<option name="statname" description="Name attribute in object name" />
+				</config>
+				<metrics include="DistributedLock" />
+			</service>
+
+			<service name="Resource Manager">
+				<plugin type="measurement"
+					class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
+				<config>
+					<option name="statname" description="Name attribute in object name" />
+				</config>
+				<metrics include="ResourceManager" />
+			</service>
+
+			<service name="VM Stats">
+				<plugin type="measurement"
+					class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFVMStatsMeasurementPlugin" />
+				<metrics include="VMStats" />
+				<config include="gfjvm" />
+			</service>
+
+			<service name="Function">
+				<plugin type="measurement"
+					class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
+				<metrics include="Function" />
+			</service>
+
+			<service name="Function Service">
+				<plugin type="measurement"
+					class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
+				<metrics include="FunctionService" />
+			</service>
+
+			<service name="Cache Client Notifier">
+				<plugin type="measurement"
+					class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
+				<metrics include="CacheClientNotifier" />
+			</service>
+
+			<service name="Disk Store">
+				<plugin type="measurement"
+					class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
+				<metrics include="DiskStore" />
+			</service>
+
+			<service name="Disk Directory">
+				<plugin type="measurement"
+					class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
+				<metrics include="DiskDirectory" />
+			</service>
+
+			<service name="Disk Region">
+				<plugin type="measurement"
+					class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
+				<metrics include="DiskRegion" />
+			</service>
+
+			<service name="Pool Stats">
+				<plugin type="measurement"
+					class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
+				<metrics include="PoolStats" />
+			</service>
+
+		</server>
+
+		<server name="vFabric GemFire Gateway Hub" version="6.5"
+			include="6.0" />
+		<server name="vFabric GemFire Gateway Hub" version="6.6"
+			include="6.0" />
+		<server name="vFabric GemFire Gateway Hub" version="7.0"
+			include="6.0" />
+
+
+		<!--********************************* ** APPLICATION PEER ********************************* -->
+
+		<server name="vFabric GemFire Application Peer" version="6.0">
+
+			<plugin type="autoinventory"
+				class="com.vmware.vfabric.hyperic.plugin.vfgf.detector.ApplicationPeerDetector" />
 			<plugin type="measurement"
-				class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
+				class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFApplicationPeerMeasurementPlugin" />
+
 			<config>
-				<option name="statname" description="Name attribute in object name" />
+				<option name="host"
+					description="The host machine on which the cache vm is running" />
+				<option name="name"
+					description="A symbolic name that can be used to help identify a system" />
+				<option name="workingDirectory"
+					description="The directory in which the cache vm was launched." />
 			</config>
-			<metrics include="CachePerfStats" />
-		</service>
 
-		<service name="Partitioned Region">
-			<plugin type="measurement"
-				class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
-			<config>
-				<option name="statname" description="Name attribute in object name" />
-			</config>
-			<metrics include="PartitionedRegion" />
-		</service>
+			<properties>
+				<property name="version" description="Version" />
+				<property name="build" description="Build" />
+			</properties>
 
-		<service name="Statistics Sampler">
-			<plugin type="measurement"
-				class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
-			<config>
-				<option name="statname" description="Name attribute in object name" />
-			</config>
-			<metrics include="StatSampler" />
-		</service>
+			<metric name="Availability" indicator="true" defaultOn="true"
+				template="GemFireApplicationPeer:${JMXCFG},${MEMBERCFG}:${alias}" />
 
-		<service name="Cache Server">
-			<plugin type="measurement"
-				class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
-			<config>
-				<option name="statname" description="Name attribute in object name" />
-			</config>
-			<metrics include="CacheServerStats" />
-		</service>
+			<service name="Distribution Statistics">
+				<plugin type="measurement"
+					class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
+				<config>
+					<option name="statname" description="Name attribute in object name" />
+				</config>
+				<metrics include="DistributionStats" />
+			</service>
 
-		<service name="Distributed Lock">
-			<plugin type="measurement"
-				class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
-			<config>
-				<option name="statname" description="Name attribute in object name" />
-			</config>
-			<metrics include="DistributedLock" />
-		</service>
+			<service name="VM Stats">
+				<plugin type="measurement"
+					class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFVMStatsMeasurementPlugin" />
+				<metrics include="VMStats" />
+				<config include="gfjvm" />
+			</service>
 
-		<service name="Resource Manager">
-			<plugin type="measurement"
-				class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
-			<config>
-				<option name="statname" description="Name attribute in object name" />
-			</config>
-			<metrics include="ResourceManager" />
-		</service>
+			<service name="Function">
+				<plugin type="measurement"
+					class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
+				<metrics include="Function" />
+			</service>
 
-		<service name="VM Stats">
-			<plugin type="measurement"
-				class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFVMStatsMeasurementPlugin" />
-			<metrics include="VMStats" />
-			<config include="gfjvm" />
-		</service>
+			<service name="Function Service">
+				<plugin type="measurement"
+					class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
+				<metrics include="FunctionService" />
+			</service>
 
-		<service name="Function">
-			<plugin type="measurement"
-				class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
-			<metrics include="Function" />
-		</service>
+		</server>
 
-		<service name="Function Service">
-			<plugin type="measurement"
-				class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
-			<metrics include="FunctionService" />
-		</service>
-
-		<service name="Cache Client Notifier">
-			<plugin type="measurement"
-				class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
-			<metrics include="CacheClientNotifier" />
-		</service>
-
-		<service name="Disk Store">
-			<plugin type="measurement"
-				class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
-			<metrics include="DiskStore" />
-		</service>
-
-		<service name="Disk Directory">
-			<plugin type="measurement"
-				class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
-			<metrics include="DiskDirectory" />
-		</service>
-
-		<service name="Disk Region">
-			<plugin type="measurement"
-				class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
-			<metrics include="DiskRegion" />
-		</service>
-
-	</server>
-
-	<server name="vFabric GemFire Cache Server" version="6.5"
-		include="6.0" />
-	<server name="vFabric GemFire Cache Server" version="6.6"
-		include="6.0" />
-	<server name="vFabric GemFire Cache Server" version="7.0"
-		include="6.0" />
-
-
-	<!--********************************* ** GATEWAY HUB ********************************* -->
-
-	<server name="vFabric GemFire Gateway Hub" version="6.0">
-
-		<plugin type="autoinventory"
-			class="com.vmware.vfabric.hyperic.plugin.vfgf.detector.GatewayHubDetector" />
-		<plugin type="measurement"
-			class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFGatewayHubMeasurementPlugin" />
-
-		<config>
-			<option name="host"
-				description="The host machine on which the cache vm is running" />
-			<option name="name"
-				description="A symbolic name that can be used to help identify a system" />
-			<option name="workingDirectory"
-				description="The directory in which the cache vm was launched." />
-		</config>
-
-		<properties>
-			<property name="version" description="Version" />
-			<property name="build" description="Build" />
-		</properties>
-
-		<metric name="Availability" indicator="true" defaultOn="true"
-			template="GemFireCacheServer:${JMXCFG},${MEMBERCFG}:${alias}" />
-
-		<service name="Distribution Statistics">
-			<plugin type="measurement"
-				class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
-			<config>
-				<option name="statname" description="Name attribute in object name" />
-			</config>
-			<metrics include="DistributionStats" />
-		</service>
-
-		<service name="Gateway Hub Statistics">
-			<plugin type="measurement"
-				class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
-			<config>
-				<option name="statname" description="Name attribute in object name" />
-			</config>
-			<metrics include="GatewayHubStatistics" />
-		</service>
-
-		<service name="Gateway Statistics">
-			<plugin type="measurement"
-				class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
-			<config>
-				<option name="statname" description="Name attribute in object name" />
-			</config>
-			<metrics include="GatewayStatistics" />
-		</service>
-
-		<service name="Region">
-			<plugin type="measurement"
-				class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
-			<config>
-				<option name="statname" description="Name attribute in object name" />
-			</config>
-			<metrics include="CachePerfStats" />
-		</service>
-
-		<service name="Cache Performance">
-			<plugin type="measurement"
-				class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
-			<config>
-				<option name="statname" description="Name attribute in object name" />
-			</config>
-			<metrics include="CachePerfStats" />
-		</service>
-
-		<service name="Partitioned Region">
-			<plugin type="measurement"
-				class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
-			<config>
-				<option name="statname" description="Name attribute in object name" />
-			</config>
-			<metrics include="PartitionedRegion" />
-		</service>
-
-		<service name="Cache Server">
-			<plugin type="measurement"
-				class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
-			<config>
-				<option name="statname" description="Name attribute in object name" />
-			</config>
-			<metrics include="CacheServerStats" />
-		</service>
-
-		<service name="Distributed Lock">
-			<plugin type="measurement"
-				class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
-			<config>
-				<option name="statname" description="Name attribute in object name" />
-			</config>
-			<metrics include="DistributedLock" />
-		</service>
-
-		<service name="Resource Manager">
-			<plugin type="measurement"
-				class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
-			<config>
-				<option name="statname" description="Name attribute in object name" />
-			</config>
-			<metrics include="ResourceManager" />
-		</service>
-
-		<service name="VM Stats">
-			<plugin type="measurement"
-				class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFVMStatsMeasurementPlugin" />
-			<metrics include="VMStats" />
-			<config include="gfjvm" />
-		</service>
-
-		<service name="Function">
-			<plugin type="measurement"
-				class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
-			<metrics include="Function" />
-		</service>
-
-		<service name="Function Service">
-			<plugin type="measurement"
-				class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
-			<metrics include="FunctionService" />
-		</service>
-
-		<service name="Cache Client Notifier">
-			<plugin type="measurement"
-				class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
-			<metrics include="CacheClientNotifier" />
-		</service>
-
-		<service name="Disk Store">
-			<plugin type="measurement"
-				class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
-			<metrics include="DiskStore" />
-		</service>
-
-		<service name="Disk Directory">
-			<plugin type="measurement"
-				class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
-			<metrics include="DiskDirectory" />
-		</service>
-
-		<service name="Disk Region">
-			<plugin type="measurement"
-				class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
-			<metrics include="DiskRegion" />
-		</service>
-
-		<service name="Pool Stats">
-			<plugin type="measurement"
-				class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
-			<metrics include="PoolStats" />
-		</service>
-
-	</server>
-
-	<server name="vFabric GemFire Gateway Hub" version="6.5"
-		include="6.0" />
-	<server name="vFabric GemFire Gateway Hub" version="6.6"
-		include="6.0" />
-	<server name="vFabric GemFire Gateway Hub" version="7.0"
-		include="6.0" />
-
-
-	<!--********************************* ** APPLICATION PEER ********************************* -->
-
-	<server name="vFabric GemFire Application Peer" version="6.0">
-
-		<plugin type="autoinventory"
-			class="com.vmware.vfabric.hyperic.plugin.vfgf.detector.ApplicationPeerDetector" />
-		<plugin type="measurement"
-			class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFApplicationPeerMeasurementPlugin" />
-
-		<config>
-			<option name="host"
-				description="The host machine on which the cache vm is running" />
-			<option name="name"
-				description="A symbolic name that can be used to help identify a system" />
-			<option name="workingDirectory"
-				description="The directory in which the cache vm was launched." />
-		</config>
-
-		<properties>
-			<property name="version" description="Version" />
-			<property name="build" description="Build" />
-		</properties>
-
-		<metric name="Availability" indicator="true" defaultOn="true"
-			template="GemFireApplicationPeer:${JMXCFG},${MEMBERCFG}:${alias}" />
-
-		<service name="Distribution Statistics">
-			<plugin type="measurement"
-				class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
-			<config>
-				<option name="statname" description="Name attribute in object name" />
-			</config>
-			<metrics include="DistributionStats" />
-		</service>
-
-		<service name="VM Stats">
-			<plugin type="measurement"
-				class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFVMStatsMeasurementPlugin" />
-			<metrics include="VMStats" />
-			<config include="gfjvm" />
-		</service>
-
-		<service name="Function">
-			<plugin type="measurement"
-				class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
-			<metrics include="Function" />
-		</service>
-
-		<service name="Function Service">
-			<plugin type="measurement"
-				class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
-			<metrics include="FunctionService" />
-		</service>
-
-	</server>
-
-	<server name="vFabric GemFire Application Peer" version="6.5"
-		include="6.0" />
-	<server name="vFabric GemFire Application Peer" version="6.6"
-		include="6.0" />
-	<server name="vFabric GemFire Application Peer" version="7.0"
-		include="6.0" />
+		<server name="vFabric GemFire Application Peer" version="6.5"
+			include="6.0" />
+		<server name="vFabric GemFire Application Peer" version="6.6"
+			include="6.0" />
+		<server name="vFabric GemFire Application Peer" version="7.0"
+			include="6.0" />
+	</platform>
 </plugin>
