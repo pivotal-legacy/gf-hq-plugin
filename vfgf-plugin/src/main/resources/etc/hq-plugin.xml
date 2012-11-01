@@ -336,9 +336,6 @@
 			include="6.0" />
 		<server name="vFabric GemFire Cache Server" version="6.6"
 			include="6.0" />
-		<server name="vFabric GemFire Cache Server" version="7.0"
-			include="6.0" />
-
 
 		<!--********************************* ** GATEWAY HUB ********************************* -->
 
@@ -502,8 +499,6 @@
 			include="6.0" />
 		<server name="vFabric GemFire Gateway Hub" version="6.6"
 			include="6.0" />
-		<server name="vFabric GemFire Gateway Hub" version="7.0"
-			include="6.0" />
 
 
 		<!--********************************* ** APPLICATION PEER ********************************* -->
@@ -563,10 +558,246 @@
 		</server>
 
 		<server name="vFabric GemFire Application Peer" version="6.5"
-			include="6.0" />
+			include="6.0"/>
 		<server name="vFabric GemFire Application Peer" version="6.6"
-			include="6.0" />
-		<server name="vFabric GemFire Application Peer" version="7.0"
-			include="6.0" />
+			include="6.0"/>
 	</platform>
+	
+    <platform name="vFabric GemFire Distributed System 7.x">
+        <filter name="template" value="${OBJECT_NAME}:${alias}"/>
+        
+        <plugin type="autoinventory"
+            class="com.vmware.vfabric.hyperic.plugin.vfgf.detector.GF7PlatformDetector" />
+        <plugin type="measurement"
+            class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GF7MeasurementPlugin" />
+        <plugin type="log_track"
+            class="com.vmware.vfabric.hyperic.plugin.vfgf.log.GFNotificationTrack" />
+        
+        <config>
+            <option name="locators"
+                description="Up to 3 comma separated locators"
+                default="localhost:10334"/>
+            <option name="ssl"
+                description='Is SSL Enabled?'
+                type="boolean"
+                default="false"/>
+            <option name="jmx.username"
+                description="JMX username"
+                optional="true"
+                default="system"/>
+
+            <option name="jmx.password"
+                description="JMX password"
+                optional="true"
+                default="manager"
+               type="secret"/>
+        </config>
+        
+        <server name="vFabric GemFire Cache Server" version="7.0">
+            <property name="OBJECT_NAME"
+                value="GemFire:service=CacheServer,port=*,type=Member,member=*"/>
+
+            <plugin type="autoinventory"
+                class="com.vmware.vfabric.hyperic.plugin.vfgf.detector.GF7ServerDetector"/>
+
+            <plugin type="control"
+                class="org.hyperic.hq.product.jmx.MxControlPlugin"/>
+
+            <plugin type="measurement"
+                class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GF7MeasurementPlugin"/>
+
+            <plugin type="log_track"
+                class="org.hyperic.hq.product.Log4JLogTrackPlugin"/>
+
+            <plugin type="config_track"
+                class="org.hyperic.hq.product.ConfigFileTrackPlugin"/>
+
+            <config>
+                <option name="jmx.url"
+                    description="JMX URL to MBeanServer"
+                    type="hidden"
+                    default="service:jmx:rmi:///jndi/rmi://localhost:1099/jmxrmi"/>
+
+                <option name="jmx.username"
+                    description="JMX username"
+                    optional="true"
+                    default="system"/>
+
+                <option name="jmx.password"
+                    description="JMX password"
+                    optional="true"
+                    default="manager"
+                    type="secret"/>
+
+                <option name="port"
+                    description="Listening Port"
+                    optional="false"
+                    default="10334"/>
+
+                <option name="member"
+                    description="Member Name"
+                    default="server1"
+                    optional="false"/>
+            </config>
+
+            <metrics>
+                <metric name='Availability' alias='Running'/>
+                <metric name='Socket Buffer Size'/>
+                <metric name='Maximum Time Between Pings'/>
+                <metric name='Max Connections'/>
+                <metric name='Max Threads'/>
+                <metric name='Maximum Message Count'/>
+                <metric name='Message Time To Live'/>
+                <metric name='Load Poll Interval'/>
+                <metric name='Capacity'/>
+                <metric name='Queue Load'/>
+                <metric name='Load Per Queue'/>
+                <metric name='Connection Load'/>
+                <metric name='Load Per Connection'/>
+                <metric name='Client Connection Count'/>
+                <metric name='Get Request Avg Latency'/>
+                <metric name='Put Request Avg Latency'/>
+                <metric name='Total Connections Timed Out'/>
+                <metric name='Total Failed Connection Attempts'/>
+                <metric name='Thread Queue Size'/>
+                <metric name='Connection Threads'/>
+                <metric name='Get Request Rate'/>
+                <metric name='Put Request Rate'/>
+                <metric name='Total Sent Bytes'/>
+                <metric name='Total Received Bytes'/>
+                <metric name='Index Count'/>
+                <metric name='Query Request Rate'/>
+                <metric name='Total Index Maintenance Time'/>
+                <metric name='Current Clients'/>
+                <metric name='Client Notification Avg Latency'/>
+                <metric name='Client Notification Rate'/>
+                <metric name='Num Client Notification Requests'/>
+                <metric name='Active C Q Count'/>
+                <metric name='Registered C Q Count'/>
+                <metric name='Num Subscriptions'/>
+            </metrics>
+            
+            <service name="Cache Server Region">
+                <property name="OBJECT_NAME"
+                    value="GemFire:service=Region,name=*,type=Member,member=%member%"/>
+                <property name="AUTOINVENTORY_NAME"
+                    value="%member% Region %name%"/>
+                
+
+                <plugin type="autoinventory"/>
+                <config>
+                    <option name="member"
+                        description="Member Name"
+                        default="server1"
+                        optional="false"/>
+                </config>
+                
+                <properties>
+                    <property name="FullPath"
+                        description="Full Path of Region"/>
+                </properties>
+            </service>
+        </server>
+        <server name="vFabric GemFire Locator" version="7.0">
+            <property name="OBJECT_NAME"
+                value="GemFire:service=Locator,type=Member,member=*"/>
+
+            <plugin type="autoinventory"
+                class="com.vmware.vfabric.hyperic.plugin.vfgf.detector.GF7ServerDetector"/>
+
+            <plugin type="control"
+                class="org.hyperic.hq.product.jmx.MxControlPlugin"/>
+
+            <plugin type="measurement"
+                class="org.hyperic.hq.product.jmx.MxMeasurementPlugin"/>
+
+            <plugin type="log_track"
+                class="org.hyperic.hq.product.Log4JLogTrackPlugin"/>
+
+            <plugin type="config_track"
+                class="org.hyperic.hq.product.ConfigFileTrackPlugin"/>
+
+            <config>
+                <option name="jmx.url"
+                    description="JMX URL to MBeanServer"
+                    type="hidden"
+                    default="service:jmx:rmi:///jndi/rmi://localhost:1099/jmxrmi"/>
+
+                <option name="jmx.username"
+                    description="JMX username"
+                    optional="true"
+                    default="system"/>
+
+                <option name="jmx.password"
+                    description="JMX password"
+                    optional="true"
+                    default="manager"
+                    type="secret"/>
+                    
+                <option name="member"
+                    description="Member Name"
+                    default="server1"
+                    optional="false"/>
+            </config>
+
+            <metrics>
+                <metric name='Availability' alias='Running'/>
+                <metric name='Socket Buffer Size'/>
+                <metric name='Maximum Time Between Pings'/>
+                <metric name='Max Connections'/>
+                <metric name='Max Threads'/>
+                <metric name='Maximum Message Count'/>
+                <metric name='Message Time To Live'/>
+                <metric name='Load Poll Interval'/>
+                <metric name='Capacity'/>
+                <metric name='Queue Load'/>
+                <metric name='Load Per Queue'/>
+                <metric name='Connection Load'/>
+                <metric name='Load Per Connection'/>
+                <metric name='Client Connection Count'/>
+                <metric name='Get Request Avg Latency'/>
+                <metric name='Put Request Avg Latency'/>
+                <metric name='Total Connections Timed Out'/>
+                <metric name='Total Failed Connection Attempts'/>
+                <metric name='Thread Queue Size'/>
+                <metric name='Connection Threads'/>
+                <metric name='Get Request Rate'/>
+                <metric name='Put Request Rate'/>
+                <metric name='Total Sent Bytes'/>
+                <metric name='Total Received Bytes'/>
+                <metric name='Index Count'/>
+                <metric name='Query Request Rate'/>
+                <metric name='Total Index Maintenance Time'/>
+                <metric name='Current Clients'/>
+                <metric name='Client Notification Avg Latency'/>
+                <metric name='Client Notification Rate'/>
+                <metric name='Num Client Notification Requests'/>
+                <metric name='Active C Q Count'/>
+                <metric name='Registered C Q Count'/>
+                <metric name='Num Subscriptions'/>
+            </metrics>
+            
+            <service name="Locator Region">
+                <property name="OBJECT_NAME"
+                    value="GemFire:service=Region,name=*,type=Member,member=%member%"/>
+                <property name="AUTOINVENTORY_NAME"
+                    value="%member% Region %name%"/>
+                
+
+                <plugin type="autoinventory"/>
+                <config>
+                    <option name="member"
+                        description="Member Name"
+                        default="server1"
+                        optional="false"/>
+                </config>
+                
+                <properties>
+                    <property name="FullPath"
+                        description="Full Path of Region"/>
+                </properties>
+            </service>
+        </server>
+        
+    </platform>
 </plugin>
