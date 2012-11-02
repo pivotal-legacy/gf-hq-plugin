@@ -18,7 +18,6 @@ import org.hyperic.hq.product.PluginException;
 import org.hyperic.hq.product.ServerResource;
 import org.hyperic.hq.product.jmx.MxQuery;
 import org.hyperic.hq.product.jmx.MxServerDetector;
-import org.hyperic.hq.product.jmx.MxServerQuery;
 import org.hyperic.hq.product.jmx.MxUtil;
 import org.hyperic.util.config.ConfigResponse;
 
@@ -52,7 +51,7 @@ public class GF7ServerDetector
         MBeanServerConnection mServer;
     
         try {
-            connector = MxUtil.getCachedMBeanConnector(platformConfig.toProperties());
+            connector = MxUtil.getMBeanConnector(platformConfig.toProperties());
             mServer = connector.getMBeanServerConnection();
         } catch (Exception e) {
             MxUtil.close(connector);
@@ -81,10 +80,17 @@ public class GF7ServerDetector
             ConfigResponse controlConfig = new ConfigResponse();
             
             config.setValue("member", name.getKeyProperty("member"));
+            String port = name.getKeyProperty("port");
+            log.debug("[getServerResources] port=" + port);
+            if (port != null) {
+                config.setValue("port", port);
+            }
+            //config.setValue("jmx.url", "service:jmx:rmi:///jndi/rmi://localhost:1099/jmxconnector");
+            config.setValue("locators", locators);
             
             server.setControlConfig(controlConfig);
-            server.setProductConfig(config);
-            server.setMeasurementConfig();
+            setProductConfig(server, config);
+            setMeasurementConfig(server, new ConfigResponse());
             server.setCustomProperties(cprops);
 
             servers.add(server);

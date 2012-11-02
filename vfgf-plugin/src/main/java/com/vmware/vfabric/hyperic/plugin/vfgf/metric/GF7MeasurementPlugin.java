@@ -26,13 +26,11 @@ package com.vmware.vfabric.hyperic.plugin.vfgf.metric;
  *
  */
 
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.Properties;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hyperic.hq.product.Metric;
@@ -42,18 +40,13 @@ import org.hyperic.hq.product.MetricValue;
 import org.hyperic.hq.product.PluginException;
 import org.hyperic.hq.product.PluginManager;
 import org.hyperic.hq.product.jmx.MxMeasurementPlugin;
-import org.hyperic.hq.product.jmx.MxUtil;
-
 import com.vmware.vfabric.hyperic.plugin.vfgf.util.JmxManagerFinder;
-import com.vmware.vfabric.hyperic.plugin.vfgf.util.JmxManagerInfo;
 
 
 public class GF7MeasurementPlugin extends MxMeasurementPlugin {
     /** The Constant log. */
     private static final Log log =
         LogFactory.getLog(GF7MeasurementPlugin.class);
-    
-    private static final int FINDER_TIMEOUT = 10000;
 
     /*
      * Here's what is going on:
@@ -70,56 +63,46 @@ public class GF7MeasurementPlugin extends MxMeasurementPlugin {
      *  more than one DS
      */
     
-    /** References to JMX URl Cache.*/
-    private static Map<String, String> jmxUrl;
-    private static long jmxUrlLastTimeout;
-
-
     @Override
     public void init(PluginManager manager) throws PluginException {
         super.init(manager);
 
         // measurement plugin may be shared between same
         // resource types. we access it by unique id.
-        jmxUrl = new Hashtable<String, String>();
+        //jmxUrl = new Hashtable<String, String>();
     }
     
-    protected String getJmxUrl(String host, int port) {
-        String platformKey = host + ":" + port;
-        synchronized(jmxUrl) {
-            if (jmxUrl.containsKey(platformKey)) {
-                return jmxUrl.get(platformKey);
-            } else {
-                InetAddress addr;
-                try {
-                    addr = InetAddress.getByName(host);
-                } catch (UnknownHostException e) {
-                    // TODO Auto-generated catch block
-                    log.error("[getJmxUrl] Unable to find host " + host + ":" + e.getMessage(), e);
-                    return null;
-                }
-                JmxManagerInfo info;
-                try {
-                    info = JmxManagerFinder.askLocatorForJmxManager(addr, port, FINDER_TIMEOUT);
-                    return "service:jmx:rmi:///jndi/rmi://" + info.getHost() + ":" + info.getPort() + "/jmxrmi";
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    log.error("[getJmxUrl] Unable to find JMX Manager " + host + " on port " + port + ":" + e.getMessage(), e);
-                }
-            }
-        }
-        return null;
+    protected String getJmxUrl(String locators) {
+        String url = JmxManagerFinder.getJmxUrl(locators);
+        return url;
     }
-
+    
+    @Override
     public MetricValue getValue(Metric metric)
         throws PluginException,
                MetricNotFoundException,
-               MetricUnreachableException 
+               MetricUnreachableException
     {
         Properties props = metric.getProperties();
-        log.info(props);
-        //  metric.
-        return super.getValue(metric);
+        String template = metric.toString();
+        String locators = props.getProperty("locators");
+        if(locators == null) {
+            throw new PluginException("Locators not configured");
+        }
+        String locatorsEncoded = Metric.encode(locators);
+        //log.debug("[getValue] template=" + template);
+        //log.debug("[getValue] locators=" + locators);
+        //log.debug("[getValue] encodedLocators=" + locatorsEncoded);
+        String jmxUrl = getJmxUrl(locators);
+        if(jmxUrl == null) {
+            throw new MetricUnreachableException("[getValue] Unable to find jmx.url from " + locators);
+        }
+        // Replace locators= with jmx.url
+        String newTemplate = StringUtils.replace(template, "locators=" + locatorsEncoded, "jmx.url=" + jmxUrl);
+        //log.debug("[getValue] newTemplate=" + newTemplate);
+        Metric newMetric = Metric.parse(newTemplate);
+        //log.debug("[getValue] newMetric=" + newMetric.toString());
+        return super.getValue(newMetric);
     }
 
 }
