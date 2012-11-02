@@ -821,7 +821,7 @@
         </server>
         <server name="vFabric GemFire Locator" version="7.0">
             <property name="OBJECT_NAME"
-                value="GemFire:type=Member,member=*"/>
+                value="GemFire:service=Locator,type=Member,member=*"/>
 
             <plugin type="autoinventory"
                 class="com.vmware.vfabric.hyperic.plugin.vfgf.detector.GF7ServerDetector"/>
