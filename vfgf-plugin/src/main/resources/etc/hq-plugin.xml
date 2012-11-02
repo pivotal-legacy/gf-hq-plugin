@@ -591,8 +591,6 @@
                type="secret"/>
         </config>
         
-        <filter name="template" value="${OBJECT_NAME}:${alias}:locators=%locators%"/>
-        
         <metrics>
             <metric name="Availability"
                 template="GemFire:service=System,type=Distributed:${alias}:locators=%locators%"
@@ -605,7 +603,7 @@
         <server name="vFabric GemFire Cache Server" version="7.0">
         
             <property name="OBJECT_NAME"
-                value="GemFire:type=Member,member=*"/>
+                value="GemFire:service=CacheServer,port=*,type=Member,member=*"/>
             
             <plugin type="autoinventory"
                 class="com.vmware.vfabric.hyperic.plugin.vfgf.detector.GF7ServerDetector"/>
@@ -633,60 +631,13 @@
                     default="server1"
                     optional="false"/>
             </config>
-            
+            <property name="STAT_OBJECT_NAME"
+                value="GemFire:type=Member,member=*"/>    
+            <filter name="template" value="${STAT_OBJECT_NAME}:${alias}:locators=%locators%"/>
+                  
             <metrics>
-                <metric name='Availability'/>
-                <metric name='Socket Buffer Size'/>
-                <metric name='Maximum Time Between Pings'/>
-                <metric name='Max Connections'/>
-                <metric name='Max Threads'/>
-                <metric name='Maximum Message Count'/>
-                <metric name='Message Time To Live'/>
-                <metric name='Load Poll Interval'/>
-                <metric name='Capacity'/>
-                <metric name='Queue Load'/>
-                <metric name='Load Per Queue'
-                    indicators="true"/>
-                <metric name='Connection Load'/>
-                <metric name='Load Per Connection'/>
-                <metric name='Client Connection Count'/>
-                <metric name='Get Request Avg Latency'/>
-                <metric name='Put Request Avg Latency'/>
-                <metric name='Total Connections Timed Out'/>
-                <metric name='Total Failed Connection Attempts'/>
-                <metric name='Thread Queue Size'/>
-                <metric name='Connection Threads'/>
-                <metric name='Get Request Rate'/>
-                <metric name='Put Request Rate'/>
-                <metric name='Total Sent Bytes'/>
-                <metric name='Total Received Bytes'/>
-                <metric name='Index Count'/>
-                <metric name='Query Request Rate'/>
-                <metric name='Total Index Maintenance Time'/>
-                <metric name='Current Clients'
-                    indicators="true"/>
-                <metric name='Client Notification Avg Latency'/>
-                <metric name='Client Notification Rate'/>
-                <metric name='Num Client Notification Requests'/>
-                <metric name='Active C Q Count'/>
-                <metric name='Registered C Q Count'/>
-                <metric name='Num Subscriptions'/>
-            </metrics>
-
-            <service name="Caceh Server Statistics">
-                <property name="OBJECT_NAME"
-                    value="GemFire:type=Member,member=*"/>
-
-                <plugin type="autoinventory"/>
-                <config>
-                    <option name="member"
-                        description="Member Name"
-                        default="server1"
-                        optional="false"/>
-                </config>
-                
-                <metrics>
-                <metric name='Availability'/>                
+                <metric name='Availability'
+                    indicator="true"/>
                 <metric name='Load Average'
                     indicator="true"/>
                 <metric name='Lock Timeout'/>
@@ -792,8 +743,7 @@
                 <metric name='Total Bytes On Disk'/>
                 <metric name='JVM Pauses'/>
             </metrics>
-                
-            </service>
+
             <service name="Cache Server Region">
                 <property name="OBJECT_NAME"
                     value="GemFire:service=Region,name=*,type=Member,member=%member%"/>
@@ -810,14 +760,23 @@
                     <property name="FullPath"
                         description="Full Path of Region"/>
                 </properties>
-                 <metrics>
-                    <metric name='Availability'/>
-                    <metric name='Last Modified Time'/>
-                    <metric name='Last Accessed Time'/>
-                    <metric name='Hit Ratio'/>
-                    <metric name='Hit Count'/>
-                    <metric name='Miss Count'/>
-                    <metric name='Entry Size'/>
+                
+                <filter name="template" value="${OBJECT_NAME}:${alias}:locators=%locators%"/>
+                <metrics>
+                    <metric name='Availability'
+                    indicator="true"/>
+                    <metric name='Last Modified Time'
+                    indicator="true"/>
+                    <metric name='Last Accessed Time'
+                    indicator="true"/>
+                    <metric name='Hit Ratio'
+                    indicator="true"/>
+                    <metric name='Hit Count'
+                    indicator="true"/>
+                    <metric name='Miss Count'
+                    indicator="true"/>
+                    <metric name='Entry Size'
+                    indicator="true"/>
                     <metric name='Cache Listener Calls Avg Latency'/>
                     <metric name='Cache Writer Calls Avg Latency'/>
                     <metric name='Creates Rate'/>
@@ -826,8 +785,10 @@
                     <metric name='Gets Rate'/>
                     <metric name='Lru Destroy Rate'/>
                     <metric name='Lru Eviction Rate'/>
-                    <metric name='Put All Rate'/>
-                    <metric name='Puts Rate'/>
+                    <metric name='Put All Rate'
+                    indicator="true"/>
+                    <metric name='Puts Rate
+                    indicator="true"'/>
                     <metric name='Average Reads'/>
                     <metric name='Average Writes'/>
                     <metric name='Total Bytes On Disk'/>
@@ -852,7 +813,8 @@
                     <metric name='Max Bucket Size'/>
                     <metric name='Total Bucket Size'/>
                     <metric name='Avg Bucket Size'/>
-                    <metric name='Disk Usage'/>
+                    <metric name='Disk Usage'
+                    indicator="true"/>
                 </metrics>
  
             </service>
@@ -883,29 +845,15 @@
                     optional="false"/>
             </config>
             
-            <metrics>
-                <metric name="Availability"/>
-            </metrics>
- 
- 
-            <service name="Locator Statistics">
-            <property name="OBJECT_NAME"
+            <property name="STAT_OBJECT_NAME"
                 value="GemFire:type=Member,member=*"/>
-
-            <plugin type="autoinventory"/>
-            <plugin type="measurement"
-                class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GF7MeasurementPlugin"/>
-
-            <config>                 
-                <option name="member"
-                    description="Member Name"
-                    default="server1"
-                    optional="false"/>
-            </config>
-            
+                
+            <filter name="template" value="${STAT_OBJECT_NAME}:${alias}:locators=%locators%"/>
             <metrics>
-                <metric name="Availability"/>
-                <metric name='Load Average'/>
+                <metric name="Availability"
+                    indicator="true"/>
+                <metric name='Load Average'
+                    indicator="true"/>
                 <metric name='Process Id'/>
                 <metric name='Lock Timeout'/>
                 <metric name='Lock Lease'/>
@@ -913,16 +861,23 @@
                 <metric name='Bytes Sent Rate'/>
                 <metric name='Cache Listener Calls Avg Latency'/>
                 <metric name='Cache Writer Calls Avg Latency'/>
-                <metric name='Cpu Usage'/>
-                <metric name='Creates Rate'/>
+                <metric name='Cpu Usage'
+                    indicator="true"/>
+                <metric name='Creates Rate'
+                    indicator="true"/>
                 <metric name='Current Heap Size'/>
-                <metric name='Disk Reads Rate'/>
-                <metric name='Disk Writes Rate'/>
-                <metric name='File Descriptor Limit'/>
-                <metric name='Disk Flush Avg Latency'/>
+                <metric name='Disk Reads Rate'
+                    indicator="true"/>
+                <metric name='Disk Writes Rate'
+                    indicator="true"/>
+                <metric name='File Descriptor Limit'
+                    defaultOn="true"/>
+                <metric name='Disk Flush Avg Latency'
+                    indicator="true"/>
                 <metric name='Free Heap Size'/>
                 <metric name='Function Execution Rate'/>
-                <metric name='Gets Rate'/>
+                <metric name='Gets Rate'
+                    indicator="true"/>
                 <metric name='Initial Image Keys Received'/>
                 <metric name='Initial Image Time'/>
                 <metric name='Initial Images In Progres'/>
@@ -933,8 +888,10 @@
                 <metric name='Num Running Functions'/>
                 <metric name='Num Running Functions Having Results'/>
                 <metric name='Put All Avg Latency'/>
-                <metric name='Put All Rate'/>
-                <metric name='Puts Avg Latency'/>
+                <metric name='Put All Rate'
+                    indicator="true"/>
+                <metric name='Puts Avg Latency'
+                    indicator="true"/>
                 <metric name='Puts Rate'/>
                 <metric name='Lock Request Queues'/>
                 <metric name='Total Backup In Progress'/>
@@ -946,14 +903,19 @@
                 <metric name='Total Miss Count'/>
                 <metric name='Total Number Of Lock Service'/>
                 <metric name='Total Primary Bucket Count'/>
-                <metric name='Total Region Count'/>
-                <metric name='Total Region Entry Count'/>
+                <metric name='Total Region Count'
+                    indicator="true"/>
+                <metric name='Total Region Entry Count'
+                    indicator="true"/>
                 <metric name='Total Transactions Count'/>
-                <metric name='Transaction Commits Avg Latency'/>
-                <metric name='Transaction Commits Rate'/>
+                <metric name='Transaction Commits Avg Latency'
+                    indicator="true"/>
+                <metric name='Transaction Commits Rate'
+                    indicator="true"/>
                 <metric name='Transaction Committed Total Count'/>
                 <metric name='Transaction Rolled Back Total Count'/>
-                <metric name='Member Up Time'/>
+                <metric name='Member Up Time'
+                    indicator="true"/>
                 <metric name='Current Time'/>
                 <metric name='Gets Avg Latency'/>
                 <metric name='Loads Average Latency'/>
@@ -983,8 +945,6 @@
                 <metric name='Total Bytes On Disk'/>
                 <metric name='JVM Pauses'/>
             </metrics>
-
-            </service>
             
             <service name="Locator Region">
                 <property name="OBJECT_NAME"
