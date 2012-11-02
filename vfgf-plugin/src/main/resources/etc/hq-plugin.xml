@@ -745,10 +745,6 @@
             </metrics>
 
             <service name="Cache Server Region">
-                <property name="OBJECT_NAME"
-                    value="GemFire:service=Region,name=*,type=Member,member=*"/>
-
-                <plugin type="autoinventory"/>
                 <config>
                     <option name="member"
                         description="Member Name"
@@ -759,7 +755,10 @@
                         default=""
                         optional="false"/>
                 </config>
-                
+                <property name="OBJECT_NAME"
+                    value="GemFire:service=Region,name=*,type=Member,member=*"/>
+                <plugin type="autoinventory"/>
+                                    
                 <properties>
                     <property name="FullPath"
                         description="Full Path of Region"/>

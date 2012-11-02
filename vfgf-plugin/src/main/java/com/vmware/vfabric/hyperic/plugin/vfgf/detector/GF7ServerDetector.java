@@ -97,4 +97,20 @@ public class GF7ServerDetector
         }
         return servers;
     }
+    
+    @Override
+    protected List discoverServices(ConfigResponse serverConfig)
+        throws PluginException {
+        String locators = serverConfig.getValue(PROP_LOCATORS);
+        if (locators == null || locators.isEmpty()) {
+            throw new PluginException("[getServerResources] No Locators found");
+        }
+        
+        String url = JmxManagerFinder.getJmxUrl(locators);
+        if (url == null) {
+            throw new PluginException("Unable to determine jmx url from locators");
+        }
+        serverConfig.setValue("jmx.url", url);
+        return super.discoverServices(serverConfig);
+    }
 }
