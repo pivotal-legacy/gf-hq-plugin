@@ -565,7 +565,7 @@
 	
     <platform name="vFabric GemFire Distributed System 7.x">
         <plugin type="autoinventory"
-            class="org.hyperic.hq.product.PlatformDetector" />
+            class="com.vmware.vfabric.hyperic.plugin.vfgf.detector.GF7PlatformDetector" />
         <plugin type="measurement"
             class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GF7MeasurementPlugin" />
         <plugin type="log_track"
@@ -575,10 +575,10 @@
             <option name="locators"
                 description="Up to 3 comma separated locators in the format of host:port"
                 default="localhost:10334"/>
-            <option name="ssl"
+<!--             <option name="ssl"
                 description="SSL is Enabled on the Distributed System"
                 type="boolean"
-                default="false"/>
+                default="false"/> -->
             <option name="jmx.username"
                 description="JMX username"
                 optional="true"

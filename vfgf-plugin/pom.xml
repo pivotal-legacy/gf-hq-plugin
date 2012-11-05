@@ -30,6 +30,11 @@
 			<artifactId>guava</artifactId>
 			<version>r09</version>
 		</dependency>
+        <dependency>
+            <groupId>org.hyperic.hq.agent</groupId>
+            <artifactId>hq-agent-core</artifactId>
+            <version>${hq.version}</version>
+        </dependency>
 	</dependencies>
 
 	<build>

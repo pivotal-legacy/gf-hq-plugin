@@ -14,6 +14,11 @@ import javax.management.remote.JMXConnector;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hyperic.hq.agent.AgentCommand;
+import org.hyperic.hq.agent.AgentRemoteValue;
+import org.hyperic.hq.agent.server.AgentDaemon;
+import org.hyperic.hq.autoinventory.ScanConfigurationCore;
+import org.hyperic.hq.autoinventory.agent.AICommandsAPI;
 import org.hyperic.hq.product.PluginException;
 import org.hyperic.hq.product.ServerResource;
 import org.hyperic.hq.product.jmx.MxQuery;
@@ -22,7 +27,6 @@ import org.hyperic.hq.product.jmx.MxUtil;
 import org.hyperic.util.config.ConfigResponse;
 
 import com.vmware.vfabric.hyperic.plugin.vfgf.GFProductPlugin;
-import com.vmware.vfabric.hyperic.plugin.vfgf.util.JmxManagerFinder;
 
 public class GF7ServerDetector
     extends MxServerDetector {
@@ -30,22 +34,18 @@ public class GF7ServerDetector
     private static final Log log = LogFactory.getLog(GF7ServerDetector.class);
     
     private static String PROP_LOCATORS = "locators";
-    private static String PROP_SSL = "ssl";
-    private static String JMX_USERNAME = "jmx.username";
-    private static String JMX_PASSWORD = "jmx.password";
     
     @Override    
     public List<ServerResource> getServerResources(ConfigResponse platformConfig) throws PluginException {
         List<ServerResource> servers = new ArrayList<ServerResource>();
         String locators = platformConfig.getValue(PROP_LOCATORS);
-        boolean ssl = platformConfig.getValue(PROP_SSL).equals("true");
-        
+
         if (locators == null || locators.isEmpty()) {
             log.debug("[getServerResources] No Locators configured.");
             return servers;
         }
         
-        String url = GFProductPlugin.getJmxUrl(locators,ssl);
+        String url = GFProductPlugin.getJmxUrl(locators);
         if (url.isEmpty()) {
             return servers;
         }
@@ -111,13 +111,12 @@ public class GF7ServerDetector
     protected List discoverServices(ConfigResponse serverConfig)
         throws PluginException {
         String locators = serverConfig.getValue(PROP_LOCATORS);
-        boolean ssl = serverConfig.getValue(PROP_SSL).equals("true");
         
         if (locators == null || locators.isEmpty()) {
             throw new PluginException("[getServerResources] No Locators found");
         }
         
-        String url = GFProductPlugin.getJmxUrl(locators,ssl);
+        String url = GFProductPlugin.getJmxUrl(locators);
         if (url.isEmpty()) {
             throw new PluginException("Unable to determine jmx url from locators");
         }
