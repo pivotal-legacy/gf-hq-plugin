@@ -92,6 +92,9 @@ public class GFProductPlugin extends ProductPlugin {
     }
     
     public static String getJmxUrl(String locators) {
+        if (jmxUrl == null) {
+            jmxUrl = new String();
+        }
         synchronized (jmxUrl) {
             if (!jmxUrl.isEmpty()) {
                 return jmxUrl;
