@@ -50,6 +50,11 @@ public class GF7MeasurementPlugin extends MxMeasurementPlugin {
     private static final Log log =
         LogFactory.getLog(GF7MeasurementPlugin.class);
 
+    private static String PROP_LOCATORS = "locators";
+    private static String PROP_SSL = "ssl";
+    private static String JMX_USERNAME = "jmx.username";
+    private static String JMX_PASSWORD = "jmx.password";
+    
     @Override
     public MetricValue getValue(Metric metric)
         throws PluginException,
@@ -58,18 +63,36 @@ public class GF7MeasurementPlugin extends MxMeasurementPlugin {
     {
         Properties props = metric.getProperties();
         String template = metric.toString();
-        String locators = props.getProperty("locators");
+        String locators = props.getProperty(PROP_LOCATORS);
+        String isSsl = props.getProperty(PROP_SSL);
+        String jmxUsername = props.getProperty(JMX_USERNAME);
+        String jmxPassword = props.getProperty(JMX_PASSWORD);
 
         if(locators == null) {
             throw new MetricUnreachableException("Locators not configured");
         }
+        
+        if(isSsl == null) {
+            isSsl = "false";
+        }
+        boolean ssl = isSsl.equals("tru");
+        
+        if(jmxUsername == null) {
+            jmxUsername = "";
+        }
+        
+        if(jmxPassword == null) {
+            jmxPassword = "";
+        }
         String locatorsEncoded = Metric.encode(locators);  // Need to be encoded
-        String jmxUrl = GFProductPlugin.getJmxUrl(locators);
+        String jmxUrl = GFProductPlugin.getJmxUrl(locators,ssl);
         if(jmxUrl.isEmpty()) {
             throw new MetricUnreachableException("Unable to find jmx.url from " + locators);
         }
         // Replace locators= with jmx.url
-        String newTemplate = StringUtils.replace(template, "locators=" + locatorsEncoded, "jmx.url=" + jmxUrl);
+        String jmxConfig = "jmx.url=" + jmxUrl + ",jmx.username=" + jmxUsername + ",jmx.password=" + jmxPassword;
+        log.debug("[getValue] jmxConfig=" + jmxConfig);
+        String newTemplate = StringUtils.replace(template, "locators=" + locatorsEncoded, jmxConfig);
         Metric newMetric = Metric.parse(newTemplate);
         MetricValue val;
         try {

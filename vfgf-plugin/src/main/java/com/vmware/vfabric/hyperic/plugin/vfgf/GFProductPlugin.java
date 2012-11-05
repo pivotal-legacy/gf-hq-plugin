@@ -91,13 +91,17 @@ public class GFProductPlugin extends ProductPlugin {
         }
     }
     
-    public static String getJmxUrl(String locators) {
+    public static String getJmxUrl(String locators, boolean ssl) {
         synchronized (jmxUrl) {
             if (!jmxUrl.isEmpty()) {
                 return jmxUrl;
             } else {
-                jmxUrl = JmxManagerFinder.getJmxUrl(locators);
-                return jmxUrl;
+                jmxUrl = JmxManagerFinder.getJmxUrl(locators, ssl);
+                if (jmxUrl != null) {
+                    return jmxUrl;
+                } else {
+                    return "";  //Don't return null
+                }
             }
         }
     }
