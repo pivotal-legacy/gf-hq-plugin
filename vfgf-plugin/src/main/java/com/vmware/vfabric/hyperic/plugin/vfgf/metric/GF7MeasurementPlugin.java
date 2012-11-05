@@ -26,6 +26,9 @@ package com.vmware.vfabric.hyperic.plugin.vfgf.metric;
  *
  */
 
+import java.io.IOException;
+import java.net.ConnectException;
+import java.net.MalformedURLException;
 import java.util.Properties;
 
 import org.apache.commons.lang.StringUtils;
@@ -37,6 +40,7 @@ import org.hyperic.hq.product.MetricUnreachableException;
 import org.hyperic.hq.product.MetricValue;
 import org.hyperic.hq.product.PluginException;
 import org.hyperic.hq.product.jmx.MxMeasurementPlugin;
+import org.hyperic.hq.product.jmx.MxUtil;
 
 import com.vmware.vfabric.hyperic.plugin.vfgf.GFProductPlugin;
 
@@ -67,7 +71,24 @@ public class GF7MeasurementPlugin extends MxMeasurementPlugin {
         // Replace locators= with jmx.url
         String newTemplate = StringUtils.replace(template, "locators=" + locatorsEncoded, "jmx.url=" + jmxUrl);
         Metric newMetric = Metric.parse(newTemplate);
-        return super.getValue(newMetric);
+        MetricValue val;
+        try {
+            val =  super.getValue(newMetric);
+        } catch (Exception e) {
+            GFProductPlugin.resetJmxUrl();
+            try {
+                MxUtil.getMBeanConnector(metric.getProperties()).close();
+            } catch (MalformedURLException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+            log.debug("[getValue] " + e.getMessage(), e);
+            throw new MetricUnreachableException("[getValue] Resetting jmxUrl due to " + e.getMessage(), e);
+        }
+        return val;
     }
 
 }
