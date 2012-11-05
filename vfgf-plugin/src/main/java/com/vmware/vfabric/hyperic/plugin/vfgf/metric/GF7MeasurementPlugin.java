@@ -27,7 +27,6 @@ package com.vmware.vfabric.hyperic.plugin.vfgf.metric;
  */
 
 import java.io.IOException;
-import java.net.ConnectException;
 import java.net.MalformedURLException;
 import java.util.Properties;
 
@@ -51,7 +50,6 @@ public class GF7MeasurementPlugin extends MxMeasurementPlugin {
         LogFactory.getLog(GF7MeasurementPlugin.class);
 
     private static String PROP_LOCATORS = "locators";
-    private static String PROP_SSL = "ssl";
     private static String JMX_USERNAME = "jmx.username";
     private static String JMX_PASSWORD = "jmx.password";
     
@@ -64,19 +62,13 @@ public class GF7MeasurementPlugin extends MxMeasurementPlugin {
         Properties props = metric.getProperties();
         String template = metric.toString();
         String locators = props.getProperty(PROP_LOCATORS);
-        String isSsl = props.getProperty(PROP_SSL);
         String jmxUsername = props.getProperty(JMX_USERNAME);
         String jmxPassword = props.getProperty(JMX_PASSWORD);
 
         if(locators == null) {
             throw new MetricUnreachableException("Locators not configured");
         }
-        
-        if(isSsl == null) {
-            isSsl = "false";
-        }
-        boolean ssl = isSsl.equals("tru");
-        
+
         if(jmxUsername == null) {
             jmxUsername = "";
         }
@@ -85,7 +77,8 @@ public class GF7MeasurementPlugin extends MxMeasurementPlugin {
             jmxPassword = "";
         }
         String locatorsEncoded = Metric.encode(locators);  // Need to be encoded
-        String jmxUrl = GFProductPlugin.getJmxUrl(locators,ssl);
+        String jmxUrl = GFProductPlugin.getJmxUrl(locators);
+
         if(jmxUrl.isEmpty()) {
             throw new MetricUnreachableException("Unable to find jmx.url from " + locators);
         }

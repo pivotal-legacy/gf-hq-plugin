@@ -91,12 +91,12 @@ public class GFProductPlugin extends ProductPlugin {
         }
     }
     
-    public static String getJmxUrl(String locators, boolean ssl) {
+    public static String getJmxUrl(String locators) {
         synchronized (jmxUrl) {
             if (!jmxUrl.isEmpty()) {
                 return jmxUrl;
             } else {
-                jmxUrl = JmxManagerFinder.getJmxUrl(locators, ssl);
+                jmxUrl = JmxManagerFinder.getJmxUrl(locators);
                 if (jmxUrl != null) {
                     return jmxUrl;
                 } else {

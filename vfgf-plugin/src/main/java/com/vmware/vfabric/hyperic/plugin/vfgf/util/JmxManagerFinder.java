@@ -59,7 +59,7 @@ public class JmxManagerFinder {
      * @return The Current Jmx Manager or null if not found
      */
     
-    public static JmxManagerInfo getJmxManager(String locators, boolean ssl) {
+    public static JmxManagerInfo getJmxManager(String locators) {
         String locArray[] = locators.split(",");
         if(locArray.length > 3) {
             log.warn("More than 3 locators defined. This could lead to issues");
@@ -68,7 +68,7 @@ public class JmxManagerFinder {
             String address[] = loc.split(":");
             try {
                 InetAddress addr = InetAddress.getByName(address[0]);
-                return askLocatorForJmxManager(addr, Integer.parseInt(address[1]), 10000, ssl);
+                return askLocatorForJmxManager(addr, Integer.parseInt(address[1]), 10000, false);
             } catch (UnknownHostException e) {
                 log.debug("[getJmxManager] Unable to connect to " + address[0] + ":" + address[1] + ": " + 
                     e.getMessage(), e);
@@ -87,8 +87,8 @@ public class JmxManagerFinder {
      * @param locators
      * @return jmx url or null if none found
      */
-    public static String getJmxUrl(String locators, boolean ssl) {
-        JmxManagerInfo info = getJmxManager(locators, ssl);
+    public static String getJmxUrl(String locators) {
+        JmxManagerInfo info = getJmxManager(locators);
         if(info == null) {
             return null;
         }
@@ -158,6 +158,9 @@ public class JmxManagerFinder {
                 jmport = 0;
             }
             return new JmxManagerInfo(host, jmport, ssl);
+        } catch (IllegalStateException e) {
+            // Try this as ssl
+            return askLocatorForJmxManager(addr, port, timeout, true);
         } finally {
             try {
                 sock.close();
