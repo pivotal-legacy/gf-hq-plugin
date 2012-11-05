@@ -117,7 +117,7 @@ public class GF7MeasurementPlugin extends MxMeasurementPlugin {
         }
         
         String signature = Arrays.asList(names).toString();
-        if(signature != last_signature) {
+        if(!signature.equals(last_signature)) {
             last_signature=signature;
             log.debug("[getValue] Membership change detected. Forcing new auto discovery. " + locators);
             GF7PlatformDetector.runAutoDiscovery(locators);
