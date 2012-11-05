@@ -50,6 +50,9 @@ public class JmxManagerFinder {
     
     public static JmxManagerInfo getJmxManager(String locators) {
         String locArray[] = locators.split(",");
+        if(locArray.length > 3) {
+            log.warn("More than 3 locators defined. This could lead to issues");
+        }
         for(String loc : locArray) {
             String address[] = loc.split(":");
             try {

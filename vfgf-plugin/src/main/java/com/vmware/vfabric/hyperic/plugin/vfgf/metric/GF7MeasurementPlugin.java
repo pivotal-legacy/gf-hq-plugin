@@ -26,8 +26,6 @@ package com.vmware.vfabric.hyperic.plugin.vfgf.metric;
  *
  */
 
-import java.util.Hashtable;
-import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.lang.StringUtils;
@@ -38,9 +36,9 @@ import org.hyperic.hq.product.MetricNotFoundException;
 import org.hyperic.hq.product.MetricUnreachableException;
 import org.hyperic.hq.product.MetricValue;
 import org.hyperic.hq.product.PluginException;
-import org.hyperic.hq.product.PluginManager;
 import org.hyperic.hq.product.jmx.MxMeasurementPlugin;
-import com.vmware.vfabric.hyperic.plugin.vfgf.util.JmxManagerFinder;
+
+import com.vmware.vfabric.hyperic.plugin.vfgf.GFProductPlugin;
 
 
 public class GF7MeasurementPlugin extends MxMeasurementPlugin {
@@ -48,35 +46,6 @@ public class GF7MeasurementPlugin extends MxMeasurementPlugin {
     private static final Log log =
         LogFactory.getLog(GF7MeasurementPlugin.class);
 
-    /*
-     * Here's what is going on:
-     * 
-     *  GF 7 Introduced a moving target jmx manager. By moving target
-     *  I mean that the host of it can change therefore the jmx url can
-     *  change. To workaround this we track *ONLY* a stable locator member
-     *  on the platform level. That locator will identify the current jmx
-     *  url. To improve performance we're caching the jmx url. If the url
-     *  changes in the middle of collection those metrics will fail but we
-     *  should have a usable url next time.
-     *  Map is in the format of key -> value where key represents the platform
-     *  which shouldn't change because ideally a single agent shouldn't host
-     *  more than one DS
-     */
-    
-    @Override
-    public void init(PluginManager manager) throws PluginException {
-        super.init(manager);
-
-        // measurement plugin may be shared between same
-        // resource types. we access it by unique id.
-        //jmxUrl = new Hashtable<String, String>();
-    }
-    
-    protected String getJmxUrl(String locators) {
-        String url = JmxManagerFinder.getJmxUrl(locators);
-        return url;
-    }
-    
     @Override
     public MetricValue getValue(Metric metric)
         throws PluginException,
@@ -86,22 +55,18 @@ public class GF7MeasurementPlugin extends MxMeasurementPlugin {
         Properties props = metric.getProperties();
         String template = metric.toString();
         String locators = props.getProperty("locators");
+
         if(locators == null) {
-            throw new PluginException("Locators not configured");
+            throw new MetricUnreachableException("Locators not configured");
         }
-        String locatorsEncoded = Metric.encode(locators);
-        //log.debug("[getValue] template=" + template);
-        //log.debug("[getValue] locators=" + locators);
-        //log.debug("[getValue] encodedLocators=" + locatorsEncoded);
-        String jmxUrl = getJmxUrl(locators);
-        if(jmxUrl == null) {
-            throw new MetricUnreachableException("[getValue] Unable to find jmx.url from " + locators);
+        String locatorsEncoded = Metric.encode(locators);  // Need to be encoded
+        String jmxUrl = GFProductPlugin.getJmxUrl(locators);
+        if(jmxUrl.isEmpty()) {
+            throw new MetricUnreachableException("Unable to find jmx.url from " + locators);
         }
         // Replace locators= with jmx.url
         String newTemplate = StringUtils.replace(template, "locators=" + locatorsEncoded, "jmx.url=" + jmxUrl);
-        //log.debug("[getValue] newTemplate=" + newTemplate);
         Metric newMetric = Metric.parse(newTemplate);
-        //log.debug("[getValue] newMetric=" + newMetric.toString());
         return super.getValue(newMetric);
     }
 

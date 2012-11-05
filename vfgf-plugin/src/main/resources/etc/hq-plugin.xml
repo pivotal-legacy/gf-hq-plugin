@@ -573,17 +573,16 @@
         
         <config>
             <option name="locators"
-                description="Up to 3 comma separated locators"
+                description="Up to 3 comma separated locators in the format of host:port"
                 default="localhost:10334"/>
             <option name="ssl"
-                description='Is SSL Enabled?'
+                description="SSL is Enabled on the Distributed System"
                 type="boolean"
                 default="false"/>
             <option name="jmx.username"
                 description="JMX username"
                 optional="true"
                 default="system"/>
-
             <option name="jmx.password"
                 description="JMX password"
                 optional="true"
@@ -601,7 +600,6 @@
         </metrics>
         
         <server name="vFabric GemFire Cache Server" version="7.0">
-        
             <property name="OBJECT_NAME"
                 value="GemFire:service=CacheServer,port=*,type=Member,member=*"/>
             
@@ -960,27 +958,6 @@
                 <metric name='Total Bytes On Disk'/>
                 <metric name='JVM Pauses'/>
             </metrics>
-            
-            <service name="Locator Region">
-                <property name="OBJECT_NAME"
-                    value="GemFire:service=Region,name=*,type=Member,member=%member%"/>
-                <property name="AUTOINVENTORY_NAME"
-                    value="%member% Region %name%"/>
-                
-
-                <plugin type="autoinventory"/>
-                <config>
-                    <option name="member"
-                        description="Member Name"
-                        default="server1"
-                        optional="false"/>
-                </config>
-                
-                <properties>
-                    <property name="FullPath"
-                        description="Full Path of Region"/>
-                </properties>
-            </service>
         </server>
     </platform>
 </plugin>

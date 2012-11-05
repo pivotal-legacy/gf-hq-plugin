@@ -21,6 +21,7 @@ import org.hyperic.hq.product.jmx.MxServerDetector;
 import org.hyperic.hq.product.jmx.MxUtil;
 import org.hyperic.util.config.ConfigResponse;
 
+import com.vmware.vfabric.hyperic.plugin.vfgf.GFProductPlugin;
 import com.vmware.vfabric.hyperic.plugin.vfgf.util.JmxManagerFinder;
 
 public class GF7ServerDetector
@@ -35,12 +36,12 @@ public class GF7ServerDetector
         List<ServerResource> servers = new ArrayList<ServerResource>();
         String locators = platformConfig.getValue(PROP_LOCATORS);
         if (locators == null || locators.isEmpty()) {
-            log.debug("[getServerResources] No Locators found");
+            log.debug("[getServerResources] No Locators configured.");
             return servers;
         }
         
-        String url = JmxManagerFinder.getJmxUrl(locators);
-        if (url == null) {
+        String url = GFProductPlugin.getJmxUrl(locators);
+        if (url.isEmpty()) {
             return servers;
         }
         platformConfig.setValue("jmx.url", url);
@@ -53,6 +54,9 @@ public class GF7ServerDetector
         try {
             connector = MxUtil.getMBeanConnector(platformConfig.toProperties());
             mServer = connector.getMBeanServerConnection();
+        } catch (IOException e) {
+            GFProductPlugin.resetJmxUrl();
+            throw new PluginException(e.getMessage(), e);
         } catch (Exception e) {
             MxUtil.close(connector);
             throw new PluginException(e.getMessage(), e);
@@ -87,7 +91,7 @@ public class GF7ServerDetector
             }
             //config.setValue("jmx.url", "service:jmx:rmi:///jndi/rmi://localhost:1099/jmxconnector");
             config.setValue("locators", locators);
-            
+            server.setName(getPlatformName() + " " + getTypeInfo().getName() + " " + name.getKeyProperty("member"));
             server.setControlConfig(controlConfig);
             setProductConfig(server, config);
             setMeasurementConfig(server, new ConfigResponse());
@@ -106,8 +110,8 @@ public class GF7ServerDetector
             throw new PluginException("[getServerResources] No Locators found");
         }
         
-        String url = JmxManagerFinder.getJmxUrl(locators);
-        if (url == null) {
+        String url = GFProductPlugin.getJmxUrl(locators);
+        if (url.isEmpty()) {
             throw new PluginException("Unable to determine jmx url from locators");
         }
         serverConfig.setValue("jmx.url", url);

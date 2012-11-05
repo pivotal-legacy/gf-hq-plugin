@@ -29,6 +29,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.vmware.vfabric.hyperic.plugin.vfgf.cache.MemberCache;
+import com.vmware.vfabric.hyperic.plugin.vfgf.detector.GF7ServerDetector;
+import com.vmware.vfabric.hyperic.plugin.vfgf.util.JmxManagerFinder;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.hyperic.hq.product.PluginException;
 import org.hyperic.hq.product.PluginManager;
 import org.hyperic.hq.product.ProductPlugin;
@@ -40,10 +45,13 @@ import org.hyperic.hq.product.ProductPlugin;
  */
 public class GFProductPlugin extends ProductPlugin {
 
+    private static final Log log = LogFactory.getLog(GF7ServerDetector.class);
+    
     /** The member mapping. */
     private Map<String, MemberCache> memberCaches = new HashMap<String, MemberCache>();
 
-
+    private static String jmxUrl = new String();
+    
     /**
      * Returns instance if member mapping cache.
      * 
@@ -76,5 +84,22 @@ public class GFProductPlugin extends ProductPlugin {
 
         super.shutdown();
     }
-
+    
+    public static void resetJmxUrl() {
+        synchronized (jmxUrl) {
+            jmxUrl = "";
+        }
+    }
+    
+    public static String getJmxUrl(String locators) {
+        synchronized (jmxUrl) {
+            if (!jmxUrl.isEmpty()) {
+                return jmxUrl;
+            } else {
+                jmxUrl = JmxManagerFinder.getJmxUrl(locators);
+                return jmxUrl;
+            }
+        }
+    }
+    
 }
