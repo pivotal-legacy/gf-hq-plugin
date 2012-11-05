@@ -28,7 +28,15 @@ package com.vmware.vfabric.hyperic.plugin.vfgf.metric;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Properties;
+import java.util.Set;
+
+import javax.management.MBeanServerConnection;
+import javax.management.MalformedObjectNameException;
+import javax.management.ObjectName;
+import javax.management.remote.JMXConnector;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -42,6 +50,7 @@ import org.hyperic.hq.product.jmx.MxMeasurementPlugin;
 import org.hyperic.hq.product.jmx.MxUtil;
 
 import com.vmware.vfabric.hyperic.plugin.vfgf.GFProductPlugin;
+import com.vmware.vfabric.hyperic.plugin.vfgf.detector.GF7PlatformDetector;
 
 
 public class GF7MeasurementPlugin extends MxMeasurementPlugin {
@@ -52,6 +61,8 @@ public class GF7MeasurementPlugin extends MxMeasurementPlugin {
     private static String PROP_LOCATORS = "locators";
     private static String JMX_USERNAME = "jmx.username";
     private static String JMX_PASSWORD = "jmx.password";
+    
+    private String last_signature;
     
     @Override
     public MetricValue getValue(Metric metric)
@@ -87,6 +98,31 @@ public class GF7MeasurementPlugin extends MxMeasurementPlugin {
         log.debug("[getValue] jmxConfig=" + jmxConfig);
         String newTemplate = StringUtils.replace(template, "locators=" + locatorsEncoded, jmxConfig);
         Metric newMetric = Metric.parse(newTemplate);
+        
+        // HQ doesn't run autoserverdetectors on remote platforms so this is a hack
+        // HHQ-2341
+        Set<ObjectName> names = new HashSet<ObjectName>();
+        String objName = "GemFire:type=Member,member=*";
+        
+        JMXConnector connector = null;
+        MBeanServerConnection mServer;
+        try {
+            connector = MxUtil.getMBeanConnector(newMetric.getProperties());
+            mServer = connector.getMBeanServerConnection();
+            names = mServer.queryNames(new ObjectName(objName), null);
+        } catch (MalformedObjectNameException e) {
+            log.debug("[getServerResources] " + e.getMessage(), e);    
+        } catch (IOException e) {
+            log.debug("[getServerResources] " + e.getMessage(), e);
+        }
+        
+        String signature = Arrays.asList(names).toString();
+        if(signature != last_signature) {
+            last_signature=signature;
+            log.debug("[getValue] Membership change detected. Forcing new auto discovery. " + locators);
+            GF7PlatformDetector.runAutoDiscovery(locators);
+        }
+        
         MetricValue val;
         try {
             val =  super.getValue(newMetric);

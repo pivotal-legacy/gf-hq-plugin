@@ -14,6 +14,11 @@ import javax.management.remote.JMXConnector;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hyperic.hq.agent.AgentCommand;
+import org.hyperic.hq.agent.AgentRemoteValue;
+import org.hyperic.hq.agent.server.AgentDaemon;
+import org.hyperic.hq.autoinventory.ScanConfigurationCore;
+import org.hyperic.hq.autoinventory.agent.AICommandsAPI;
 import org.hyperic.hq.product.PluginException;
 import org.hyperic.hq.product.ServerResource;
 import org.hyperic.hq.product.jmx.MxQuery;
@@ -118,6 +123,4 @@ public class GF7ServerDetector
         serverConfig.setValue("jmx.url", url);
         return super.discoverServices(serverConfig);
     }
-    
-    
 }
