@@ -159,8 +159,12 @@ public class JmxManagerFinder {
             }
             return new JmxManagerInfo(host, jmport, ssl);
         } catch (IllegalStateException e) {
-            // Try this as ssl
-            return askLocatorForJmxManager(addr, port, timeout, true);
+            // Try this as ssl only try once to avoid loop
+            if(!isSsl) {
+                return askLocatorForJmxManager(addr, port, timeout, true);
+            } else {
+                return null;
+            }
         } finally {
             try {
                 sock.close();
