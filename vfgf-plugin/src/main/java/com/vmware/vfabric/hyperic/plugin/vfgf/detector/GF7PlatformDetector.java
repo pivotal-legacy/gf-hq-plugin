@@ -26,21 +26,15 @@ public class GF7PlatformDetector extends PlatformDetector {
     @Override
     public PlatformResource getPlatformResource(ConfigResponse config) throws PluginException {
         log.debug("[getPlatformResource] config=" + config);
-        PlatformResource res = super.getPlatformResource(config);
+        
 
         try {
             String id = config.getValue("locators");
-            log.debug("[getPlatformResource] id=" + id);
-            String jmxUrl = GFProductPlugin.getJmxUrl(id);
-            config.setValue("jmx.url",jmxUrl);
-            MBeanServerConnection mServer = MxUtil.getMBeanServer(config.toProperties());
-            log.debug("mServer=" + mServer);
-            log.debug("[getPlatformResource] id='"+id+"' config="+config);
             configs.put(id, config);
         } catch (Exception e) {
             throw new PluginException(e.getMessage(), e);
         }
-
+        PlatformResource res = super.getPlatformResource(config);
         return res;
     }
 

@@ -575,10 +575,6 @@
             <option name="locators"
                 description="Up to 3 comma separated locators in the format of host:port"
                 default="localhost:10334"/>
-<!--             <option name="ssl"
-                description="SSL is Enabled on the Distributed System"
-                type="boolean"
-                default="false"/> -->
             <option name="jmx.username"
                 description="JMX username"
                 optional="true"
@@ -589,14 +585,39 @@
                 default="manager"
                type="secret"/>
         </config>
-        
+        <property name="STAT_OBJECT_NAME" 
+            value="GemFire:service=System,type=Distributed"/>
+        <filter name="template" value="${STAT_OBJECT_NAME}:${alias}:locators=%locators%"/>
         <metrics>
             <metric name="Availability"
-                template="GemFire:service=System,type=Distributed:${alias}:locators=%locators%"
                 indicator="true"/>
-            <metric name="MemberCount"
-                template="GemFire:service=System,type=Distributed:${alias}:locators=%locators%"
-                indicator="true"/>
+            <metric name='Member Count'
+                indicator="true"/>/>
+            <metric name='Disk Reads Rate'/>
+            <metric name='Disk Writes Rate'/>
+            <metric name='Disk Flush Avg Latency'/>
+            <metric name='Num Running Functions'/>
+            <metric name='Total Backup In Progress'/>
+            <metric name='Total Hit Count'/>
+            <metric name='Total Miss Count'/>
+            <metric name='Total Region Count'/>
+            <metric name='Total Region Entry Count'/>
+            <metric name='Total Disk Usage'/>
+            <metric name='Average Reads'/>
+            <metric name='Average Writes'/>
+            <metric name='Garbage Collection Count'/>
+            <metric name='Total Bytes On Disk'/>
+            <metric name='JVM Pauses'/>
+            <metric name='Query Request Rate'/>
+            <metric name='Active C Q Count'/>
+            <metric name='Registered C Q Count'/>
+            <metric name='Num Subscriptions'/>
+            <metric name='Total Heap Size'/>
+            <metric name='Locator Count'/>
+            <metric name='Num Clients'/>
+            <metric name='System Disk Store Count'/>
+            <metric name='Num Initial Images In Progress'/>
+            <metric name='Used Heap Size'/>
         </metrics>
         
         <server name="vFabric GemFire Cache Server" version="7.0">

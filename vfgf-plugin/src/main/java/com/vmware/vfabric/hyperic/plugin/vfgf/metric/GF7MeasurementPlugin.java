@@ -99,30 +99,31 @@ public class GF7MeasurementPlugin extends MxMeasurementPlugin {
         String newTemplate = StringUtils.replace(template, "locators=" + locatorsEncoded, jmxConfig);
         Metric newMetric = Metric.parse(newTemplate);
         
-        // HQ doesn't run autoserverdetectors on remote platforms so this is a hack
-        // HHQ-2341
-        Set<ObjectName> names = new HashSet<ObjectName>();
-        String objName = "GemFire:type=Member,member=*";
-        
-        JMXConnector connector = null;
-        MBeanServerConnection mServer;
-        try {
-            connector = MxUtil.getMBeanConnector(newMetric.getProperties());
-            mServer = connector.getMBeanServerConnection();
-            names = mServer.queryNames(new ObjectName(objName), null);
-        } catch (MalformedObjectNameException e) {
-            log.debug("[getServerResources] " + e.getMessage(), e);    
-        } catch (IOException e) {
-            log.debug("[getServerResources] " + e.getMessage(), e);
+        // See HHQ-2341. HQ doesn't run autoserverdetectors on remote platforms so this is a hack
+        // Only run this for availability to avoid bogging down agent 
+        if(newMetric.isAvail()) {
+            Set<ObjectName> names = new HashSet<ObjectName>();
+            String objName = "GemFire:type=Member,member=*";
+
+            JMXConnector connector = null;
+            MBeanServerConnection mServer;
+            try {
+                connector = MxUtil.getMBeanConnector(newMetric.getProperties());
+                mServer = connector.getMBeanServerConnection();
+                names = mServer.queryNames(new ObjectName(objName), null);
+            } catch (MalformedObjectNameException e) {
+                log.debug("[getServerResources] " + e.getMessage(), e);    
+            } catch (IOException e) {
+                log.debug("[getServerResources] " + e.getMessage(), e);
+            }
+
+            String signature = Arrays.asList(names).toString();
+            if(!signature.equals(last_signature)) {
+                last_signature=signature;
+                log.debug("[getValue] Membership change detected. Forcing new auto discovery. " + locators);
+                GF7PlatformDetector.runAutoDiscovery(locators);
+            }
         }
-        
-        String signature = Arrays.asList(names).toString();
-        if(!signature.equals(last_signature)) {
-            last_signature=signature;
-            log.debug("[getValue] Membership change detected. Forcing new auto discovery. " + locators);
-            GF7PlatformDetector.runAutoDiscovery(locators);
-        }
-        
         MetricValue val;
         try {
             val =  super.getValue(newMetric);
