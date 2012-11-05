@@ -75,18 +75,16 @@ public class GF7MeasurementPlugin extends MxMeasurementPlugin {
         try {
             val =  super.getValue(newMetric);
         } catch (Exception e) {
+            log.debug("[getValue] " + e.getMessage(), e);
             GFProductPlugin.resetJmxUrl();
             try {
                 MxUtil.getMBeanConnector(metric.getProperties()).close();
             } catch (MalformedURLException e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
+                throw new MetricUnreachableException(e1.getMessage(),e1);
             } catch (IOException e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
+                throw new MetricUnreachableException(e1.getMessage(),e);
             }
-            log.debug("[getValue] " + e.getMessage(), e);
-            throw new MetricUnreachableException("[getValue] Resetting jmxUrl due to " + e.getMessage(), e);
+            throw new MetricUnreachableException(e.getMessage(),e);
         }
         return val;
     }
