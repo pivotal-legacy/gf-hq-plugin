@@ -1133,7 +1133,8 @@
     <p>
 The GemFire Distributed System must be configured with locators 
 with a JMX Manager.  No more than 3 locators can be specified in
-the "locators" field.  
+the "locators" field.  The plugin automatically detects whether
+SSL has been enabled in the GemFire System. 
     </p>
     ]]>
     </help>
