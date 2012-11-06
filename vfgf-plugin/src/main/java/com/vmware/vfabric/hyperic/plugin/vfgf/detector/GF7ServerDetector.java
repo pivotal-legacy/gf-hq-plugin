@@ -14,11 +14,6 @@ import javax.management.remote.JMXConnector;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hyperic.hq.agent.AgentCommand;
-import org.hyperic.hq.agent.AgentRemoteValue;
-import org.hyperic.hq.agent.server.AgentDaemon;
-import org.hyperic.hq.autoinventory.ScanConfigurationCore;
-import org.hyperic.hq.autoinventory.agent.AICommandsAPI;
 import org.hyperic.hq.product.PluginException;
 import org.hyperic.hq.product.ServerResource;
 import org.hyperic.hq.product.jmx.MxQuery;
@@ -34,6 +29,11 @@ public class GF7ServerDetector
     private static final Log log = LogFactory.getLog(GF7ServerDetector.class);
     
     private static String PROP_LOCATORS = "locators";
+    private static String PROP_MEMBER = "member";
+    private static String PROP_PORT = "port";
+    private static String PROP_JMXURL = "jmx.url";
+    private static String ERR_LOCATORS_NOT_DEFINED = 
+        "No Locators defined. Please configure in the platform's Configuration Properties";  // Used often
     
     @Override    
     public List<ServerResource> getServerResources(ConfigResponse platformConfig) throws PluginException {
@@ -41,7 +41,7 @@ public class GF7ServerDetector
         String locators = platformConfig.getValue(PROP_LOCATORS);
 
         if (locators == null || locators.isEmpty()) {
-            log.debug("[getServerResources] No Locators configured.");
+            log.debug("[getServerResources] " + ERR_LOCATORS_NOT_DEFINED);
             return servers;
         }
         
@@ -88,15 +88,17 @@ public class GF7ServerDetector
             ConfigResponse cprops = new ConfigResponse();
             ConfigResponse controlConfig = new ConfigResponse();
             
-            config.setValue("member", name.getKeyProperty("member"));
-            String port = name.getKeyProperty("port");
+            config.setValue(PROP_MEMBER, name.getKeyProperty(PROP_MEMBER));
+            String port = name.getKeyProperty(PROP_PORT);
             log.debug("[getServerResources] port=" + port);
+            
+            // Locators don't have port defined.
             if (port != null) {
-                config.setValue("port", port);
+                config.setValue(PROP_PORT, port);
             }
-            //config.setValue("jmx.url", "service:jmx:rmi:///jndi/rmi://localhost:1099/jmxconnector");
-            config.setValue("locators", locators);
-            server.setName(getPlatformName() + " " + getTypeInfo().getName() + " " + name.getKeyProperty("member"));
+
+            config.setValue(PROP_LOCATORS, locators);
+            server.setName(getPlatformName() + " " + getTypeInfo().getName() + " " + name.getKeyProperty(PROP_MEMBER));
             server.setControlConfig(controlConfig);
             setProductConfig(server, config);
             setMeasurementConfig(server, new ConfigResponse());
@@ -113,14 +115,14 @@ public class GF7ServerDetector
         String locators = serverConfig.getValue(PROP_LOCATORS);
         
         if (locators == null || locators.isEmpty()) {
-            throw new PluginException("[getServerResources] No Locators found");
+            throw new PluginException(ERR_LOCATORS_NOT_DEFINED);
         }
         
         String url = GFProductPlugin.getJmxUrl(locators);
         if (url.isEmpty()) {
             throw new PluginException("Unable to determine jmx url from locators");
         }
-        serverConfig.setValue("jmx.url", url);
+        serverConfig.setValue(PROP_JMXURL, url);
         return super.discoverServices(serverConfig);
     }
 }

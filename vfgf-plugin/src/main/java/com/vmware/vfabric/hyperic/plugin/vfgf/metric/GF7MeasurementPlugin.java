@@ -62,7 +62,7 @@ public class GF7MeasurementPlugin extends MxMeasurementPlugin {
     private static String JMX_USERNAME = "jmx.username";
     private static String JMX_PASSWORD = "jmx.password";
     
-    private String last_signature;
+    private String last_signature = new String();
     
     @Override
     public MetricValue getValue(Metric metric)
