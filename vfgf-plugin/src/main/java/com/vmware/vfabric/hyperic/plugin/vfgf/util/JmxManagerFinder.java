@@ -14,19 +14,13 @@ import java.net.Socket;
 import java.net.SocketAddress;
 import java.net.UnknownHostException;
 
-import javax.net.ssl.SSLServerSocket;
-import javax.net.ssl.SSLServerSocketFactory;
-import javax.net.ssl.SSLSocket;
 import org.apache.http.conn.ssl.SSLSocketFactory;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hyperic.hq.agent.AgentKeystoreConfig;
-import org.hyperic.hq.product.PluginException;
 import org.hyperic.util.security.DefaultSSLProviderImpl;
 import org.hyperic.util.security.SSLProvider;
-
-import com.vmware.vfabric.hyperic.plugin.vfgf.detector.GF7ServerDetector;
 
 /**
  * This class can be used to connect to a locator and ask it to find a jmx manager.
@@ -161,6 +155,8 @@ public class JmxManagerFinder {
         } catch (IllegalStateException e) {
             // Try this as ssl only try once to avoid loop
             if(!isSsl) {
+                log.debug("[askLocatorForJmxManager] Exception Caught while trying to connect to " + addr.getHostName() + ":" + port);
+                log.debug("[askLocatorForJmxManager] Retrying with SSL (this is expected if it GF is using SSL)" + e.getMessage(), e);
                 return askLocatorForJmxManager(addr, port, timeout, true);
             } else {
                 return null;

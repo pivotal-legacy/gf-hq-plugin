@@ -2,7 +2,6 @@ package com.vmware.vfabric.hyperic.plugin.vfgf.detector;
 
 import java.util.HashMap;
 import java.util.Map;
-import javax.management.MBeanServerConnection;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hyperic.hq.agent.AgentCommand;
@@ -13,10 +12,7 @@ import org.hyperic.hq.autoinventory.agent.AICommandsAPI;
 import org.hyperic.hq.product.PlatformDetector;
 import org.hyperic.hq.product.PlatformResource;
 import org.hyperic.hq.product.PluginException;
-import org.hyperic.hq.product.jmx.MxUtil;
 import org.hyperic.util.config.ConfigResponse;
-
-import com.vmware.vfabric.hyperic.plugin.vfgf.GFProductPlugin;
 
 public class GF7PlatformDetector extends PlatformDetector {
 
@@ -26,7 +22,6 @@ public class GF7PlatformDetector extends PlatformDetector {
     @Override
     public PlatformResource getPlatformResource(ConfigResponse config) throws PluginException {
         log.debug("[getPlatformResource] config=" + config);
-        
 
         try {
             String id = config.getValue("locators");
@@ -39,8 +34,8 @@ public class GF7PlatformDetector extends PlatformDetector {
     }
 
     public static void runAutoDiscovery(String id) {
-
         log.debug("[runAutoDiscovery] Starting auto discovery for id=" + id);
+        
         try {
             ScanConfigurationCore scanConfig = new ScanConfigurationCore();
             ConfigResponse c = configs.get(id);
