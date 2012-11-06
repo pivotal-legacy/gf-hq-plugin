@@ -156,7 +156,7 @@ public class JmxManagerFinder {
             // Try this as ssl only try once to avoid loop
             if(!isSsl) {
                 log.debug("[askLocatorForJmxManager] Exception Caught while trying to connect to " + addr.getHostName() + ":" + port);
-                log.debug("[askLocatorForJmxManager] " + e.getMessage(), e);
+                log.debug("[askLocatorForJmxManager] Retrying with SSL (this is expected if it GF is using SSL)" + e.getMessage(), e);
                 return askLocatorForJmxManager(addr, port, timeout, true);
             } else {
                 return null;
