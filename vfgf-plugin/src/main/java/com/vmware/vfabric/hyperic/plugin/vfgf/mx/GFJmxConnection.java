@@ -48,6 +48,8 @@ import com.vmware.vfabric.hyperic.plugin.vfgf.GFMXConstants;
 import com.vmware.vfabric.hyperic.plugin.vfgf.GFVersionInfo;
 import com.vmware.vfabric.hyperic.plugin.vfgf.cache.MemberInfo;
 import com.vmware.vfabric.hyperic.plugin.vfgf.util.GFMXUtils;
+
+import org.hyperic.hq.product.PluginException;
 import org.hyperic.hq.product.jmx.MxUtil;
 import org.hyperic.util.config.ConfigResponse;
 
@@ -320,10 +322,14 @@ public class GFJmxConnection extends AbstractGFJmxConnection {
         return stats;
     }
 
-    public Object[][] getStatObjectsWithType(String gfid) {
+    public Object[][] getStatObjectsWithType(String gfid) throws PluginException {
         ObjectName[] mStats = manageCacheVMStats(gfid);
-        if(mStats == null)
+        if(mStats == null) {
             mStats = manageApplicationStats(gfid);
+        }
+        if(mStats == null) {
+            throw new PluginException("Couldn't find statistics. Check that sampling is enabled.");
+        }
 
         Object[][] ret = new Object[mStats.length][2];
 
