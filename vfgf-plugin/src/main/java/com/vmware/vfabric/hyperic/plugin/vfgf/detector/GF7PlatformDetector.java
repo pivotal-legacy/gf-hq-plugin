@@ -22,19 +22,20 @@ public class GF7PlatformDetector extends PlatformDetector {
     @Override
     public PlatformResource getPlatformResource(ConfigResponse config) throws PluginException {
         log.debug("[getPlatformResource] config=" + config);
-
         try {
             String id = config.getValue("locators");
             configs.put(id, config);
         } catch (Exception e) {
             throw new PluginException(e.getMessage(), e);
         }
+        log.debug("[getPlatformResource] configs=" + configs);
         PlatformResource res = super.getPlatformResource(config);
         return res;
     }
 
     public static void runAutoDiscovery(String id) {
         log.debug("[runAutoDiscovery] Starting auto discovery for id=" + id);
+        log.debug("[runAutoDiscovery] configs=" + configs);
         
         try {
             ScanConfigurationCore scanConfig = new ScanConfigurationCore();

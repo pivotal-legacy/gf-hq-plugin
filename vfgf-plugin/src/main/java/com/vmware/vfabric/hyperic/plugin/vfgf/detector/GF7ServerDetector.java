@@ -37,6 +37,7 @@ public class GF7ServerDetector
     
     @Override    
     public List<ServerResource> getServerResources(ConfigResponse platformConfig) throws PluginException {
+        log.debug("[getServerRsources] platformConfig = " + platformConfig);
         List<ServerResource> servers = new ArrayList<ServerResource>();
         String locators = platformConfig.getValue(PROP_LOCATORS);
 
