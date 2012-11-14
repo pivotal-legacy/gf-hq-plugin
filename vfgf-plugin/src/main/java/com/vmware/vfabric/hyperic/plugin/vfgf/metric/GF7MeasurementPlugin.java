@@ -62,7 +62,7 @@ public class GF7MeasurementPlugin extends MxMeasurementPlugin {
     private static String JMX_USERNAME = "jmx.username";
     private static String JMX_PASSWORD = "jmx.password";
     
-    private String last_signature = new String();
+    private static String last_signature = new String();
     
     @Override
     public MetricValue getValue(Metric metric)
@@ -120,7 +120,8 @@ public class GF7MeasurementPlugin extends MxMeasurementPlugin {
             String signature = Arrays.asList(names).toString();
             if(!signature.equals(last_signature)) {
                 last_signature=signature;
-                log.debug("[getValue] Membership change detected. Forcing new auto discovery. " + locators);
+                log.debug("[getValue] Membership change detected. Forcing new auto discovery. Old=" + last_signature +
+                    ", new=" +signature);
                 GF7PlatformDetector.runAutoDiscovery(locators);
             }
         }
