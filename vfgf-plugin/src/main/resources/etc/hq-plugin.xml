@@ -191,9 +191,7 @@
 		<!--********************************* ** CACHE SERVER ********************************* -->
 
 		<server name="vFabric GemFire Cache Server" version="6.0">
-			<config include="jmx">
-				<option name="jmx.url" description="JMX URL to MBeanServer"
-					default="service:jmx:rmi:///jndi/rmi://localhost:1099/jmxconnector" />
+ 			<config>
 				<option name="host"
 					description="The host machine on which the cache vm is running" />
 				<option name="name"
