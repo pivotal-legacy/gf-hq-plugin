@@ -1126,6 +1126,86 @@
             </metrics>
         </server>
     </platform>
+    
+   	<platform name="vFabric SQLFire Distributed System 1.x">
+
+		<plugin type="autoinventory"
+			class="com.vmware.vfabric.hyperic.plugin.vfgf.detector.SQLFirePlatformDetector" />
+		<plugin type="measurement"
+			class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFDistMeasurementPlugin" />
+		<plugin type="log_track"
+			class="com.vmware.vfabric.hyperic.plugin.vfgf.log.GFNotificationTrack" />
+
+		<config include="jmx">
+			<option name="jmx.url" description="JMX URL to MBeanServer"
+				default="service:jmx:rmi:///jndi/rmi://localhost:1099/jmxconnector" />
+			<option name="force.error" optional="true"
+				description="Regex to force error level" />
+			<option name="force.warn" optional="true" description="Regex to force warn level" />
+			<option name="force.info" optional="true" description="Regex to force info level" />
+		</config>
+
+		<metric name="Availability" indicator="true" defaultOn="true"
+			interval="300000" template="GemFire:${JMXCFG}:${alias}" />
+
+		<!--********************************* ** APPLICATION PEER ********************************* -->
+
+		<server name="vFabric SQLFire Application Peer" version="1.0">
+
+			<plugin type="autoinventory"
+				class="com.vmware.vfabric.hyperic.plugin.vfgf.detector.ApplicationPeerDetector" />
+			<plugin type="measurement"
+				class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFApplicationPeerMeasurementPlugin" />
+
+			<config>
+				<option name="host"
+					description="The host machine on which the cache vm is running" />
+				<option name="name"
+					description="A symbolic name that can be used to help identify a system" />
+				<option name="workingDirectory"
+					description="The directory in which the cache vm was launched." />
+			</config>
+
+			<properties>
+				<property name="version" description="Version" />
+				<property name="build" description="Build" />
+			</properties>
+
+			<metric name="Availability" indicator="true" defaultOn="true"
+				template="GemFireApplicationPeer:${JMXCFG},${MEMBERCFG}:${alias}" />
+
+			<service name="Distribution Statistics">
+				<plugin type="measurement"
+					class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
+				<config>
+					<option name="statname" description="Name attribute in object name" />
+				</config>
+				<metrics include="DistributionStats" />
+			</service>
+
+			<service name="VM Stats">
+				<plugin type="measurement"
+					class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFVMStatsMeasurementPlugin" />
+				<metrics include="VMStats" />
+				<config include="gfjvm" />
+			</service>
+
+			<service name="Function">
+				<plugin type="measurement"
+					class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
+				<metrics include="Function" />
+			</service>
+
+			<service name="Function Service">
+				<plugin type="measurement"
+					class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GFStatsMeasurementPlugin" />
+				<metrics include="FunctionService" />
+			</service>
+
+		</server>
+	</platform>
+    
+
     <help name="vFabric GemFire Distributed System 7.x">
         <![CDATA[
     <p>
