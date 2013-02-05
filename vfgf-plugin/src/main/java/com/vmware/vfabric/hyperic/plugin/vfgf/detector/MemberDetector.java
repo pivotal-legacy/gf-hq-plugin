@@ -137,7 +137,11 @@ public abstract class MemberDetector extends ServerDetector implements AutoServe
         "vFabric GemFire Application Peer 6.6 Distribution Statistics",
         "vFabric GemFire Application Peer 6.6 Function",
         "vFabric GemFire Application Peer 6.6 Function Service",
-        "vFabric GemFire Application Peer 6.6 VM Stats"
+        "vFabric GemFire Application Peer 6.6 VM Stats",
+        "vFabric SQLFire Application Peer 1.0 Distribution Statistics",
+        "vFabric SQLFire Application Peer 1.0 Function",
+        "vFabric SQLFire Application Peer 1.0 Function Service",
+        "vFabric SQLFire Application Peer 1.0 VM Stats",
     };
 
     public static final String[] DEFAULT_EXCLUDES = {
@@ -239,16 +243,22 @@ public abstract class MemberDetector extends ServerDetector implements AutoServe
         List<ServerResource> servers = new ArrayList<ServerResource>();
 
         // if jmx url doesn't exist, just bail out with empty server set
-        if(config.getValue(GFMXConstants.CONF_JMX_URL) == null)
+        if(config.getValue(GFMXConstants.CONF_JMX_URL) == null) {
+            log.debug("[getServerResources] No jmx.url configured");
             return servers;
+        }
 
         GFJmxConnection gf = new GFJmxConnection(config);
 
         GFVersionInfo gfVersionInfo = gf.getVersionInfoFromAgent();
-        if(gfVersionInfo == null)
+        if(gfVersionInfo == null) {
+            log.debug("[getServerResources] Unable to determine agent version");
             return servers;
-        if(!gfVersionInfo.isGFVersion(getTypeInfo().getVersion()))
+        }
+        if(!gfVersionInfo.isGFVersion(getTypeInfo().getVersion())) {
+            log.debug("[getServerResources] Skipping version " + getTypeInfo().getVersion() + " found " + gfVersionInfo.toString());
             return servers;
+        }
 
         GFProductPlugin master = (GFProductPlugin)getProductPlugin();
         MemberCache memberCache = master.getMemberCache(config.getValue(GFMXConstants.CONF_JMX_URL));

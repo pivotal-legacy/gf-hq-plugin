@@ -8,7 +8,7 @@
 	<artifactId>vfgf-plugin</artifactId>
 	<packaging>jar</packaging>
 	<name>Hyperic HQ Plugin - vFabric GemFire Plugin</name>
-	<version>1.1.M1</version>
+	<version>1.1.BUILD-SNAPSHOT</version>
 
 	<properties>
 		<hq.version>4.6.6</hq.version>
@@ -163,7 +163,7 @@
 			<name>Hyperic Release Repository</name>
 			<url>http://maven.hyperic.org/release</url>
 			<snapshots>
-				<enabled>false</enabled>
+				<enabled>true</enabled>
 			</snapshots>
 		</repository>
 	</repositories>
