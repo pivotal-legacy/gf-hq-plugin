@@ -60,8 +60,9 @@ public class GFDistMeasurementPlugin extends MeasurementPlugin {
         }
 
         String jmxUrl = mProps.getProperty("jmx.url");
-        if(jmxUrl == null)
-            throw new PluginException("jmx.url is null, cannot continue.");
+        if(jmxUrl == null) {
+            throw new PluginException("jmx.url is null, please make sure Configuration Properties are correct.");
+        }
 
         GFJmxConnection gf = new GFJmxConnection(mProps);
 
@@ -69,7 +70,7 @@ public class GFDistMeasurementPlugin extends MeasurementPlugin {
         boolean alive = gf.isDistributionAlive();
 
         if(log.isDebugEnabled()) {
-            log.debug("Is GF DS alive:" + alive);			
+            log.debug("[getValue] Is GF DS alive: " + alive);			
         }
 
         return new MetricValue(alive ? Metric.AVAIL_UP : Metric.AVAIL_DOWN);		
