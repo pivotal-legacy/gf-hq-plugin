@@ -142,6 +142,7 @@ public abstract class MemberDetector extends ServerDetector implements AutoServe
         "vFabric SQLFire Application Peer 1.0 Function",
         "vFabric SQLFire Application Peer 1.0 Function Service",
         "vFabric SQLFire Application Peer 1.0 VM Stats",
+        "vFabric SQLFire Application Peer 1.0 VM Region",
     };
 
     public static final String[] DEFAULT_EXCLUDES = {
@@ -323,6 +324,7 @@ public abstract class MemberDetector extends ServerDetector implements AutoServe
 
         return filterIncludesExcludes(services);
     }
+
     //serviceTypeName
     protected List<ServiceResource> filterIncludesExcludes(List<ServiceResource> services) {
         
