@@ -400,7 +400,6 @@ public abstract class AbstractGFJmxConnection {
         }
     }
 
-
     /**
      * Gets the stats.
      *
