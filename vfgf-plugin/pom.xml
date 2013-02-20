@@ -11,7 +11,7 @@
 	<version>1.1.BUILD-SNAPSHOT</version>
 
 	<properties>
-		<hq.version>4.6.6</hq.version>
+		<hq.version>4.6.5</hq.version>
         </properties>		
 
 	<dependencies>
