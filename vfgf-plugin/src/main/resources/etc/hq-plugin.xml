@@ -830,7 +830,7 @@
             </service>
         </server>
         
-        <server name="SQLFire Cache Server" version="1.0">
+        <server name="vFabric SQLFire Cache Server" version="1.0">
             <config>
                 <option name="host"
                     description="The host machine on which the cache vm is running" />
@@ -1129,6 +1129,187 @@
         </server>
 
 	</platform>
+    
+    <!--  SQLFire 1.1 starts to look more like GF 7.x mbeans  -->
+    <platform name="vFabric SQLFire Distributed System 1.1">
+        <plugin type="autoinventory"
+            class="com.vmware.vfabric.hyperic.plugin.vfgf.detector.GF7PlatformDetector" />
+        <plugin type="measurement"
+            class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GF7MeasurementPlugin" />
+        <plugin type="log_track"
+            class="com.vmware.vfabric.hyperic.plugin.vfgf.log.GFNotificationTrack" />
+        
+        <config>
+            <option name="locators"
+                description="Up to 3 comma separated locators in the format of host:port"
+                default="localhost:10334"/>
+            <option name="jmx.username"
+                description="JMX username"
+                optional="true"
+                default="system"/>
+            <option name="jmx.password"
+                description="JMX password"
+                optional="true"
+                default="manager"
+               type="secret"/>
+        </config>
+        <property name="STAT_OBJECT_NAME" 
+            value="GemFire:service=System,type=Distributed"/>
+        <filter name="template" value="${STAT_OBJECT_NAME}:${alias}:locators=%locators%"/>
+        <metrics>
+            <metric name="Availability"
+                indicator="true"/>
+            &vfplatformmetrics;
+         </metrics>
+        
+        <server name="vFabric SQLFire Cache Server" version="1.1">
+            <property name="OBJECT_NAME"
+                value="GemFire:service=CacheServer,port=*,type=Member,member=*"/>
+            
+            <plugin type="autoinventory"
+                class="com.vmware.vfabric.hyperic.plugin.vfgf.detector.GF7ServerDetector"/>
+
+            <plugin type="control"
+                class="org.hyperic.hq.product.jmx.MxControlPlugin"/>
+
+            <plugin type="measurement"
+                class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GF7MeasurementPlugin"/>
+
+            <plugin type="log_track"
+                class="org.hyperic.hq.product.Log4JLogTrackPlugin"/>
+
+            <plugin type="config_track"
+                class="org.hyperic.hq.product.ConfigFileTrackPlugin"/>
+
+            <config>
+                <option name="port"
+                    description="Listening Port"
+                    optional="false"
+                    default="10334"/>
+
+                <option name="member"
+                    description="Member Name"
+                    default="server1"
+                    optional="false"/>
+            </config>
+            <property name="STAT_OBJECT_NAME"
+                value="GemFire:type=Member,member=*"/>    
+            <filter name="template" value="${STAT_OBJECT_NAME}:${alias}:locators=%locators%"/>
+                  
+            <metrics>
+                <metric name='Availability'
+                    indicator="true"/>
+                &vfcacheserver;
+
+            </metrics>
+
+            <service name="Cache Server Region">
+                <config>
+                    <option name="member"
+                        description="Member Name"
+                        default=""
+                        optional="false"/>
+                    <option name="name"
+                        description="Region Name"
+                        default=""
+                        optional="false"/>
+                </config>
+                <property name="OBJECT_NAME"
+                    value="GemFire:service=Region,name=*,type=Member,member=*"/>
+                <plugin type="autoinventory"/>
+                                    
+                <properties>
+                    <property name="FullPath"
+                        description="Full Path of Region"/>
+                </properties>
+                
+                <filter name="template" value="${OBJECT_NAME}:${alias}:locators=%locators%"/>
+                <metrics>
+                    <metric name='Availability'
+                        indicator="true"/>
+                    &vfcacheserverregion;
+                </metrics>
+ 
+            </service>
+            <service name="Gateway Sender">
+                <config>
+                    <option name="member"
+                        description="Member Name"
+                        default=""
+                        optional="false"/>
+                    <option name="gatewaySender"
+                        description="Gateway Sender"
+                        default=""
+                        optional="false"/>
+                </config>
+                <property name="OBJECT_NAME"
+                    value="GemFire:service=GatewaySender,gatewaySender=*,type=Member,member=*"/>
+                <plugin type="autoinventory"/>
+                                    
+                <filter name="template" value="${OBJECT_NAME}:${alias}:locators=%locators%"/>
+                <metrics>
+                    <metric name='Availability'
+                        indicator="true"/>
+                    &vfgatewaysender;
+                </metrics>
+            </service>
+            <service name="Gateway Receiver">
+                <config>
+                    <option name="member"
+                        description="Member Name"
+                        default=""
+                        optional="false"/>
+                </config>
+                <property name="OBJECT_NAME"
+                    value="GemFire:service=GatewayReceiver,type=Member,member=*"/>
+                <plugin type="autoinventory"/>
+                                    
+                <filter name="template" value="${OBJECT_NAME}:${alias}:locators=%locators%"/>
+                <metrics>
+                    <metric name='Availability'
+                        indicator="true"/>
+                    &vfgatewayreceiver;
+                </metrics>
+            </service>
+        </server>
+        <server name="vFabric SQLFire Locator" version="1.1">
+            <property name="OBJECT_NAME"
+                value="GemFire:service=Locator,type=Member,member=*"/>
+
+            <plugin type="autoinventory"
+                class="com.vmware.vfabric.hyperic.plugin.vfgf.detector.GF7ServerDetector"/>
+
+            <plugin type="control"
+                class="org.hyperic.hq.product.jmx.MxControlPlugin"/>
+
+            <plugin type="measurement"
+                class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GF7MeasurementPlugin"/>
+
+            <plugin type="log_track"
+                class="org.hyperic.hq.product.Log4JLogTrackPlugin"/>
+
+            <plugin type="config_track"
+                class="org.hyperic.hq.product.ConfigFileTrackPlugin"/>
+
+            <config>                 
+                <option name="member"
+                    description="Member Name"
+                    default="server1"
+                    optional="false"/>
+            </config>
+            
+            <property name="STAT_OBJECT_NAME"
+                value="GemFire:type=Member,member=*"/>
+                
+            <filter name="template" value="${STAT_OBJECT_NAME}:${alias}:locators=%locators%"/>
+            <metrics>
+                <metric name="Availability"
+                    indicator="true"/>
+                &vflocator;
+            </metrics>
+        </server>
+    </platform>
+
 
     <help name="vFabric GemFire Distributed System 7.x">
         <![CDATA[
