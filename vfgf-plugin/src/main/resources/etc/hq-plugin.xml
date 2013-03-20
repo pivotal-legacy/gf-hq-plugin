@@ -18,6 +18,12 @@
   <!ENTITY diskregionstatistics SYSTEM "/etc/diskregionstatistics.xml">
   <!ENTITY partitionedregionstats SYSTEM "/etc/partitionedregionstats.xml">
   <!ENTITY poolstats SYSTEM "/etc/poolstats.xml">
+  <!ENTITY vfplatformmetrics SYSTEM "/etc/vfplatformmetrics.xml">
+  <!ENTITY vfcacheserver SYSTEM "/etc/vfcacheserver.xml">
+  <!ENTITY vfcacheserverregion SYSTEM "/etc/vfcacheserverregion.xml">
+  <!ENTITY vfgatewayreceiver SYSTEM "/etc/vfgatewayreceiver.xml">
+  <!ENTITY vfgatewaysender SYSTEM "/etc/vfgatewaysender.xml">
+  <!ENTITY vflocator SYSTEM "/etc/vflocator.xml">
 ]>
 
 <plugin name="vfgf"
@@ -589,59 +595,8 @@
         <metrics>
             <metric name="Availability"
                 indicator="true"/>
-            <metric name='Member Count'
-                indicator="true"/>
-            <metric name='Disk Reads Rate'
-                indicator="true"/>
-            <metric name='Disk Writes Rate'
-                indicator="true"/>
-            <metric name='Disk Flush Avg Latency'
-                indicator="true"/>
-            <metric name='Num Running Functions'
-                indicator="true"/>
-            <metric name='Total Backup In Progress'
-                indicator="true"/>
-            <metric name='Total Hit Count'
-                indicator="true"/>
-            <metric name='Total Miss Count'
-                indicator="true"/>
-            <metric name='Total Region Count'
-                indicator="true"/>
-            <metric name='Total Region Entry Count'
-                indicator="true"/>
-            <metric name='Total Disk Usage'
-                indicator="true"/>
-            <metric name='Average Reads'
-                indicator="true"/>
-            <metric name='Average Writes'
-                indicator="true"/>
-            <metric name='Garbage Collection Count'
-                indicator="true"/>
-            <metric name='Total Bytes On Disk'
-                indicator="true"/>
-            <metric name='JVM Pauses'
-                indicator="true"/>
-            <metric name='Query Request Rate'
-                indicator="true"/>
-            <metric name='Active C Q Count'
-                indicator="true"/>
-            <metric name='Registered C Q Count'
-                indicator="true"/>
-            <metric name='Num Subscriptions'
-                indicator="true"/>
-            <metric name='Total Heap Size'
-                indicator="true"/>
-            <metric name='Locator Count'
-                indicator="true"/>
-            <metric name='Num Clients'
-                indicator="true"/>
-            <metric name='System Disk Store Count'
-                indicator="true"/>
-            <metric name='Num Initial Images In Progress'
-                indicator="true"/>
-            <metric name='Used Heap Size'
-                indicator="true"/>
-        </metrics>
+            &vfplatformmetrics;
+         </metrics>
         
         <server name="vFabric GemFire Cache Server" version="7.0">
             <property name="OBJECT_NAME"
@@ -680,110 +635,8 @@
             <metrics>
                 <metric name='Availability'
                     indicator="true"/>
-                <metric name='Load Average'
-                    indicator="true"/>
-                <metric name='Lock Timeout'/>
-                <metric name='Lock Lease'/>
-                <metric name='Bytes Received Rate'
-                    indicator="true"/>
-                <metric name='Bytes Sent Rate'
-                    indicator="true"/>
-                <metric name='Cache Listener Calls Avg Latency'
-                    indicator="true"/>
-                <metric name='Cache Writer Calls Avg Latency'
-                    indicator="true"/>
-                <metric name='Cpu Usage'
-                    indicator="true"/>
-                <metric name='Creates Rate'
-                    indicator="true"/>
-                <metric name='Current Heap Size'
-                    indicator="true"/>
-                <metric name='Disk Reads Rate'
-                    indicator="true"/>
-                <metric name='Disk Writes Rate'
-                    indicator="true"/>
-                <metric name='File Descriptor Limit'/>
-                <metric name='Disk Flush Avg Latency'/>
-                <metric name='Free Heap Size'/>
-                <metric name='Function Execution Rate'/>
-                <metric name='Gets Rate'
-                    indicator="true"/>
-                <metric name='Initial Image Keys Received'/>
-                <metric name='Initial Image Time'/>
-                <metric name='Initial Images In Progres'/>
-                <metric name='Lock Waits In Progress'/>
-                <metric name='Lru Destroy Rate'/>
-                <metric name='Lru Eviction Rate'/>
-                <metric name='Maximum Heap Size'/>
-                <metric name='Num Running Functions'/>
-                <metric name='Num Running Functions Having Results'/>
-                <metric name='Put All Avg Latency'
-                    indicator="true"/>
-                <metric name='Put All Rate'
-                    indicator="true"/>
-                <metric name='Puts Avg Latency'
-                    indicator="true"/>
-                <metric name='Puts Rate'
-                    indicator="true"/>
-                <metric name='Lock Request Queues'/>
-                <metric name='Total Backup In Progress'/>
-                <metric name='Total Bucket Count'/>
-                <metric name='Total File Descriptor Open'/>
-                <metric name='Total Hit Count'/>
-                <metric name='Total Loads Completed'/>
-                <metric name='Total Lock Wait Time'/>
-                <metric name='Total Miss Count'/>
-                <metric name='Total Number Of Lock Service'/>
-                <metric name='Total Primary Bucket Count'/>
-                <metric name='Total Region Count'/>
-                <metric name='Total Region Entry Count'/>
-                <metric name='Total Transactions Count'/>
-                <metric name='Transaction Commits Avg Latency'
-                    indicator="true"/>
-                <metric name='Transaction Commits Rate'
-                    indicator="true"/>
-                <metric name='Transaction Committed Total Count'
-                    indicator="true"/>
-                <metric name='Transaction Rolled Back Total Count'
-                    indicator="true"/>
-                <metric name='Member Up Time'
-                    indicator="true"/>
-                <metric name='Current Time'/>
-                <metric name='Gets Avg Latency'
-                    indicator="true"/>
-                <metric name='Loads Average Latency'
-                    indicator="true"/>
-                <metric name='Net Loads Average Latency'
-                    indicator="true"/>
-                <metric name='Net Search Average Latency'
-                    indicator="true"/>
-                <metric name='Total Disk Tasks Waiting'/>
-                <metric name='Total Net Loads Completed'/>
-                <metric name='Total Net Search Completed'/>
-                <metric name='Total Number Of Grantors'/>
-                <metric name='Total Backup Completed'/>
-                <metric name='Destroys Rate'
-                    indicator="true"/>
-                <metric name='Deserialization Avg Latency'/>
-                <metric name='Deserialization Latency'/>
-                <metric name='Deserialization Rate'/>
-                <metric name='Partition Region Count'/>
-                <metric name='Serialization Avg Latency'/>
-                <metric name='Serialization Latency'/>
-                <metric name='Serialization Rate'/>
-                <metric name='PDX Deserialization Avg Latency'/>
-                <metric name='PDX Deserialization Rate'/>
-                <metric name='Total Disk Usage'
-                    indicator="true"/>
-                <metric name='Average Reads'
-                    indicator="true"/>
-                <metric name='Average Writes'
-                    indicator="true"/>
-                <metric name='Garbage Collection Time'/>
-                <metric name='Garbage Collection Count'/>
-                <metric name='Num Threads'/>
-                <metric name='Total Bytes On Disk'/>
-                <metric name='JVM Pauses'/>
+                &vfcacheserver;
+
             </metrics>
 
             <service name="Cache Server Region">
@@ -810,68 +663,7 @@
                 <metrics>
                     <metric name='Availability'
                         indicator="true"/>
-                    <metric name='Last Modified Time'
-                        indicator="true"/>
-                    <metric name='Last Accessed Time'
-                        indicator="true"/>
-                    <metric name='Hit Ratio'
-                        indicator="true"/>
-                    <metric name='Hit Count'
-                        indicator="true"/>
-                    <metric name='Miss Count'
-                        indicator="true"/>
-                    <metric name='Entry Size'
-                        indicator="true"/>
-                    <metric name='Cache Listener Calls Avg Latency'/>
-                    <metric name='Cache Writer Calls Avg Latency'/>
-                    <metric name='Creates Rate'/>
-                    <metric name='Disk Reads Rate'
-                        indicator="true"/>
-                    <metric name='Disk Writes Rate'
-                        indicator="true"/>
-                    <metric name='Gets Rate'
-                        indicator="true"/>
-                    <metric name='Lru Destroy Rate'/>
-                    <metric name='Lru Eviction Rate'/>
-                    <metric name='Put All Rate'
-                        indicator="true"/>
-                    <metric name='Puts Rate'
-                        indicator="true"/>
-                    <metric name='Average Reads'/>
-                    <metric name='Average Writes'/>
-                    <metric name='Total Bytes On Disk'/>
-                    <metric name='Entry Count'/>
-                    <metric name='Destroy Rate'/>
-                    <metric name='Put Local Rate'
-                        indicator="true"/>
-                    <metric name='Put Remote Rate'
-                        indicator="true"/>
-                    <metric name='Put Remote Latency'
-                        indicator="true"/>
-                    <metric name='Put Remote Avg Latency'
-                        indicator="true"/>
-                    <metric name='Total Entries Only On Disk'
-                        indicator="true"/>
-                    <metric name='Total Disk Entries In VM'
-                        indicator="true"/>
-                    <metric name='Disk Reads Average Latency'
-                        indicator="true"/>
-                    <metric name='Disk Writes Average Latency'
-                        indicator="true"/>
-                    <metric name='Total Disk Writes Progress'/>
-                    <metric name='Disk Task Waiting'/>
-                    <metric name='Bucket Count'
-                        indicator="true"/>
-                    <metric name='Primary Bucket Count'/>
-                    <metric name='Num Buckets Without Redundancy'/>
-                    <metric name='Configured Redundancy'/>
-                    <metric name='Actual Redundancy'/>
-                    <metric name='Min Bucket Size'/>
-                    <metric name='Max Bucket Size'/>
-                    <metric name='Total Bucket Size'/>
-                    <metric name='Avg Bucket Size'/>
-                    <metric name='Disk Usage'
-                        indicator="true"/>
+                    &vfcacheserverregion;
                 </metrics>
  
             </service>
@@ -894,36 +686,7 @@
                 <metrics>
                     <metric name='Availability'
                         indicator="true"/>
-                    <metric name='Socket Buffer Size'
-                        indicator="true"/>
-                    <metric name='Remote DS Id'
-                        indicator="true"/>
-                    <metric name='Socket Read Timeout'
-                        indicator="true"/>
-                    <metric name='Events Received Rate'
-                        indicator="true"/>
-                    <metric name='Maximum Queue Memory'
-                        indicator="true"/>
-                    <metric name='Batch Size'
-                        indicator="true"/>
-                    <metric name='Batch Time Interval'
-                        indicator="true"/>
-                    <metric name='Alert Threshold'
-                        indicator="true"/>
-                    <metric name='Events Queued Rate'
-                        indicator="true"/>
-                    <metric name='Event Queue Size'
-                        indicator="true"/>
-                    <metric name='Total Events Conflated'
-                        indicator="true"/>
-                    <metric name='Batches Dispatched Rate'
-                        indicator="true"/>
-                    <metric name='Average Distribution Time Per Batch'
-                        indicator="true"/>
-                    <metric name='Total Batches Redistributed'
-                        indicator="true"/>
-                    <metric name='Dispatcher Threads'
-                        indicator="true"/>
+                    &vfgatewaysender;
                 </metrics>
             </service>
             <service name="Gateway Receiver">
@@ -941,60 +704,7 @@
                 <metrics>
                     <metric name='Availability'
                         indicator="true"/>
-                    <metric name='Socket Buffer Size'
-                        indicator="true"/>
-                    <metric name='Maximum Time Between Pings'
-                        indicator="true"/>
-                    <metric name='Queue Load'
-                        indicator="true"/>
-                    <metric name='Load Per Queue'
-                        indicator="true"/>
-                    <metric name='Connection Load'
-                        indicator="true"/>
-                    <metric name='Load Per Connection'
-                        indicator="true"/>
-                    <metric name='Duplicate Batches Received'
-                        indicator="true"/>
-                    <metric name='Outoforder Batches Received'
-                        indicator="true"/>
-                    <metric name='Start Port'
-                        indicator="true"/>
-                    <metric name='End Port'
-                        indicator="true"/>
-                    <metric name='Events Received Rate'
-                        indicator="true"/>
-                    <metric name='Create Requests Rate'
-                        indicator="true"/>
-                    <metric name='Update Requests Rate'
-                        indicator="true"/>
-                    <metric name='Destroy Requests Rate'
-                        indicator="true"/>
-                    <metric name='Client Connection Count'
-                        indicator="true"/>
-                    <metric name='Num Gateways'
-                        indicator="true"/>
-                    <metric name='Get Request Avg Latency'
-                        indicator="true"/>
-                    <metric name='Put Request Avg Latency'
-                        indicator="true"/>
-                    <metric name='Total Connections Timed Out'
-                        indicator="true"/>
-                    <metric name='Total Failed Connection Attempts'
-                        indicator="true"/>
-                    <metric name='Thread Queue Size'
-                        indicator="true"/>
-                    <metric name='Connection Threads'
-                        indicator="true"/>
-                    <metric name='Get Request Rate'
-                        indicator="true"/>
-                    <metric name='Put Request Rate'
-                        indicator="true"/>
-                    <metric name='Total Sent Bytes'
-                        indicator="true"/>
-                    <metric name='Total Received Bytes'
-                        indicator="true"/>
-                    <metric name='Average Batch Processing Time'
-                        indicator="true"/>
+                    &vfgatewayreceiver;
                 </metrics>
             </service>
         </server>
@@ -1031,103 +741,12 @@
             <metrics>
                 <metric name="Availability"
                     indicator="true"/>
-                <metric name='Load Average'
-                    indicator="true"/>
-                <metric name='Process Id'/>
-                <metric name='Lock Timeout'/>
-                <metric name='Lock Lease'/>
-                <metric name='Bytes Received Rate'/>
-                <metric name='Bytes Sent Rate'/>
-                <metric name='Cache Listener Calls Avg Latency'/>
-                <metric name='Cache Writer Calls Avg Latency'/>
-                <metric name='Cpu Usage'
-                    indicator="true"/>
-                <metric name='Creates Rate'
-                    indicator="true"/>
-                <metric name='Current Heap Size'/>
-                <metric name='Disk Reads Rate'
-                    indicator="true"/>
-                <metric name='Disk Writes Rate'
-                    indicator="true"/>
-                <metric name='File Descriptor Limit'
-                    defaultOn="true"/>
-                <metric name='Disk Flush Avg Latency'
-                    indicator="true"/>
-                <metric name='Free Heap Size'/>
-                <metric name='Function Execution Rate'/>
-                <metric name='Gets Rate'
-                    indicator="true"/>
-                <metric name='Initial Image Keys Received'/>
-                <metric name='Initial Image Time'/>
-                <metric name='Initial Images In Progres'/>
-                <metric name='Lock Waits In Progress'/>
-                <metric name='Lru Destroy Rate'/>
-                <metric name='Lru Eviction Rate'/>
-                <metric name='Maximum Heap Size'/>
-                <metric name='Num Running Functions'/>
-                <metric name='Num Running Functions Having Results'/>
-                <metric name='Put All Avg Latency'/>
-                <metric name='Put All Rate'
-                    indicator="true"/>
-                <metric name='Puts Avg Latency'
-                    indicator="true"/>
-                <metric name='Puts Rate'/>
-                <metric name='Lock Request Queues'/>
-                <metric name='Total Backup In Progress'/>
-                <metric name='Total Bucket Count'/>
-                <metric name='Total File Descriptor Open'/>
-                <metric name='Total Hit Count'/>
-                <metric name='Total Loads Completed'/>
-                <metric name='Total Lock Wait Time'/>
-                <metric name='Total Miss Count'/>
-                <metric name='Total Number Of Lock Service'/>
-                <metric name='Total Primary Bucket Count'/>
-                <metric name='Total Region Count'
-                    indicator="true"/>
-                <metric name='Total Region Entry Count'
-                    indicator="true"/>
-                <metric name='Total Transactions Count'/>
-                <metric name='Transaction Commits Avg Latency'
-                    indicator="true"/>
-                <metric name='Transaction Commits Rate'
-                    indicator="true"/>
-                <metric name='Transaction Committed Total Count'/>
-                <metric name='Transaction Rolled Back Total Count'/>
-                <metric name='Member Up Time'
-                    indicator="true"/>
-                <metric name='Current Time'/>
-                <metric name='Gets Avg Latency'/>
-                <metric name='Loads Average Latency'/>
-                <metric name='Net Loads Average Latency'/>
-                <metric name='Net Search Average Latency'/>
-                <metric name='Total Disk Tasks Waiting'/>
-                <metric name='Total Net Loads Completed'/>
-                <metric name='Total Net Search Completed'/>
-                <metric name='Total Number Of Grantors'/>
-                <metric name='Total Backup Completed'/>
-                <metric name='Destroys Rate'/>
-                <metric name='Deserialization Avg Latency'/>
-                <metric name='Deserialization Latency'/>
-                <metric name='Deserialization Rate'/>
-                <metric name='Partition Region Count'/>
-                <metric name='Serialization Avg Latency'/>
-                <metric name='Serialization Latency'/>
-                <metric name='Serialization Rate'/>
-                <metric name='PDX Deserialization Avg Latency'/>
-                <metric name='PDX Deserialization Rate'/>
-                <metric name='Total Disk Usage'/>
-                <metric name='Average Reads'/>
-                <metric name='Average Writes'/>
-                <metric name='Garbage Collection Time'/>
-                <metric name='Garbage Collection Count'/>
-                <metric name='Num Threads'/>
-                <metric name='Total Bytes On Disk'/>
-                <metric name='JVM Pauses'/>
+                &vflocator;
             </metrics>
         </server>
     </platform>
     
-   	<platform name="vFabric SQLFire Distributed System 1.x">
+   	<platform name="vFabric SQLFire Distributed System 1.0">
 
 		<plugin type="autoinventory"
 			class="com.vmware.vfabric.hyperic.plugin.vfgf.detector.SQLFirePlatformDetector" />
@@ -1138,7 +757,7 @@
 
 		<config include="jmx">
 			<option name="jmx.url" description="JMX URL to MBeanServer"
-				default="service:jmx:rmi:///jndi/rmi://localhost:1099/jmxconnector" />
+				default="service:jmx:rmi:///jndi/rmi://localhost:1099/jmxrmi" />
 			<option name="force.error" optional="true"
 				description="Regex to force error level" />
 			<option name="force.warn" optional="true" description="Regex to force warn level" />
@@ -1210,7 +829,8 @@
                 <metrics include="CachePerfStats" />
             </service>
         </server>
-        <server name="SQLFire Cache Server" version="1.0">
+        
+        <server name="vFabric SQLFire Cache Server" version="1.0">
             <config>
                 <option name="host"
                     description="The host machine on which the cache vm is running" />
@@ -1510,6 +1130,186 @@
 
 	</platform>
     
+    <!--  SQLFire 1.1 starts to look more like GF 7.x mbeans  -->
+    <platform name="vFabric SQLFire Distributed System 1.1">
+        <plugin type="autoinventory"
+            class="com.vmware.vfabric.hyperic.plugin.vfgf.detector.GF7PlatformDetector" />
+        <plugin type="measurement"
+            class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GF7MeasurementPlugin" />
+        <plugin type="log_track"
+            class="com.vmware.vfabric.hyperic.plugin.vfgf.log.GFNotificationTrack" />
+        
+        <config>
+            <option name="locators"
+                description="Up to 3 comma separated locators in the format of host:port"
+                default="localhost:10334"/>
+            <option name="jmx.username"
+                description="JMX username"
+                optional="true"
+                default="system"/>
+            <option name="jmx.password"
+                description="JMX password"
+                optional="true"
+                default="manager"
+               type="secret"/>
+        </config>
+        <property name="STAT_OBJECT_NAME" 
+            value="GemFire:service=System,type=Distributed"/>
+        <filter name="template" value="${STAT_OBJECT_NAME}:${alias}:locators=%locators%"/>
+        <metrics>
+            <metric name="Availability"
+                indicator="true"/>
+            &vfplatformmetrics;
+         </metrics>
+        
+        <server name="vFabric SQLFire Cache Server" version="1.1">
+            <property name="OBJECT_NAME"
+                value="GemFire:service=CacheServer,port=*,type=Member,member=*"/>
+            
+            <plugin type="autoinventory"
+                class="com.vmware.vfabric.hyperic.plugin.vfgf.detector.GF7ServerDetector"/>
+
+            <plugin type="control"
+                class="org.hyperic.hq.product.jmx.MxControlPlugin"/>
+
+            <plugin type="measurement"
+                class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GF7MeasurementPlugin"/>
+
+            <plugin type="log_track"
+                class="org.hyperic.hq.product.Log4JLogTrackPlugin"/>
+
+            <plugin type="config_track"
+                class="org.hyperic.hq.product.ConfigFileTrackPlugin"/>
+
+            <config>
+                <option name="port"
+                    description="Listening Port"
+                    optional="false"
+                    default="10334"/>
+
+                <option name="member"
+                    description="Member Name"
+                    default="server1"
+                    optional="false"/>
+            </config>
+            <property name="STAT_OBJECT_NAME"
+                value="GemFire:type=Member,member=*"/>    
+            <filter name="template" value="${STAT_OBJECT_NAME}:${alias}:locators=%locators%"/>
+                  
+            <metrics>
+                <metric name='Availability'
+                    indicator="true"/>
+                &vfcacheserver;
+
+            </metrics>
+
+            <service name="Cache Server Region">
+                <config>
+                    <option name="member"
+                        description="Member Name"
+                        default=""
+                        optional="false"/>
+                    <option name="name"
+                        description="Region Name"
+                        default=""
+                        optional="false"/>
+                </config>
+                <property name="OBJECT_NAME"
+                    value="GemFire:service=Region,name=*,type=Member,member=*"/>
+                <plugin type="autoinventory"/>
+                                    
+                <properties>
+                    <property name="FullPath"
+                        description="Full Path of Region"/>
+                </properties>
+                
+                <filter name="template" value="${OBJECT_NAME}:${alias}:locators=%locators%"/>
+                <metrics>
+                    <metric name='Availability'
+                        indicator="true"/>
+                    &vfcacheserverregion;
+                </metrics>
+ 
+            </service>
+            <service name="Gateway Sender">
+                <config>
+                    <option name="member"
+                        description="Member Name"
+                        default=""
+                        optional="false"/>
+                    <option name="gatewaySender"
+                        description="Gateway Sender"
+                        default=""
+                        optional="false"/>
+                </config>
+                <property name="OBJECT_NAME"
+                    value="GemFire:service=GatewaySender,gatewaySender=*,type=Member,member=*"/>
+                <plugin type="autoinventory"/>
+                                    
+                <filter name="template" value="${OBJECT_NAME}:${alias}:locators=%locators%"/>
+                <metrics>
+                    <metric name='Availability'
+                        indicator="true"/>
+                    &vfgatewaysender;
+                </metrics>
+            </service>
+            <service name="Gateway Receiver">
+                <config>
+                    <option name="member"
+                        description="Member Name"
+                        default=""
+                        optional="false"/>
+                </config>
+                <property name="OBJECT_NAME"
+                    value="GemFire:service=GatewayReceiver,type=Member,member=*"/>
+                <plugin type="autoinventory"/>
+                                    
+                <filter name="template" value="${OBJECT_NAME}:${alias}:locators=%locators%"/>
+                <metrics>
+                    <metric name='Availability'
+                        indicator="true"/>
+                    &vfgatewayreceiver;
+                </metrics>
+            </service>
+        </server>
+        <server name="vFabric SQLFire Locator" version="1.1">
+            <property name="OBJECT_NAME"
+                value="GemFire:service=Locator,type=Member,member=*"/>
+
+            <plugin type="autoinventory"
+                class="com.vmware.vfabric.hyperic.plugin.vfgf.detector.GF7ServerDetector"/>
+
+            <plugin type="control"
+                class="org.hyperic.hq.product.jmx.MxControlPlugin"/>
+
+            <plugin type="measurement"
+                class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GF7MeasurementPlugin"/>
+
+            <plugin type="log_track"
+                class="org.hyperic.hq.product.Log4JLogTrackPlugin"/>
+
+            <plugin type="config_track"
+                class="org.hyperic.hq.product.ConfigFileTrackPlugin"/>
+
+            <config>                 
+                <option name="member"
+                    description="Member Name"
+                    default="server1"
+                    optional="false"/>
+            </config>
+            
+            <property name="STAT_OBJECT_NAME"
+                value="GemFire:type=Member,member=*"/>
+                
+            <filter name="template" value="${STAT_OBJECT_NAME}:${alias}:locators=%locators%"/>
+            <metrics>
+                <metric name="Availability"
+                    indicator="true"/>
+                &vflocator;
+            </metrics>
+        </server>
+    </platform>
+
 
     <help name="vFabric GemFire Distributed System 7.x">
         <![CDATA[
