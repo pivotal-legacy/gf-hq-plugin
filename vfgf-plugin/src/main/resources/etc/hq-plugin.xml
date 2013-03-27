@@ -24,6 +24,7 @@
   <!ENTITY vfgatewayreceiver SYSTEM "/etc/vfgatewayreceiver.xml">
   <!ENTITY vfgatewaysender SYSTEM "/etc/vfgatewaysender.xml">
   <!ENTITY vflocator SYSTEM "/etc/vflocator.xml">
+  <!ENTITY dsregion SYSTEM "/etc/dsregion.xml">
 ]>
 
 <plugin name="vfgf"
@@ -1160,7 +1161,40 @@
             <metric name="Availability"
                 indicator="true"/>
             &vfplatformmetrics;
-         </metrics>
+        </metrics>
+        
+        <server name="vFabric SQLFire Distributed Region">
+            <config>
+                <option name="name"
+                    description="Region Name"
+                    default=""
+                    optional="false"/>
+            </config>
+            <property name="OBJECT_NAME"
+                value="GemFire:service=Region,name=*,type=Distributed"/>
+                
+            <plugin type="autoinventory"
+                class="com.vmware.vfabric.hyperic.plugin.vfgf.detector.GF7ServerDetector"/>
+                
+            <plugin type="measurement"
+                class="com.vmware.vfabric.hyperic.plugin.vfgf.metric.GF7MeasurementPlugin"/>
+                
+            <plugin type="control"
+                class="org.hyperic.hq.product.jmx.MxControlPlugin"/>
+                                
+            <properties>
+                <property name="FullPath"
+                    description="Full Path of Region"/>
+            </properties>
+            <property name="STAT_OBJECT_NAME"
+                value="GemFire:service=Region,name=*,type=Distributed"/> 
+            <filter name="template" value="${STAT_OBJECT_NAME}:${alias}:locators=%locators%"/>
+            <metrics>
+                <metric name='Availability'
+                    indicator="true"/>
+                &dsregion;
+            </metrics>
+        </server>
         
         <server name="vFabric SQLFire Cache Server" version="1.1">
             <property name="OBJECT_NAME"
