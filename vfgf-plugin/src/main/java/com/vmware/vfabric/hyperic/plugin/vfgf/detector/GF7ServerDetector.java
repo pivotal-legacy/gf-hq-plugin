@@ -32,6 +32,7 @@ public class GF7ServerDetector
     private static String PROP_MEMBER = "member";
     private static String PROP_PORT = "port";
     private static String PROP_JMXURL = "jmx.url";
+    private static String PROP_REGIONNAME = "name";
     private static String ERR_LOCATORS_NOT_DEFINED = 
         "No Locators defined. Please configure in the platform's Configuration Properties";  // Used often
     
@@ -89,7 +90,6 @@ public class GF7ServerDetector
             ConfigResponse cprops = new ConfigResponse();
             ConfigResponse controlConfig = new ConfigResponse();
             
-            config.setValue(PROP_MEMBER, name.getKeyProperty(PROP_MEMBER));
             String port = name.getKeyProperty(PROP_PORT);
             log.debug("[getServerResources] port=" + port);
             
@@ -97,9 +97,24 @@ public class GF7ServerDetector
             if (port != null) {
                 config.setValue(PROP_PORT, port);
             }
+            
+            String regionName = name.getKeyProperty(PROP_REGIONNAME);
+            if (regionName != null) {
+                config.setValue(PROP_REGIONNAME, regionName);
+            }
 
             config.setValue(PROP_LOCATORS, locators);
-            server.setName(getPlatformName() + " " + getTypeInfo().getName() + " " + name.getKeyProperty(PROP_MEMBER));
+            // For regions
+            String memberName = name.getKeyProperty(PROP_MEMBER);
+            if (memberName == null && regionName != null) {
+                memberName = regionName;
+                config.setValue(PROP_NAME, regionName);
+            } else {
+                // CacheServer and Locators
+                config.setValue(PROP_MEMBER, memberName);
+            }
+            
+            server.setName(getPlatformName() + " " + getTypeInfo().getName() + " " + memberName);
             server.setControlConfig(controlConfig);
             setProductConfig(server, config);
             setMeasurementConfig(server, new ConfigResponse());
