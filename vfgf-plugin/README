@@ -29,7 +29,7 @@ Prerequisites:
  * Ensure that each GemFire member has a unique name.
  * Configure and start a GemFire JMX Agent to connect to your GemFire distributed system. This Hyperic plugin requires only a single JMX Agent to be running.
  * Install the Hyperic Agent on a computer that can connect to the JMX port of the GemFire JMX Agent.  Make a note of the IP address and port of this Hyperic Agent because you will need it later.  If the Hyperic Agent will connect to the GemFire JMX Agent remotely, be sure any firewalls allow access to the Hyperic agent.
- * In the "conf/agent.properties" file of the Hyperic Agent, add the property "vfgf.autodiscovery.include=all".  This ensures that all GemFire 6.x services are auto-discovered. This step is optional and can be skipped if detailed metrics are not desired. The Hyperic Agent will need to be restarted after applying this property.
+ * In the "conf/agent.properties" file of the Hyperic Agent, add the property "Gemfire.autodiscovery.includeInstances=all".  This ensures that all GemFire 6.x services are auto-discovered. This step is optional and can be skipped if detailed metrics are not desired. The Hyperic Agent will need to be restarted after applying this property.
 
 
 Procedure:
