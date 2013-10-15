@@ -115,6 +115,8 @@ public class GF7MeasurementPlugin extends MxMeasurementPlugin {
                 log.debug("[getServerResources] " + e.getMessage(), e);    
             } catch (IOException e) {
                 log.debug("[getServerResources] " + e.getMessage(), e);
+            } finally {
+                MxUtil.close(connector);
             }
 
             String signature = Arrays.asList(names).toString();
