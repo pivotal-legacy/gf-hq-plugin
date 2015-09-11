@@ -1,17 +1,7 @@
-package com.vmware.vfabric.hyperic.plugin.vfgf.metric;
-
 /**
- * NOTE: This copyright does *not* cover user programs that use Hyperic
- * program services by normal system calls through the application
- * program interfaces provided as part of the Hyperic Plug-in Development
- * Kit or the Hyperic Client Development Kit - this is merely considered
- * normal use of the program, and does *not* fall under the heading of
- * "derived work".
+ * Copyright (C) [2010-2015], Pivotal Software, Inc.
  *
- *  Copyright (C) [2010-2012], VMware, Inc.
- *  This file is part of Hyperic.
- *
- *  Hyperic is free software; you can redistribute it and/or modify
+ *  This is free software; you can redistribute it and/or modify
  *  it under the terms version 2 of the GNU General Public License as
  *  published by the Free Software Foundation. This program is distributed
  *  in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
@@ -25,6 +15,7 @@ package com.vmware.vfabric.hyperic.plugin.vfgf.metric;
  *  USA.
  *
  */
+package com.vmware.vfabric.hyperic.plugin.vfgf.metric;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
