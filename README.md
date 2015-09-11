@@ -198,3 +198,6 @@ Procedure:
 
 11. In the Hyperic UI, browse to the new vFabric SQLFire 1.1 platform to view its services and servers and the metrics Hyperic is gathering.
 
+License
+=======
+This code is licensed under the GPL v2.0 License. Please see [LICENSE] for full text.
