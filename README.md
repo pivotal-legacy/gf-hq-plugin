@@ -16,7 +16,7 @@ This plugin does not auto-discover either the GemFire or SQLFire distributed sys
 Known Issues
 ============
 
-See http://kb.vmware.com/kb/2039923 for the list of known issues in this Hyperic plugin along with troubleshooting information. 
+See https://kb.vmware.com/kb/2039923 for the list of known issues in this Hyperic plugin along with troubleshooting information. 
 
 
 Setup Instructions for vFabric GemFire 6.x
@@ -36,7 +36,7 @@ Procedure:
 
 1. Download the vFabric GemFire/SQLFire Plugin JAR file (called "vfgf-plugin.jar") to a directory that is accessible by the vFabric Hyperic Server.
 
-2. Using the Hyperic Plugin Manager, upload the "vfgf-plugin.jar" file to the Hyperic Server.  See the Hyperic Plugin Manager documentation (http://pubs.vmware.com/vfabricHyperic50/topic/com.vmware.vfabric.hyperic.5.0/ui-Administration.Plugin.Manager.html).
+2. Using the Hyperic Plugin Manager, upload the "vfgf-plugin.jar" file to the Hyperic Server.  See the Hyperic Plugin Manager documentation (https://pubs.vmware.com/vfabricHyperic50/topic/com.vmware.vfabric.hyperic.5.0/ui-Administration.Plugin.Manager.html).
 
 3. Log in to the Hyperic user interface as a user with privileges to add a new platform. 
 
@@ -82,7 +82,7 @@ Procedure:
 
 1. Download the vFabric GemFire/SQLFire Plugin JAR file (called "vfgf-plugin.jar") to a directory that is accessible by the vFabric Hyperic Server.
 
-2. Using the Hyperic Plugin Manager, upload the "vfgf-plugin.jar" file to the Hyperic Server.  See the Hyperic Plugin Manager documentation (http://pubs.vmware.com/vfabricHyperic50/topic/com.vmware.vfabric.hyperic.5.0/ui-Administration.Plugin.Manager.html).
+2. Using the Hyperic Plugin Manager, upload the "vfgf-plugin.jar" file to the Hyperic Server.  See the Hyperic Plugin Manager documentation (https://pubs.vmware.com/vfabricHyperic50/topic/com.vmware.vfabric.hyperic.5.0/ui-Administration.Plugin.Manager.html).
 
 3. Log in to the Hyperic user interface as a user with privileges to add a new platform. 
 
@@ -127,7 +127,7 @@ Procedure:
 
 1. Download the vFabric GemFire/SQLFire Plugin JAR file (called "vfgf-plugin.jar") to a directory that is accessible by the vFabric Hyperic Server.
 
-2. Using the Hyperic Plugin Manager, upload the "vfgf-plugin.jar" file to the Hyperic Server.  See the Hyperic Plugin Manager documentation (http://pubs.vmware.com/vfabricHyperic50/topic/com.vmware.vfabric.hyperic.5.0/ui-Administration.Plugin.Manager.html).
+2. Using the Hyperic Plugin Manager, upload the "vfgf-plugin.jar" file to the Hyperic Server.  See the Hyperic Plugin Manager documentation (https://pubs.vmware.com/vfabricHyperic50/topic/com.vmware.vfabric.hyperic.5.0/ui-Administration.Plugin.Manager.html).
 
 3. Log in to the Hyperic user interface as a user with privileges to add a new platform. 
 
@@ -171,7 +171,7 @@ Procedure:
 
 1. Download the vFabric GemFire/SQLFire Plugin JAR file (called "vfgf-plugin.jar") to a directory that is accessible by the vFabric Hyperic Server.
 
-2. Using the Hyperic Plugin Manager, upload the "vfgf-plugin.jar" file to the Hyperic Server.  See the Hyperic Plugin Manager documentation (http://pubs.vmware.com/vfabricHyperic50/topic/com.vmware.vfabric.hyperic.5.0/ui-Administration.Plugin.Manager.html).
+2. Using the Hyperic Plugin Manager, upload the "vfgf-plugin.jar" file to the Hyperic Server.  See the Hyperic Plugin Manager documentation (https://pubs.vmware.com/vfabricHyperic50/topic/com.vmware.vfabric.hyperic.5.0/ui-Administration.Plugin.Manager.html).
 
 3. Log in to the Hyperic user interface as a user with privileges to add a new platform. 
 
